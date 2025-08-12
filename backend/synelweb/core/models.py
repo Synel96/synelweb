@@ -20,7 +20,7 @@ class Package(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["id"]
 
     def __str__(self):
         return self.name
