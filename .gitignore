@@ -31,4 +31,12 @@ staticfiles/
 static/
 media/
 
+# React/Vite frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.DS_Store
+
 # Others
+*.bak
+*.swp
