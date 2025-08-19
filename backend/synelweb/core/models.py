@@ -1,6 +1,13 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
+import os
+
+
+def project_media_upload_to(instance, filename):
+    # A project neve alapján alkotjuk meg az elérési utat
+    project_name = slugify(instance.project.name if hasattr(instance, "project") else instance.name)
+    return os.path.join("projects", project_name, filename)
 
 
 class Package(models.Model):
@@ -61,21 +68,19 @@ class Review(models.Model):
 
 
 class Project(models.Model):
-    name = models.CharField(max_length=200)  # Kötelező
-    slug = models.SlugField(max_length=220, unique=True, blank=True)  # SEO-barát URL
-    project_type = models.CharField(
-        max_length=100, db_index=True,
-        help_text="Pl.: Landing Page, Social Media, Webshop"
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
+    project_type = models.CharField(max_length=100, db_index=True)
+    description = models.TextField(blank=True, help_text="Projekt részletes leírása")  # ÚJ mező
+    preview_video = models.FileField(
+        upload_to=project_media_upload_to, blank=True, null=True,
+        help_text="Projekt bemutató videó (pl. mp4)"
     )
-    preview_video_url = models.URLField(
-        max_length=500, blank=True, null=True,
-        help_text="Projekt bemutató videó URL-je (pl. YouTube link)"
+    preview_image = models.ImageField(
+        upload_to=project_media_upload_to, blank=True, null=True,
+        help_text="Előnézeti kép"
     )
-    preview_image_url = models.URLField(
-        max_length=500, blank=True, null=True,
-        help_text="Előnézeti kép URL-je"
-    )
-    created_at = models.DateTimeField(auto_now_add=True)  # hasznos listázáshoz/SEO-hoz
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -85,7 +90,6 @@ class Project(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        # slug automatikus és egyedi generálása
         if not self.slug:
             base = slugify(self.name)[:210]
             slug = base
@@ -101,7 +105,7 @@ class Project(models.Model):
 class ProjectImage(models.Model):
     """További képek egy projekthez"""
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="extra_images")
-    image_url = models.URLField(max_length=500, help_text="Kép URL-je")
+    image = models.ImageField(upload_to=project_media_upload_to, blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -109,6 +113,12 @@ class ProjectImage(models.Model):
         constraints = [
             models.UniqueConstraint(fields=["project", "order"], name="uniq_project_order")
         ]
+
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        return ""
+    image_url.short_description = "Kép URL"
 
     def __str__(self):
         return f"{self.project.name} - kép {self.order}"

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import Package, Review, Project, ProjectImage
 
 class ProjectImageInline(admin.TabularInline):
@@ -21,5 +22,11 @@ class ReviewAdmin(admin.ModelAdmin):
 
 @admin.register(ProjectImage)
 class ProjectImageAdmin(admin.ModelAdmin):
-    list_display = ("project", "image_url", "order")
-    search_fields = ("image_url",)
+    list_display = ("project", "image_tag", "order")
+    search_fields = ("project__name",)
+
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-height: 60px; max-width: 100px;" />', obj.image.url)
+        return "-"
+    image_tag.short_description = "Kép"
