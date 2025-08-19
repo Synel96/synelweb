@@ -23,12 +23,34 @@ function Navbar() {
         borderBottom: "none",
         position: "relative",
       }}
+      role="banner"
+      aria-label="Fő navigációs sáv"
     >
-      <Logo src={logoSrc} isMobile={isMobile} />
+      <Box
+        sx={{ display: "flex", alignItems: "center" }}
+        role="region"
+        aria-label="Weboldal logó"
+      >
+        <Logo src={logoSrc} isMobile={isMobile} />
+      </Box>
 
-      {!isMobile && <Menu />}
+      {!isMobile && (
+        <Box
+          sx={{ display: "flex", alignItems: "center" }}
+          role="navigation"
+          aria-label="Főmenü"
+        >
+          <Menu />
+        </Box>
+      )}
+
       <IconButton
         variant="soft"
+        aria-label={
+          mode === "dark"
+            ? "Világos mód bekapcsolása"
+            : "Sötét mód bekapcsolása"
+        }
         onClick={() => setMode(mode === "dark" ? "light" : "dark")}
         sx={{
           position: isMobile ? "absolute" : "static",
@@ -40,7 +62,11 @@ function Navbar() {
       </IconButton>
 
       {isMobile && (
-        <Box sx={{ position: "absolute", left: 16, zIndex: 3 }}>
+        <Box
+          sx={{ position: "absolute", left: 16, zIndex: 3 }}
+          role="navigation"
+          aria-label="Mobilmenü"
+        >
           <Menu />
         </Box>
       )}

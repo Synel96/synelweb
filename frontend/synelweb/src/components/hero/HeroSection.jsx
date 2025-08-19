@@ -14,6 +14,9 @@ function HeroSection() {
 
   return (
     <section
+      aria-label="Főoldali üdvözlő szekció"
+      role="region"
+      tabIndex={0}
       style={{
         display: "flex",
         alignItems: "center",
@@ -34,9 +37,11 @@ function HeroSection() {
           overflow: "hidden",
         }}
       >
+        {/* Joy MUI Sheet a háttérhez, dark/light módra reagál */}
         <img
-          src="/hero.png"
+          src="/hero.webp"
           alt="Hero"
+          loading="lazy"
           style={{
             position: "absolute",
             inset: 0,
@@ -46,9 +51,12 @@ function HeroSection() {
             borderRadius: 0,
             boxShadow: "0 4px 32px rgba(0,0,0,0.08)",
             zIndex: 1,
+            filter: mode === "dark" ? "brightness(0.7)" : "none",
+            transition: "filter 0.3s",
           }}
         />
 
+        {/* Joy MUI overlay szekció */}
         <div
           className="hero-overlay"
           style={{
@@ -57,28 +65,28 @@ function HeroSection() {
             left: "50%",
             transform: "translateX(-50%)",
             width: "90%",
-            zIndex: 2, // greet fölötte marad az info overlay-nek
+            zIndex: 2,
             background:
               mode === "dark" ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.85)",
             borderRadius: "16px",
             padding: "1rem",
             boxShadow: "0 2px 16px rgba(0,0,0,0.15)",
             opacity: overlayVisible ? 1 : 0,
-            transition: "opacity 0.7s cubic-bezier(.4,0,.2,1)",
+            transition: "opacity 0.7s cubic-bezier(.4,0,.2,1), background 0.3s",
           }}
         >
           <Greet />
         </div>
 
-        {/* Info overlay pozicionálása */}
+        {/* Info overlay Joy MUI */}
         <HeroInfoOverlay
           style={{
             position: "absolute",
-            bottom: "50vh", // desktop
+            top: "60vh", // korábban: bottom: "50vh"
             left: "50%",
             transform: "translateX(-50%)",
             width: "min(90%, 1100px)",
-            zIndex: 1, // greet alatt legyen
+            zIndex: 1,
             pointerEvents: "none",
           }}
         />
