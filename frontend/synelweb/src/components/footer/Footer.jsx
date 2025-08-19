@@ -13,8 +13,11 @@ function Footer() {
         textAlign: "center",
         borderTop: "1px solid #eee",
       }}
+      role="contentinfo"
+      aria-label="Oldal lábléc"
+      tabIndex={0}
     >
-      <Typography level="body2">
+      <Typography level="body2" tabIndex={0}>
         © {new Date().getFullYear()} Synel Web Solutions | Minden jog
         fenntartva.
       </Typography>

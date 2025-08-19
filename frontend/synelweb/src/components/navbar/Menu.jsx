@@ -9,7 +9,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useColorScheme } from "@mui/joy";
 import { useState } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery"; // telepítsd: npm install @mui/material
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Menu() {
   const { mode } = useColorScheme();
@@ -17,47 +17,59 @@ function Menu() {
   const isMobile = useMediaQuery("(max-width:600px)");
 
   const menuItems = [
-    "Főoldal",
-    "Projektek",
-    "Vélemények",
-    "Szolgáltatások",
-    "Elérhetőség",
+    { label: "Főoldal", href: "/" },
+    { label: "Projektek", href: "/projektek" },
+    { label: "Vélemények", href: "/velemenyek" },
+    { label: "Szolgáltatások", href: "/szolgaltatasok" },
+    { label: "Elérhetőség", href: "/elerhetoseg" },
   ];
 
   if (isMobile) {
     return (
       <>
-        <IconButton onClick={() => setOpen(true)}>
+        <IconButton
+          aria-label="Mobilmenü megnyitása"
+          onClick={() => setOpen(true)}
+        >
           <MenuIcon />
         </IconButton>
-        <Drawer open={open} onClose={() => setOpen(false)}>
-          <List>
-            {menuItems.map((label) => (
-              <ListItem key={label}>
-                <ListItemButton
-                  sx={{
-                    borderRadius: "24px",
-                    px: 3,
-                    py: 1,
-                    fontWeight: 500,
-                    fontSize: "1rem",
-                    bgcolor: "transparent",
-                    color: mode === "dark" ? "#fff" : "#121212",
-                    "&:hover": {
-                      bgcolor: mode === "dark" ? "#fff" : "#f5f5f5",
-                      color: mode === "dark" ? "#121212" : "#1976d2",
-                    },
-                    transition: "all 0.2s",
-                    boxShadow: "none",
-                    border: "none",
-                  }}
-                  onClick={() => setOpen(false)}
-                >
-                  {label}
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+        <Drawer
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-label="Mobil navigációs menü"
+        >
+          <nav aria-label="Fő navigáció">
+            <List>
+              {menuItems.map(({ label, href }) => (
+                <ListItem key={label}>
+                  <ListItemButton
+                    component="a"
+                    href={href}
+                    sx={{
+                      borderRadius: "24px",
+                      px: 3,
+                      py: 1,
+                      fontWeight: 500,
+                      fontSize: "1rem",
+                      bgcolor: "transparent",
+                      color: mode === "dark" ? "#fff" : "#121212",
+                      "&:hover": {
+                        bgcolor: mode === "dark" ? "#fff" : "#f5f5f5",
+                        color: mode === "dark" ? "#121212" : "#1976d2",
+                      },
+                      transition: "all 0.2s",
+                      boxShadow: "none",
+                      border: "none",
+                    }}
+                    onClick={() => setOpen(false)}
+                    aria-label={label}
+                  >
+                    {label}
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </nav>
         </Drawer>
       </>
     );
@@ -65,31 +77,36 @@ function Menu() {
 
   // Desktop nézet
   return (
-    <Box sx={{ display: "flex", gap: 2 }}>
-      {menuItems.map((label) => (
-        <ListItemButton
-          key={label}
-          sx={{
-            borderRadius: "24px",
-            px: 3,
-            py: 1,
-            fontWeight: 500,
-            fontSize: "1rem",
-            bgcolor: "transparent",
-            color: mode === "dark" ? "#fff" : "#121212",
-            "&:hover": {
-              bgcolor: mode === "dark" ? "#fff" : "#f5f5f5",
-              color: mode === "dark" ? "#121212" : "#1976d2",
-            },
-            transition: "all 0.2s",
-            boxShadow: "none",
-            border: "none",
-          }}
-        >
-          {label}
-        </ListItemButton>
-      ))}
-    </Box>
+    <nav aria-label="Fő navigáció">
+      <Box sx={{ display: "flex", gap: 2 }}>
+        {menuItems.map(({ label, href }) => (
+          <ListItemButton
+            key={label}
+            component="a"
+            href={href}
+            sx={{
+              borderRadius: "24px",
+              px: 3,
+              py: 1,
+              fontWeight: 500,
+              fontSize: "1rem",
+              bgcolor: "transparent",
+              color: mode === "dark" ? "#fff" : "#121212",
+              "&:hover": {
+                bgcolor: mode === "dark" ? "#fff" : "#f5f5f5",
+                color: mode === "dark" ? "#121212" : "#1976d2",
+              },
+              transition: "all 0.2s",
+              boxShadow: "none",
+              border: "none",
+            }}
+            aria-label={label}
+          >
+            {label}
+          </ListItemButton>
+        ))}
+      </Box>
+    </nav>
   );
 }
 

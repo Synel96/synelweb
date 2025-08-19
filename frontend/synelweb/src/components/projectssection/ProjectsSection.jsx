@@ -1,0 +1,118 @@
+import React from "react";
+import { useColorScheme } from "@mui/joy";
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import Box from "@mui/joy/Box";
+import Button from "@mui/joy/Button";
+
+function ProjectsSection() {
+  const { mode } = useColorScheme();
+
+  return (
+    <Sheet
+      component="section"
+      aria-label="Referenciák, projektjeink"
+      sx={{
+        position: "relative",
+        width: "100vw",
+        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
+        maxHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        p: 0,
+        m: 0,
+        transition: "background 0.3s",
+      }}
+      variant="plain"
+    >
+      {/* Háttérkép lazy loadinggal */}
+      <img
+        src="/projects.webp"
+        alt=""
+        loading="lazy"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100vw",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      />
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 2,
+          backgroundColor:
+            mode === "dark" ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.85)",
+          borderRadius: { xs: 2, sm: 3 },
+          p: { xs: 2, sm: 4 },
+          boxShadow: "md",
+          maxWidth: 420,
+          width: { xs: "95%", sm: "80%", md: "420px" },
+          textAlign: "center",
+          transition: "background 0.3s",
+        }}
+        role="region"
+        aria-label="Referenciák szekció tartalma"
+      >
+        <Typography
+          component="h2"
+          tabIndex={0}
+          sx={{
+            mb: 2,
+            fontSize: { xs: "1.5rem", sm: "2.2rem" },
+            color: mode === "dark" ? "#fff" : "#121212",
+            fontWeight: 700,
+            letterSpacing: "0.02em",
+            transition: "color 0.3s",
+          }}
+        >
+          Referenciáink
+        </Typography>
+        <Typography
+          tabIndex={0}
+          sx={{
+            mb: 3,
+            fontSize: { xs: "1rem", sm: "1.15rem" },
+            color: mode === "dark" ? "#fff" : "#121212",
+            fontWeight: 400,
+            transition: "color 0.3s",
+          }}
+        >
+          Tekintse meg kiemelt projektjeinket és partnereinket!
+        </Typography>
+        <Button
+          size="lg"
+          variant="solid"
+          sx={{
+            fontWeight: 600,
+            fontSize: "1.1rem",
+            px: 3,
+            py: 1.5,
+            borderRadius: "8px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
+            backgroundColor: "#ff9800",
+            color: "#fff",
+            "&:hover": {
+              backgroundColor: "#ffb74d",
+              color: "#fff",
+            },
+            transition: "background 0.2s",
+          }}
+          onClick={() => (window.location.href = "/projektek")}
+          tabIndex={0}
+          aria-label="Projektek megtekintése gomb"
+        >
+          Projektek megtekintése
+        </Button>
+      </Box>
+    </Sheet>
+  );
+}
+
+export default ProjectsSection;
