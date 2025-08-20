@@ -84,8 +84,23 @@ function ProjectsCard({
           target="_blank"
           rel="noopener noreferrer"
           variant="solid"
-          color="primary"
-          sx={{ mt: 1, fontWeight: 600 }}
+          color="warning"
+          size="md" // kisebb gomb
+          sx={{
+            mt: 1,
+            fontWeight: 700,
+            fontSize: "1rem",
+            px: 2.5,
+            py: 1,
+            borderRadius: 3,
+            backgroundColor: "#ff9800", // narancssárga
+            color: "#212121", // sötét szöveg, WCAG-kompatibilis
+            "&:hover": {
+              backgroundColor: "#fb8c00",
+              color: "#212121",
+            },
+            boxShadow: "sm",
+          }}
           aria-label="Projekt megtekintése"
           tabIndex={0}
         >

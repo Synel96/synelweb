@@ -29,11 +29,31 @@ function ProjectsPage() {
         justifyContent: "flex-start",
         px: { xs: 2, sm: 4, md: 8 },
         py: { xs: 3, sm: 4 },
+        position: "relative", // háttérhez
+        overflow: "hidden",
       }}
       role="main"
       aria-label="Projektek oldal"
       tabIndex={0}
     >
+      {/* Animált háttérkép */}
+      <img
+        src="/projectspage.webp"
+        alt=""
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 1,
+          pointerEvents: "none",
+          opacity: 0,
+          animation: "fadeInBg 1s cubic-bezier(.4,0,.2,1) 0.05s forwards",
+        }}
+        aria-hidden="true"
+      />
+      {/* Tartalom */}
       <Typography
         level="h1"
         tabIndex={0}
@@ -46,6 +66,8 @@ function ProjectsPage() {
           textAlign: "left",
           opacity: 0,
           animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
+          position: "relative",
+          zIndex: 2,
         }}
         aria-label="Projektek"
       >
@@ -57,9 +79,11 @@ function ProjectsPage() {
           display: "flex",
           flexDirection: { xs: "column", sm: "row" },
           flexWrap: "wrap",
-          gap: 4,
+          gap: 3, // kisebb gap
           alignItems: { xs: "stretch", sm: "flex-start" },
           justifyContent: { xs: "center", sm: "flex-start" },
+          position: "relative",
+          zIndex: 2,
         }}
         role="region"
         aria-label="Projektek listája"
@@ -76,6 +100,8 @@ function ProjectsPage() {
                 animation: `fadeInUp 0.7s cubic-bezier(.4,0,.2,1) ${
                   0.3 + idx * 0.15
                 }s forwards`,
+                maxWidth: { xs: 320, sm: 280, md: 260 }, // kisebb kártya szélesség
+                width: "100%",
               }}
             >
               <ProjectsCard
@@ -109,6 +135,14 @@ function ProjectsPage() {
             to {
               opacity: 1;
               transform: translateY(0);
+            }
+          }
+          @keyframes fadeInBg {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
             }
           }
         `}

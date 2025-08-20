@@ -3,6 +3,7 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
+import { Link } from "react-router-dom"; // React Router Link import
 
 function ReviewSection() {
   const { mode } = useColorScheme();
@@ -107,7 +108,8 @@ function ReviewSection() {
             },
             transition: "background 0.2s",
           }}
-          onClick={() => (window.location.href = "/ertekeles")}
+          component={Link}
+          to="/velemenyek" // ide irányít
           tabIndex={0}
           aria-label="Értékelés írása gomb"
         >
