@@ -44,6 +44,8 @@ function ProjectsPage() {
           letterSpacing: "0.02em",
           mb: 2,
           textAlign: "left",
+          opacity: 0,
+          animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
         }}
         aria-label="Projektek"
       >
@@ -67,27 +69,50 @@ function ProjectsPage() {
           <ProjectsSkeleton />
         ) : (
           projects.map((project, idx) => (
-            <ProjectsCard
+            <Box
               key={project.id}
-              title={project.name}
-              description={project.description}
-              tags={project.slug ? [project.slug] : []}
-              projectVideo={project.preview_video || ""}
-              previewImage={project.preview_image || ""}
-              images={
-                project.extra_images
-                  ? project.extra_images.map((img) =>
-                      img.image.startsWith("http")
-                        ? img.image
-                        : `http://localhost:8000${img.image_url}`
-                    )
-                  : []
-              }
-              link={project.link || ""}
-            />
+              sx={{
+                opacity: 0,
+                animation: `fadeInUp 0.7s cubic-bezier(.4,0,.2,1) ${
+                  0.3 + idx * 0.15
+                }s forwards`,
+              }}
+            >
+              <ProjectsCard
+                title={project.name}
+                description={project.description}
+                tags={project.slug ? [project.slug] : []}
+                projectVideo={project.preview_video || ""}
+                previewImage={project.preview_image || ""}
+                images={
+                  project.extra_images
+                    ? project.extra_images.map((img) =>
+                        img.image.startsWith("http")
+                          ? img.image
+                          : `http://localhost:8000${img.image_url}`
+                      )
+                    : []
+                }
+                link={project.link || ""}
+              />
+            </Box>
           ))
         )}
       </Box>
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(32px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}
+      </style>
     </Box>
   );
 }
