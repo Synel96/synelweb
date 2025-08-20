@@ -6,6 +6,7 @@ import MainPage from "./pages/MainPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactsPage from "./pages/ContactsPage";
 import ReviewsPage from "./pages/ReviewsPage";
+import PackagesPage from "./pages/PackagesPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/projektek" element={<ProjectsPage />} />
           <Route path="/elerhetoseg" element={<ContactsPage />} />
           <Route path="/velemenyek" element={<ReviewsPage />} />
+          <Route path="/szolgaltatasok" element={<PackagesPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

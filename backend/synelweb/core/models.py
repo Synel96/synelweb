@@ -23,6 +23,14 @@ class Package(models.Model):
         max_length=255, blank=True,
         help_text="Vesszővel elválasztva: pl. seo, statikus oldal, pwa"
     )
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        help_text="Normál ár (pl. 49999.00)"
+    )
+    discounted_price = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        help_text="Akciós ár (pl. 39999.00)"
+    )
     created_at = models.DateTimeField(auto_now_add=True)  # jól jön listázásnál
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -4,6 +4,7 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
+import { Link } from "react-router-dom";
 
 function PackagesSection() {
   const { mode } = useColorScheme();
@@ -109,7 +110,8 @@ function PackagesSection() {
             },
             transition: "background 0.2s",
           }}
-          onClick={() => (window.location.href = "/csomagok")}
+          component={Link}
+          to="/szolgaltatasok"
           tabIndex={0}
           aria-label="Csomagok megtekintése gomb"
         >

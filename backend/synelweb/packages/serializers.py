@@ -12,6 +12,8 @@ class PackageSerializer(serializers.ModelSerializer):
             "description",
             "is_discounted",
             "tags",
+            "price",               # új mező
+            "discounted_price",    # új mező
             "created_at",
             "updated_at",
         ]

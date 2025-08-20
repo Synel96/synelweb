@@ -141,8 +141,8 @@ function ProjectsCarousel({
               type="button"
               onClick={() => setCurrent(idx)}
               style={{
-                width: 40,
-                height: 40,
+                width: 18, // kisebb méret
+                height: 18,
                 borderRadius: "50%",
                 background: idx === current ? "#ff9800" : "#ccc",
                 border: "none",
