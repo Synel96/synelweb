@@ -4,6 +4,7 @@ import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
+import { Link } from "react-router-dom";
 
 function ProjectsSection() {
   const { mode } = useColorScheme();
@@ -89,6 +90,8 @@ function ProjectsSection() {
         <Button
           size="lg"
           variant="solid"
+          component={Link}
+          to="/projektek"
           sx={{
             fontWeight: 600,
             fontSize: "1.1rem",
@@ -104,7 +107,6 @@ function ProjectsSection() {
             },
             transition: "background 0.2s",
           }}
-          onClick={() => (window.location.href = "/projektek")}
           tabIndex={0}
           aria-label="Projektek megtekintése gomb"
         >

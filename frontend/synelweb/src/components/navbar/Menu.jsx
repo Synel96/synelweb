@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useColorScheme } from "@mui/joy";
 import { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link } from "react-router-dom"; // React Router import
 
 function Menu() {
   const { mode } = useColorScheme();
@@ -43,8 +44,8 @@ function Menu() {
               {menuItems.map(({ label, href }) => (
                 <ListItem key={label}>
                   <ListItemButton
-                    component="a"
-                    href={href}
+                    component={Link} // React Router Link
+                    to={href}
                     sx={{
                       borderRadius: "24px",
                       px: 3,
@@ -82,8 +83,8 @@ function Menu() {
         {menuItems.map(({ label, href }) => (
           <ListItemButton
             key={label}
-            component="a"
-            href={href}
+            component={Link} // React Router Link
+            to={href}
             sx={{
               borderRadius: "24px",
               px: 3,
