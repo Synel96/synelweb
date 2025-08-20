@@ -1,6 +1,9 @@
-import { Box, Typography } from "@mui/joy";
+import { Box, Typography, useColorScheme } from "@mui/joy";
+import Contacts from "../components/contactspage/Contacts";
 
 function ContactsPage() {
+  const { mode } = useColorScheme();
+
   return (
     <Box
       component="main"
@@ -36,12 +39,13 @@ function ContactsPage() {
         }}
         aria-hidden="true"
       />
-      {/* Tartalom */}
+      {/* Elérhetőség cím és box */}
       <Box
         sx={{
           position: "relative",
           zIndex: 2,
-          backgroundColor: "rgba(255,255,255,0.85)",
+          backgroundColor:
+            mode === "dark" ? "rgba(30,30,30,0.92)" : "rgba(255,255,255,0.85)",
           borderRadius: 4,
           p: { xs: 2, sm: 4 },
           boxShadow: "md",
@@ -59,7 +63,7 @@ function ContactsPage() {
           sx={{
             mb: 2,
             fontSize: { xs: "2rem", sm: "2.5rem" },
-            color: "#121212",
+            color: mode === "dark" ? "#fff" : "#121212",
             fontWeight: 700,
             letterSpacing: "0.02em",
             textAlign: "center",
@@ -70,7 +74,21 @@ function ContactsPage() {
         >
           Elérhetőség
         </Typography>
-        {/* Ide jöhetnek az elérhetőségi adatok */}
+      </Box>
+      {/* Contacts komponens külön, animáltan */}
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 2,
+          width: "100%",
+          maxWidth: 420,
+          mt: 3,
+          opacity: 0,
+          transform: "translateY(32px)",
+          animation: "fadeInUp 0.8s cubic-bezier(.4,0,.2,1) 0.6s forwards",
+        }}
+      >
+        <Contacts />
       </Box>
       {/* Animációs kulcsszavak */}
       <style>
