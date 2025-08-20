@@ -11,4 +11,5 @@ class ReviewSerializer(serializers.ModelSerializer):
             "rating",
             "comment",
             "created_at",
+            "is_approved",
         ]

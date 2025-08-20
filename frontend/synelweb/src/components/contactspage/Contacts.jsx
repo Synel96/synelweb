@@ -17,7 +17,6 @@ function Contacts() {
         mb: { xs: 2, sm: 4 },
         p: { xs: 2, sm: 4 },
         borderRadius: 4,
-        boxShadow: "md",
         backgroundColor:
           mode === "dark" ? "rgba(30,30,30,0.95)" : "rgba(255,255,255,0.95)",
         textAlign: "center",
@@ -25,7 +24,7 @@ function Contacts() {
         flexDirection: "column",
         gap: 3,
         transition: "box-shadow 0.3s",
-        boxShadow: "md",
+        boxShadow: "md", // csak egyszer!
         "&:hover": {
           boxShadow:
             "0 0 32px 8px rgba(30, 136, 229, 0.25), 0 2px 8px rgba(0,0,0,0.10)",

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box, IconButton } from "@mui/joy";
 import ArrowBack from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForward from "@mui/icons-material/ArrowForwardIos";
+import ProjectMediaModal from "../modals/ProjectMediaModal"; // helyes import
 
 function ProjectsCarousel({
   projectVideo = "",
@@ -9,12 +10,13 @@ function ProjectsCarousel({
   images = [],
 }) {
   const slides = [
-    { type: "image", src: previewImage }, // először a kép
-    { type: "video", src: projectVideo }, // utána a videó
+    { type: "image", src: previewImage },
+    { type: "video", src: projectVideo },
     ...images.map((img) => ({ type: "image", src: img })),
   ].filter((item) => !!item.src);
 
   const [current, setCurrent] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const goPrev = () =>
     setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -68,9 +70,33 @@ function ProjectsCarousel({
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
+          cursor: "pointer",
+          transition: "box-shadow 0.3s, filter 0.3s",
+          "&:hover": {
+            boxShadow: "lg",
+            filter: "brightness(0.95) drop-shadow(0 0 16px #90caf9)",
+          },
+          "&::after": {
+            content: '"Nagyítás"',
+            position: "absolute",
+            right: 12,
+            bottom: 12,
+            background: "rgba(30,144,255,0.85)",
+            color: "#fff",
+            fontSize: "0.95rem",
+            padding: "4px 12px",
+            borderRadius: 16,
+            opacity: 0,
+            pointerEvents: "none",
+            transition: "opacity 0.2s",
+          },
+          "&:hover::after": {
+            opacity: 1,
+          },
         }}
         aria-label={`Körhinta tartalom ${current + 1} / ${slides.length}`}
         tabIndex={0}
+        onClick={() => setModalOpen(true)}
       >
         {slides[current].type === "video" ? (
           <video
@@ -115,8 +141,8 @@ function ProjectsCarousel({
               type="button"
               onClick={() => setCurrent(idx)}
               style={{
-                width: 40, // vagy 48
-                height: 40, // vagy 48
+                width: 40,
+                height: 40,
                 borderRadius: "50%",
                 background: idx === current ? "#ff9800" : "#ccc",
                 border: "none",
@@ -124,7 +150,7 @@ function ProjectsCarousel({
                 outline: idx === current ? "2px solid #ff9800" : "none",
                 transition: "all 0.2s",
                 padding: 0,
-                margin: 4, // adj hozzá távolságot
+                margin: 4,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -137,6 +163,13 @@ function ProjectsCarousel({
           <ArrowForward />
         </IconButton>
       </Box>
+      {/* Modal hozzáadva */}
+      <ProjectMediaModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        images={slides.filter((s) => s.type === "image").map((s) => s.src)}
+        video={slides.find((s) => s.type === "video")?.src || ""}
+      />
     </Box>
   );
 }
