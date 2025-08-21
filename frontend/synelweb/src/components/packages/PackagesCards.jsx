@@ -1,4 +1,5 @@
-import { Box, Typography, Chip } from "@mui/joy";
+import { Box, Typography, Chip, Button } from "@mui/joy";
+import { useState } from "react";
 
 function PackagesCards({
   name,
@@ -8,19 +9,40 @@ function PackagesCards({
   preview_image_url,
   price,
   discounted_price,
+  sx = {},
 }) {
+  const [expanded, setExpanded] = useState(false);
+
+  // Hány sort mutasson alapból
+  const maxLines = 3;
+
   return (
     <Box
       sx={{
         bgcolor: "background.level1",
         borderRadius: 4,
-        boxShadow: "md",
+        boxShadow: is_discounted
+          ? "0 0 32px 12px #ff9800"
+          : "0 2px 8px rgba(0,0,0,0.10)",
         p: { xs: 2, sm: 3 },
-        mb: 2,
         display: "flex",
         flexDirection: "column",
         gap: 2,
         position: "relative",
+        transition: "box-shadow 0.3s, filter 0.3s, transform 0.3s",
+        animation: is_discounted
+          ? "discountPulse 1.8s infinite cubic-bezier(.4,0,.2,1)"
+          : undefined,
+        "&:hover": {
+          boxShadow: is_discounted
+            ? "0 0 40px 16px #ff9800, 0 0 32px 8px #90caf9"
+            : "0 0 32px 8px #90caf9",
+          filter: "brightness(0.98)",
+          transform: is_discounted
+            ? "translateY(-5px) scale(1.02)"
+            : "translateY(-8px) scale(1.03)",
+        },
+        ...sx,
       }}
       role="article"
       aria-label={`Csomag: ${name}`}
@@ -74,12 +96,38 @@ function PackagesCards({
           color: "text.secondary",
           mb: 1,
           textAlign: "left",
+          display: "-webkit-box",
+          WebkitLineClamp: expanded ? "unset" : maxLines,
+          WebkitBoxOrient: "vertical",
+          overflow: expanded ? "visible" : "hidden",
+          textOverflow: expanded ? "unset" : "ellipsis",
+          transition: "all 0.2s",
         }}
         aria-label={`Csomag leírása: ${description}`}
         tabIndex={0}
       >
         {description}
       </Typography>
+      {!expanded && (
+        <Button
+          size="sm"
+          variant="soft"
+          sx={{ alignSelf: "flex-start", mt: -1, mb: 1 }}
+          onClick={() => setExpanded(true)}
+        >
+          Mutasd az összeset
+        </Button>
+      )}
+      {expanded && (
+        <Button
+          size="sm"
+          variant="soft"
+          sx={{ alignSelf: "flex-start", mt: -1, mb: 1 }}
+          onClick={() => setExpanded(false)}
+        >
+          Bezárás
+        </Button>
+      )}
       {/* Címkék */}
       {tags && tags.length > 0 && (
         <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mb: 1 }}>
@@ -143,6 +191,25 @@ function PackagesCards({
           )
         )}
       </Box>
+      {/* Pulzáló animáció stílus */}
+      <style>
+        {`
+          @keyframes discountPulse {
+            0% {
+              box-shadow: 0 0 0 0 #ff9800;
+              transform: scale(1);
+            }
+            50% {
+              box-shadow: 0 0 32px 12px #ff9800;
+              transform: scale(1.06);
+            }
+            100% {
+              box-shadow: 0 0 0 0 #ff9800;
+              transform: scale(1);
+            }
+          }
+        `}
+      </style>
     </Box>
   );
 }
