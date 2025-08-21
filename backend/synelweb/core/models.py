@@ -130,3 +130,47 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return f"{self.project.name} - kép {self.order}"
+
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=220, unique=True, blank=True)
+    preview_image = models.ImageField(
+        upload_to="blog_previews/",
+        blank=True,
+        null=True,
+        help_text="Előnézeti kép"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = slugify(self.title)[:210]
+            slug = base
+            i = 1
+            Model = type(self)
+            while Model.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base}-{i}"
+                i += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+
+class BlogSection(models.Model):
+    blog = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name="sections")
+    subtitle = models.CharField(max_length=200)
+    content = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+
+    def __str__(self):
+        return f"{self.blog.title} - {self.subtitle}"

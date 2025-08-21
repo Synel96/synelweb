@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "packages",
     "review",
     "projects",
+    "blog",
+    "rest_framework",
     "drf_yasg",
     "corsheaders",
 ]

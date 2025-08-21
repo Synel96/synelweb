@@ -41,6 +41,7 @@ urlpatterns = [
     path("packages/",include("packages.urls")),
     path("review/",include("review.urls")),
     path("projects/",include("projects.urls")),
+    path("blog/",include("blog.urls")),
 ]
 
 urlpatterns += [
