@@ -40,3 +40,9 @@ frontend/.DS_Store
 # Others
 *.bak
 *.swp
+
+# Fly.io, Docker, build, deploy
+.fly/
+fly.toml
+Dockerfile
+build.db
