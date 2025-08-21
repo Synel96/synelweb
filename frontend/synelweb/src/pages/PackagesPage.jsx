@@ -41,15 +41,13 @@ function PackagesPage() {
         position: "relative",
         display: "flex",
         justifyContent: "flex-start",
-        // Ne vágja le a Warningot / pulzust stb.
         overflow: "visible",
-        // Globális padding inkább a content layerre megy
       }}
       role="main"
       aria-label="Szolgáltatások oldal"
       tabIndex={0}
     >
-      {/* Háttérkép réteg */}
+      {/* Háttérkép */}
       <img
         src="/packagespage.webp"
         alt=""
@@ -67,7 +65,7 @@ function PackagesPage() {
         aria-hidden="true"
       />
 
-      {/* Tartalmi réteg: minden a háttér fölött */}
+      {/* Tartalmi réteg */}
       <Box
         sx={{
           position: "relative",
@@ -83,7 +81,7 @@ function PackagesPage() {
           gap: { xs: 4, sm: 6, md: 8 },
         }}
       >
-        {/* Cím kártya */}
+        {/* Cím */}
         <Box
           sx={{
             mt: { xs: 2, sm: 4, md: 6 },
@@ -125,7 +123,7 @@ function PackagesPage() {
             flexWrap: "wrap",
             gap: { xs: 3, sm: 4, md: 6 },
             justifyContent: { xs: "center", sm: "flex-start" },
-            alignItems: "stretch",
+            alignItems: "flex-start", // <-- fontos!
           }}
           role="region"
           aria-label="Szolgáltatáscsomagok listája"
@@ -140,6 +138,7 @@ function PackagesPage() {
                   width: { xs: "100%", sm: "calc(50% - 16px)", md: "360px" },
                   display: "flex",
                   flexDirection: "column",
+                  alignSelf: "flex-start", // <-- fontos!
                   gap: 2,
                   position: "relative",
                   transition: "box-shadow 0.3s, filter 0.3s, transform 0.2s",
@@ -160,7 +159,7 @@ function PackagesPage() {
                 role="article"
                 aria-label={`Csomag: ${pkg.name}`}
               >
-                {/* % ikon pulzus – mindig a tartalom felett van */}
+                {/* % ikon */}
                 {pkg.is_discounted && (
                   <Box
                     sx={{
@@ -204,6 +203,7 @@ function PackagesPage() {
                   </Box>
                 )}
 
+                {/* A kártya tartalma */}
                 <PackagesCards
                   name={pkg.name}
                   description={pkg.description}
@@ -218,7 +218,7 @@ function PackagesPage() {
           )}
         </Box>
 
-        {/* Figyelmeztetés – mindig a háttér fölött */}
+        {/* Figyelmeztetés */}
         <Warning
           sx={{
             position: "relative",

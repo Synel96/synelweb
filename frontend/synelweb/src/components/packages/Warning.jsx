@@ -22,7 +22,7 @@ function Warning() {
         ügyféllel közösen, a specifikáció egyeztetése után kerül meghatározásra.
         Az árat jelentősen befolyásolja a kért funkciók komplexitása és
         megvalósításának nehézsége, így a végső összeg akár lényegesen kevesebb
-        vagy több is.
+        vagy több is lehet.
       </Typography>
     </Box>
   );

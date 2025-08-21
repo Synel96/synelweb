@@ -1,5 +1,5 @@
 import { Box, Typography, Chip, Button } from "@mui/joy";
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 
 function PackagesCards({
   name,
@@ -12,9 +12,16 @@ function PackagesCards({
   sx = {},
 }) {
   const [expanded, setExpanded] = useState(false);
+  const descRef = useRef(null);
+  const [descHeight, setDescHeight] = useState("auto");
 
-  // Hány sort mutasson alapból
-  const maxLines = 3;
+  useLayoutEffect(() => {
+    if (descRef.current && expanded) {
+      setDescHeight(descRef.current.scrollHeight + "px");
+    } else {
+      setDescHeight("60px"); // kb. 3 sor magasság
+    }
+  }, [expanded, description]);
 
   return (
     <Box
@@ -90,24 +97,34 @@ function PackagesCards({
         {name}
       </Typography>
       {/* Leírás */}
-      <Typography
-        level="body2"
+      <Box
         sx={{
-          color: "text.secondary",
+          overflow: "hidden",
+          transition: "height 0.35s cubic-bezier(.4,0,.2,1), opacity 0.3s",
+          height: descHeight,
+          opacity: expanded ? 1 : 0.95,
           mb: 1,
-          textAlign: "left",
-          display: "-webkit-box",
-          WebkitLineClamp: expanded ? "unset" : maxLines,
-          WebkitBoxOrient: "vertical",
-          overflow: expanded ? "visible" : "hidden",
-          textOverflow: expanded ? "unset" : "ellipsis",
-          transition: "all 0.2s",
         }}
-        aria-label={`Csomag leírása: ${description}`}
-        tabIndex={0}
       >
-        {description}
-      </Typography>
+        <Typography
+          ref={descRef}
+          level="body2"
+          sx={{
+            color: "text.secondary",
+            textAlign: "left",
+            display: "-webkit-box",
+            WebkitLineClamp: expanded ? "unset" : 3,
+            WebkitBoxOrient: "vertical",
+            overflow: expanded ? "visible" : "hidden",
+            textOverflow: expanded ? "unset" : "ellipsis",
+            transition: "all 0.2s",
+          }}
+          aria-label={`Csomag leírása: ${description}`}
+          tabIndex={0}
+        >
+          {description}
+        </Typography>
+      </Box>
       {!expanded && (
         <Button
           size="sm"
