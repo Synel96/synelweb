@@ -3,10 +3,12 @@ import { Box, Typography } from "@mui/joy";
 import ProjectsCard from "../components/projects/ProjectsCard";
 import ProjectsSkeleton from "../components/projects/ProjectsSkeleton";
 import { getProjects } from "../services/projectsService";
+import { useColorScheme } from "@mui/joy/styles"; // hozzáadva
 
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { mode } = useColorScheme(); // dark/light mód
 
   useEffect(() => {
     getProjects()
@@ -25,7 +27,7 @@ function ProjectsPage() {
         minHeight: "80vh",
         display: "flex",
         flexDirection: "column",
-        alignItems: { xs: "flex-start", sm: "flex-start", md: "flex-start" },
+        alignItems: "center",
         justifyContent: "flex-start",
         px: { xs: 2, sm: 4, md: 8 },
         py: { xs: 3, sm: 4 },
@@ -54,25 +56,38 @@ function ProjectsPage() {
         aria-hidden="true"
       />
       {/* Tartalom */}
-      <Typography
-        level="h1"
-        tabIndex={0}
+      <Box
         sx={{
-          fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-          fontWeight: 700,
-          color: "text.primary",
-          letterSpacing: "0.02em",
-          mb: 2,
-          textAlign: "left",
-          opacity: 0,
-          animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
           position: "relative",
           zIndex: 2,
+          mt: { xs: 4, sm: 6 },
+          mb: 2,
+          p: { xs: 2, sm: 4 },
+          borderRadius: 4,
+          backgroundColor:
+            mode === "dark" ? "rgba(30,30,30,0.85)" : "rgba(255,255,255,0.85)",
+          boxShadow: "md",
+          width: { xs: "95%", sm: "80%", md: "420px" },
+          textAlign: "center", // középre igazítás
+          opacity: 0,
+          animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
         }}
-        aria-label="Projektek"
       >
-        Projektek
-      </Typography>
+        <Typography
+          level="h1"
+          tabIndex={0}
+          sx={{
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            fontWeight: 700,
+            color: mode === "dark" ? "#fff" : "text.primary",
+            letterSpacing: "0.02em",
+            textAlign: "center", // középre igazítás
+          }}
+          aria-label="Projektek"
+        >
+          Projektek
+        </Typography>
+      </Box>
       <Box
         sx={{
           width: "100%",
