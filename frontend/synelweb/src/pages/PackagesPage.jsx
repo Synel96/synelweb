@@ -6,6 +6,8 @@ import { fetchPackages } from "../services/packagesService";
 import PercentIcon from "@mui/icons-material/Percent";
 import { useColorScheme } from "@mui/joy/styles";
 import Warning from "../components/packages/Warning";
+import packagesPageBg from "/packagespage.png?w=1920&format=webp";
+import Sheet from "@mui/joy/Sheet";
 
 function PackagesPage() {
   const [packages, setPackages] = useState([]);
@@ -33,34 +35,39 @@ function PackagesPage() {
   }, []);
 
   return (
-    <Box
-      component="main"
+    <Sheet
+      component="section"
       sx={{
-        width: "100%",
-        minHeight: "900px",
         position: "relative",
+        width: "100vw",
+        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
+        maxHeight: "100vh",
         display: "flex",
-        justifyContent: "flex-start",
-        overflow: "visible",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        p: 0,
+        m: 0,
+        transition: "background 0.3s",
       }}
-      role="main"
-      aria-label="Szolgáltatások oldal"
+      variant="plain"
+      role="region"
+      aria-label="Csomagok oldal szekció"
       tabIndex={0}
     >
-      {/* Háttérkép */}
+      {/* Háttérkép lazy loadinggal */}
       <img
-        src="/packagespage.webp"
-        alt=""
+        src={packagesPageBg}
+        alt="Csomagok oldal háttérkép"
+        loading="lazy"
         style={{
           position: "absolute",
           inset: 0,
-          width: "100%",
-          height: "900px",
+          width: "100vw",
+          height: "100%",
           objectFit: "cover",
-          zIndex: 0,
+          zIndex: 1,
           pointerEvents: "none",
-          opacity: 0,
-          animation: "fadeInBg 1s cubic-bezier(.4,0,.2,1) 0.05s forwards",
         }}
         aria-hidden="true"
       />
@@ -243,7 +250,7 @@ function PackagesPage() {
           }
         `}
       </style>
-    </Box>
+    </Sheet>
   );
 }
 

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/joy";
+import { Box, Typography, Sheet } from "@mui/joy";
 import ProjectsCard from "../components/projects/ProjectsCard";
 import ProjectsSkeleton from "../components/projects/ProjectsSkeleton";
 import { getProjects } from "../services/projectsService";
-import { useColorScheme } from "@mui/joy/styles"; // hozzáadva
+import { useColorScheme } from "@mui/joy/styles";
+import projectsPageBg from "/projectspage.png?w=1920&format=webp";
 
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { mode } = useColorScheme(); // dark/light mód
+  const { mode } = useColorScheme();
 
   useEffect(() => {
     getProjects()
@@ -20,38 +21,39 @@ function ProjectsPage() {
   }, []);
 
   return (
-    <Box
-      component="main"
+    <Sheet
+      component="section"
       sx={{
-        width: "100%",
-        minHeight: "80vh",
+        position: "relative",
+        width: "100vw",
+        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
+        maxHeight: "100vh",
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "flex-start",
-        px: { xs: 2, sm: 4, md: 8 },
-        py: { xs: 3, sm: 4 },
-        position: "relative", // háttérhez
+        justifyContent: "center",
         overflow: "hidden",
+        p: 0,
+        m: 0,
+        transition: "background 0.3s",
       }}
-      role="main"
-      aria-label="Projektek oldal"
+      variant="plain"
+      role="region"
+      aria-label="Projektek oldal szekció"
       tabIndex={0}
     >
-      {/* Animált háttérkép */}
+      {/* Háttérkép lazy loadinggal */}
       <img
-        src="/projectspage.webp"
-        alt=""
+        src={projectsPageBg}
+        alt="Projektek oldal háttérkép"
+        loading="lazy"
         style={{
           position: "absolute",
           inset: 0,
-          width: "100%",
+          width: "100vw",
           height: "100%",
           objectFit: "cover",
           zIndex: 1,
           pointerEvents: "none",
-          opacity: 0,
-          animation: "fadeInBg 1s cubic-bezier(.4,0,.2,1) 0.05s forwards",
         }}
         aria-hidden="true"
       />
@@ -162,7 +164,7 @@ function ProjectsPage() {
           }
         `}
       </style>
-    </Box>
+    </Sheet>
   );
 }
 

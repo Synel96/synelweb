@@ -4,6 +4,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom"; // React Router Link import
+import reviewBg from "/review.png?w=1920&format=webp";
 
 function ReviewSection() {
   const { mode } = useColorScheme();
@@ -29,8 +30,9 @@ function ReviewSection() {
       aria-label="Értékelések szekció"
       tabIndex={0}
     >
+      {/* Háttérkép lazy loadinggal */}
       <img
-        src="/review.webp"
+        src={reviewBg}
         alt="Értékelések háttérkép"
         loading="lazy"
         style={{

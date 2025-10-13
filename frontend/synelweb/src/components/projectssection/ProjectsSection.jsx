@@ -1,10 +1,11 @@
 import React from "react";
 import { useColorScheme } from "@mui/joy";
 import Sheet from "@mui/joy/Sheet";
-import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
+import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
+import projectsBg from "/projects.png?w=1920&format=webp";
 
 function ProjectsSection() {
   const { mode } = useColorScheme();
@@ -12,7 +13,6 @@ function ProjectsSection() {
   return (
     <Sheet
       component="section"
-      aria-label="Referenciák, projektjeink"
       sx={{
         position: "relative",
         width: "100vw",
@@ -27,11 +27,14 @@ function ProjectsSection() {
         transition: "background 0.3s",
       }}
       variant="plain"
+      role="region"
+      aria-label="Projektek szekció"
+      tabIndex={0}
     >
       {/* Háttérkép lazy loadinggal */}
       <img
-        src="/projects.webp"
-        alt=""
+        src={projectsBg}
+        alt="Projektek háttérkép"
         loading="lazy"
         style={{
           position: "absolute",
@@ -59,10 +62,11 @@ function ProjectsSection() {
           transition: "background 0.3s",
         }}
         role="region"
-        aria-label="Referenciák szekció tartalma"
+        aria-label="Projektek tartalom"
+        tabIndex={0}
       >
         <Typography
-          component="h2"
+          level="h2"
           tabIndex={0}
           sx={{
             mb: 2,
@@ -73,7 +77,7 @@ function ProjectsSection() {
             transition: "color 0.3s",
           }}
         >
-          Referenciáink
+          Tekintse meg projektjeinket!
         </Typography>
         <Typography
           tabIndex={0}
@@ -85,13 +89,12 @@ function ProjectsSection() {
             transition: "color 0.3s",
           }}
         >
-          Tekintse meg kiemelt projektjeinket és partnereinket!
+          Ismerje meg eddigi munkáinkat és referenciáinkat!
         </Typography>
         <Button
           size="lg"
           variant="solid"
-          component={Link}
-          to="/projektek"
+          color="primary"
           sx={{
             fontWeight: 600,
             fontSize: "1.1rem",
@@ -107,6 +110,8 @@ function ProjectsSection() {
             },
             transition: "background 0.2s",
           }}
+          component={Link}
+          to="/projektek"
           tabIndex={0}
           aria-label="Projektek megtekintése gomb"
         >

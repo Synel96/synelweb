@@ -4,6 +4,7 @@ import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import { Link } from "react-router-dom";
+import contactBg from "/contact.png?w=1920&format=webp";
 
 function ContactSection() {
   const { mode } = useColorScheme();
@@ -13,27 +14,31 @@ function ContactSection() {
       component="section"
       sx={{
         position: "relative",
-        width: "100%",
-        minHeight: { xs: 400, sm: 500, md: 600 },
+        width: "100vw",
+        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
+        maxHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
         p: 0,
+        m: 0,
+        transition: "background 0.3s",
       }}
       variant="plain"
       role="region"
       aria-label="Kapcsolat szekció"
       tabIndex={0}
     >
+      {/* Háttérkép lazy loadinggal */}
       <img
-        src="/contact.webp"
+        src={contactBg}
         alt="Kapcsolat háttérkép"
         loading="lazy"
         style={{
           position: "absolute",
           inset: 0,
-          width: "100%",
+          width: "100vw",
           height: "100%",
           objectFit: "cover",
           zIndex: 1,
@@ -67,9 +72,10 @@ function ContactSection() {
             color: mode === "dark" ? "#fff" : "#121212",
             fontWeight: 700,
             letterSpacing: "0.02em",
+            transition: "color 0.3s",
           }}
         >
-          Lépjen velünk kapcsolatba!
+          Lépjen kapcsolatba velünk!
         </Typography>
         <Typography
           tabIndex={0}

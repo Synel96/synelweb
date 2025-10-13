@@ -1,41 +1,47 @@
-import { Box, Typography, useColorScheme } from "@mui/joy";
+import { useColorScheme } from "@mui/joy/styles";
+import Sheet from "@mui/joy/Sheet";
+import Box from "@mui/joy/Box";
+import Typography from "@mui/joy/Typography";
 import Contacts from "../components/contactspage/Contacts";
+import contactPageBg from "/contactpage.png?w=1920&format=webp";
 
 function ContactsPage() {
   const { mode } = useColorScheme();
 
   return (
-    <Box
-      component="main"
+    <Sheet
+      component="section"
       sx={{
-        width: "100%",
-        minHeight: "80vh",
         position: "relative",
+        width: "100vw",
+        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
+        maxHeight: "100vh",
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         overflow: "hidden",
-        p: { xs: 2, sm: 4 },
+        p: 0,
+        m: 0,
+        transition: "background 0.3s",
       }}
-      role="main"
-      aria-label="Elérhetőség oldal"
+      variant="plain"
+      role="region"
+      aria-label="Kapcsolat oldal szekció"
       tabIndex={0}
     >
-      {/* Háttérkép */}
+      {/* Háttérkép lazy loadinggal */}
       <img
-        src="/contactpage.webp"
-        alt=""
+        src={contactPageBg}
+        alt="Kapcsolat oldal háttérkép"
+        loading="lazy"
         style={{
           position: "absolute",
           inset: 0,
-          width: "100%",
+          width: "100vw",
           height: "100%",
           objectFit: "cover",
           zIndex: 1,
           pointerEvents: "none",
-          opacity: 0,
-          animation: "fadeInBg 1s cubic-bezier(.4,0,.2,1) 0.05s forwards",
         }}
         aria-hidden="true"
       />
@@ -113,7 +119,7 @@ function ContactsPage() {
           }
         `}
       </style>
-    </Box>
+    </Sheet>
   );
 }
 

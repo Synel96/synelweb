@@ -1,96 +1,86 @@
 import { useColorScheme } from "@mui/joy";
-import { useState, useEffect } from "react";
+import Sheet from "@mui/joy/Sheet";
+import Box from "@mui/joy/Box";
+import Typography from "@mui/joy/Typography";
+import Button from "@mui/joy/Button";
+import { Link } from "react-router-dom";
 import Greet from "../greet/Greet";
 import HeroInfoOverlay from "./HeroInfoOverlay";
+import heroBg from "/hero.png?w=1920&format=webp";
 
 function HeroSection() {
   const { mode } = useColorScheme();
-  const [overlayVisible, setOverlayVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setOverlayVisible(true), 700);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
-    <section
-      aria-label="Főoldali üdvözlő szekció"
-      role="region"
-      tabIndex={0}
-      style={{
+    <Sheet
+      component="section"
+      sx={{
+        position: "relative",
+        width: "100vw",
+        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
+        maxHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: 0,
-        textAlign: "center",
-        minHeight: "600px",
-        position: "relative",
-        width: "100%",
+        overflow: "hidden",
+        p: 0,
+        m: 0,
+        transition: "background 0.3s",
       }}
+      variant="plain"
+      role="region"
+      aria-label="Főoldal hős szekció"
+      tabIndex={0}
     >
-      <div
+      {/* Háttérkép lazy loadinggal */}
+      <img
+        src={heroBg}
+        alt="Főoldal háttérkép"
+        loading="lazy"
         style={{
-          position: "relative",
-          width: "100%",
-          height: "100vh",
-          minHeight: "600px",
-          overflow: "hidden",
+          position: "absolute",
+          inset: 0,
+          width: "100vw",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Joy MUI overlay szekció */}
+      <div
+        className="hero-overlay"
+        style={{
+          position: "absolute",
+          top: "10%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "90%",
+          zIndex: 2,
+          background:
+            mode === "dark" ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.85)",
+          borderRadius: "16px",
+          padding: "1rem",
+          boxShadow: "0 2px 16px rgba(0,0,0,0.15)",
         }}
       >
-        {/* Joy MUI Sheet a háttérhez, dark/light módra reagál */}
-        <img
-          src="/hero.webp"
-          alt="Hero"
-          loading="lazy"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            borderRadius: 0,
-            boxShadow: "0 4px 32px rgba(0,0,0,0.08)",
-            zIndex: 1,
-            filter: mode === "dark" ? "brightness(0.7)" : "none",
-            transition: "filter 0.3s",
-          }}
-        />
-
-        {/* Joy MUI overlay szekció */}
-        <div
-          className="hero-overlay"
-          style={{
-            position: "absolute",
-            top: "10%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "90%",
-            zIndex: 2,
-            background:
-              mode === "dark" ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.85)",
-            borderRadius: "16px",
-            padding: "1rem",
-            boxShadow: "0 2px 16px rgba(0,0,0,0.15)",
-            opacity: overlayVisible ? 1 : 0,
-            transition: "opacity 0.7s cubic-bezier(.4,0,.2,1), background 0.3s",
-          }}
-        >
-          <Greet />
-        </div>
-
-        {/* Info overlay Joy MUI */}
-        <HeroInfoOverlay
-          style={{
-            position: "absolute",
-            top: "60vh", // korábban: bottom: "50vh"
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "min(90%, 1100px)",
-            zIndex: 1,
-            pointerEvents: "none",
-          }}
-        />
+        <Greet />
       </div>
+
+      {/* Info overlay Joy MUI */}
+      <HeroInfoOverlay
+        style={{
+          position: "absolute",
+          top: "60vh", // korábban: bottom: "50vh"
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "min(90%, 1100px)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
 
       <style>
         {`
@@ -113,7 +103,7 @@ function HeroSection() {
           }
         `}
       </style>
-    </section>
+    </Sheet>
   );
 }
 

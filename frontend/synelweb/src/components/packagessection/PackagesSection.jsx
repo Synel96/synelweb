@@ -5,6 +5,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
+import packagesBg from "/packages.png?w=1920&format=webp";
 
 function PackagesSection() {
   const { mode } = useColorScheme();
@@ -32,7 +33,7 @@ function PackagesSection() {
     >
       {/* Háttérkép lazy loadinggal */}
       <img
-        src="/packages.webp"
+        src={packagesBg}
         alt="Csomagok háttérkép"
         loading="lazy"
         style={{
