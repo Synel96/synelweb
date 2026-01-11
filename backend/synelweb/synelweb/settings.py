@@ -7,6 +7,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import os, dj_database_url
+from urllib.parse import urlparse
 
 load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 
@@ -50,19 +51,35 @@ INSTALLED_APPS = [
     "nested_admin",  # nested admin
 ]
 
-# Cloudinary storage settings
-if os.getenv("CLOUDINARY_URL"):
-    INSTALLED_APPS += ["cloudinary_storage", "cloudinary"]
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-    CLOUDINARY_STORAGE = {
-        "CLOUD_NAME": os.getenv("CLOUDINARY_URL").split("@")[-1],
-        "API_KEY": os.getenv("CLOUDINARY_URL").split(":")[1][2:],
-        "API_SECRET": os.getenv("CLOUDINARY_URL").split(":")[2].split("@")[0],
-    }
-    MEDIA_URL = "/media/"
-else:
-    MEDIA_URL = "/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# Cloudinary storage settings - require CLOUDINARY_URL
+CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
+if not CLOUDINARY_URL:
+    raise RuntimeError("CLOUDINARY_URL is required for media storage. Set CLOUDINARY_URL in the environment.")
+
+# Use cloudinary storage for all media files
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+MEDIA_URL = "/media/"
+
+# Parse CLOUDINARY_URL (format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME)
+parsed_cloud = urlparse(CLOUDINARY_URL)
+netloc = parsed_cloud.netloc or ""
+api_key = None
+api_secret = None
+cloud_name = None
+try:
+    creds, cloud_name = netloc.split("@")
+    api_key, api_secret = creds.split(":")
+except Exception:
+    # fallback to individual env vars if parsing fails
+    api_key = os.getenv("CLOUDINARY_API_KEY")
+    api_secret = os.getenv("CLOUDINARY_API_SECRET")
+    cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME")
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": cloud_name,
+    "API_KEY": api_key,
+    "API_SECRET": api_secret,
+}
 
 # --- Middleware ---
 MIDDLEWARE = [
@@ -150,7 +167,8 @@ USE_TZ = True
 # --- Static / Media ---
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# Use CompressedStaticFilesStorage instead of Manifest version to avoid strict mode errors
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # --- CORS / CSRF ---
 CORS_ALLOWED_ORIGINS = [
