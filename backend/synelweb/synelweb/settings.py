@@ -23,7 +23,7 @@ ALLOWED_HOSTS = [
     h.strip()
     for h in os.getenv(
         "ALLOWED_HOSTS",
-        "synelweb.fly.dev,synelweb.hu,synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app,localhost,127.0.0.1",
+        "synelweb.fly.dev,synelweb.hu,synelweb.vercel.app,synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app,localhost,127.0.0.1",
     ).split(",")
     if h.strip()
 ]
@@ -174,11 +174,13 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://synelweb.vercel.app",
     "https://synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app",
     "https://synelweb.hu",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://synelweb.fly.dev",
+    "https://synelweb.vercel.app",
     "https://synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app",
     "https://synelweb.hu",
 ]
