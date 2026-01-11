@@ -5,6 +5,16 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function Contacts() {
   const { mode } = useColorScheme();
+  const btnBaseSx = {
+    width: "100%",
+    fontWeight: 600,
+    transition: "background-color 0.18s ease, color 0.18s ease",
+    "&:hover": {
+      backgroundColor: "#1976d2",
+      color: "#fff",
+    },
+  };
+  const desc = `Az alábbi címeken és linkeken keresztül érhet el bennünket, és kérhet akár online vagy személyes megbeszélést Sopronban.`;
 
   return (
     <Box
@@ -24,7 +34,7 @@ function Contacts() {
         flexDirection: "column",
         gap: 3,
         transition: "box-shadow 0.3s",
-        boxShadow: "md", // csak egyszer!
+        boxShadow: "md",
         "&:hover": {
           boxShadow:
             "0 0 32px 8px rgba(30, 136, 229, 0.25), 0 2px 8px rgba(0,0,0,0.10)",
@@ -42,9 +52,9 @@ function Contacts() {
         }}
         tabIndex={0}
       >
-        Az alábbi címeken és linkeken keresztül érhet el bennünket, és kérhet
-        akár online vagy személyes megbeszélést Sopronban.
+        {desc}
       </Typography>
+
       <Stack direction="column" spacing={2} alignItems="center">
         <Button
           component="a"
@@ -52,7 +62,7 @@ function Contacts() {
           startDecorator={<EmailIcon />}
           variant="soft"
           color="primary"
-          sx={{ width: "100%", fontWeight: 600 }}
+          sx={btnBaseSx}
           aria-label="E-mail küldése: info@synelweb.hu"
         >
           info@synelweb.hu
@@ -65,7 +75,7 @@ function Contacts() {
           startDecorator={<LinkedInIcon />}
           variant="soft"
           color="neutral"
-          sx={{ width: "100%", fontWeight: 600 }}
+          sx={btnBaseSx}
           aria-label="LinkedIn profil megnyitása"
         >
           LinkedIn profil
@@ -78,7 +88,7 @@ function Contacts() {
           startDecorator={<LocationOnIcon />}
           variant="soft"
           color="success"
-          sx={{ width: "100%", fontWeight: 600 }}
+          sx={btnBaseSx}
           aria-label="Google Térkép - Sopron"
         >
           Sopron (Google Térkép)

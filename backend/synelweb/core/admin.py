@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Package, Review, Project, ProjectImage, BlogPost, BlogSection
+from .models import Package, Review, Project, ProjectImage, BlogPost, BlogSection, News, NewsParagraph
+from nested_admin import NestedTabularInline, NestedModelAdmin
 
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
@@ -39,3 +40,11 @@ class BlogSectionInline(admin.TabularInline):
 class BlogPostAdmin(admin.ModelAdmin):
     inlines = [BlogSectionInline]
     list_display = ("title", "created_at")
+
+class NewsParagraphInline(NestedTabularInline):
+    model = NewsParagraph
+    extra = 1
+
+@admin.register(News)
+class NewsAdmin(NestedModelAdmin):
+    inlines = [NewsParagraphInline]

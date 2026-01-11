@@ -12,7 +12,6 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function ReviewsCarousel({ reviews = [] }) {
-  console.log("ReviewsCarousel reviews:", reviews); // Ellenőrizd, mit kap!
   const [current, setCurrent] = useState(0);
   const timerRef = useRef();
 
@@ -56,7 +55,7 @@ function ReviewsCarousel({ reviews = [] }) {
           level="body2"
           sx={{ color: "text.secondary", textAlign: "center" }}
         >
-          Nincsenek még vélemények.
+          Oszd meg a véleményed — számít a visszajelzésed!
         </Typography>
       </Box>
     );

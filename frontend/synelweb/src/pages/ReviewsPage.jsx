@@ -51,6 +51,7 @@ function ReviewsPage() {
         minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
         maxHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
@@ -89,8 +90,8 @@ function ReviewsPage() {
           borderRadius: 4,
           p: { xs: 2, sm: 4 },
           boxShadow: "md",
-          maxWidth: 420,
           width: { xs: "95%", sm: "80%", md: "420px" },
+          mx: "auto",
           textAlign: "center",
           mt: { xs: 4, sm: 6 },
           opacity: 0,
@@ -123,6 +124,7 @@ function ReviewsPage() {
           width: "100%",
           maxWidth: 420,
           mt: 3,
+          mx: "auto",
           opacity: 0,
           transform: "translateY(32px)",
           animation: "fadeInUp 0.8s cubic-bezier(.4,0,.2,1) 0.6s forwards",
@@ -139,6 +141,7 @@ function ReviewsPage() {
           maxWidth: 420,
           mt: 4,
           mb: 2,
+          mx: "auto",
           opacity: 0,
           transform: "translateY(32px)",
           animation: "fadeInUp 0.8s cubic-bezier(.4,0,.2,1) 1.1s forwards",
@@ -147,42 +150,7 @@ function ReviewsPage() {
           justifyContent: "center",
         }}
       >
-        {/* Pulzáló kék effekt a gomb körül */}
-        <span
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: "100%",
-            height: "100%",
-            borderRadius: 4,
-            background: "linear-gradient(90deg, #90caf9 0%, transparent 100%)",
-            opacity: 0.25,
-            zIndex: 0,
-            pointerEvents: "none",
-            animation: "rectPulse 2.5s infinite cubic-bezier(.4,0,.2,1)",
-          }}
-        />
         <CreateReviewButton onSuccess={handleReviewSuccess} />
-        <style>
-          {`
-            @keyframes rectPulse {
-              0% {
-                opacity: 0.25;
-                transform: scale(0.98);
-              }
-              50% {
-                opacity: 0.4;
-                transform: scale(1.08);
-              }
-              100% {
-                opacity: 0.25;
-                transform: scale(0.98);
-              }
-            }
-          `}
-        </style>
       </Box>
       {/* Sikeres mentés visszajelzés */}
       <SuccessSnackbar

@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
 import os
+from cloudinary.models import CloudinaryField
 
 
 def project_media_upload_to(instance, filename):
@@ -84,8 +85,9 @@ class Project(models.Model):
         upload_to=project_media_upload_to, blank=True, null=True,
         help_text="Projekt bemutató videó (pl. mp4)"
     )
-    preview_image = models.ImageField(
-        upload_to=project_media_upload_to, blank=True, null=True,
+    preview_image = CloudinaryField(
+        'image',
+        blank=True, null=True,
         help_text="Előnézeti kép"
     )
     created_at = models.DateTimeField(auto_now_add=True)
@@ -113,7 +115,7 @@ class Project(models.Model):
 class ProjectImage(models.Model):
     """További képek egy projekthez"""
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="extra_images")
-    image = models.ImageField(upload_to=project_media_upload_to, blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -135,8 +137,8 @@ class ProjectImage(models.Model):
 class BlogPost(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
-    preview_image = models.ImageField(
-        upload_to="blog_previews/",
+    preview_image = CloudinaryField(
+        'image',
         blank=True,
         null=True,
         help_text="Előnézeti kép"
@@ -174,3 +176,30 @@ class BlogSection(models.Model):
 
     def __str__(self):
         return f"{self.blog.title} - {self.subtitle}"
+
+
+class News(models.Model):
+    title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Hír"
+        verbose_name_plural = "Hírek"
+
+    def __str__(self):
+        return self.title
+
+
+class NewsParagraph(models.Model):
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name="paragraphs")
+    text = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Bekezdés"
+        verbose_name_plural = "Bekezdések"
+
+    def __str__(self):
+        return f"{self.news.title} - {self.order+1}. bekezdés"

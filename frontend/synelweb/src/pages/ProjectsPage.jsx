@@ -29,6 +29,7 @@ function ProjectsPage() {
         minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
         maxHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
@@ -69,8 +70,9 @@ function ProjectsPage() {
           backgroundColor:
             mode === "dark" ? "rgba(30,30,30,0.85)" : "rgba(255,255,255,0.85)",
           boxShadow: "md",
-          width: { xs: "95%", sm: "80%", md: "420px" },
-          textAlign: "center", // középre igazítás
+          width: { xs: "95%", sm: "80%", md: "720px" },
+          mx: "auto",
+          textAlign: { xs: "center", sm: "left" }, // mobilon középen, asztalon balra
           opacity: 0,
           animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
         }}
@@ -99,6 +101,7 @@ function ProjectsPage() {
           gap: 3, // kisebb gap
           alignItems: { xs: "stretch", sm: "flex-start" },
           justifyContent: { xs: "center", sm: "flex-start" },
+          px: { xs: 2, sm: 6 },
           position: "relative",
           zIndex: 2,
         }}
@@ -117,8 +120,11 @@ function ProjectsPage() {
                 animation: `fadeInUp 0.7s cubic-bezier(.4,0,.2,1) ${
                   0.3 + idx * 0.15
                 }s forwards`,
-                maxWidth: { xs: 320, sm: 280, md: 260 }, // kisebb kártya szélesség
-                width: "100%",
+                // responsive flex-basis so cards wrap correctly across breakpoints
+                flex: "1 1 260px",
+                maxWidth: { xs: "100%", sm: 340, md: 320 },
+                boxSizing: "border-box",
+                width: "auto",
               }}
             >
               <ProjectsCard

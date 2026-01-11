@@ -17,10 +17,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-default-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
+# Load ALLOWED_HOSTS from environment to avoid committing hosts to source
 ALLOWED_HOSTS = [
-    "synelweb.fly.dev",
-    "synelweb.hu",
-    "synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app",
+    h.strip()
+    for h in os.getenv(
+        "ALLOWED_HOSTS",
+        "synelweb.fly.dev,synelweb.hu,synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app,localhost,127.0.0.1",
+    ).split(",")
+    if h.strip()
 ]
 
 # --- Apps ---
@@ -35,13 +39,30 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_yasg",
     "corsheaders",
+    "cloudinary_storage",  # cloudinary storage
+    "cloudinary",  # cloudinary
     # project apps
     "core",
     "packages",
     "review",
     "projects",
     "blog",
+    "nested_admin",  # nested admin
 ]
+
+# Cloudinary storage settings
+if os.getenv("CLOUDINARY_URL"):
+    INSTALLED_APPS += ["cloudinary_storage", "cloudinary"]
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    CLOUDINARY_STORAGE = {
+        "CLOUD_NAME": os.getenv("CLOUDINARY_URL").split("@")[-1],
+        "API_KEY": os.getenv("CLOUDINARY_URL").split(":")[1][2:],
+        "API_SECRET": os.getenv("CLOUDINARY_URL").split(":")[2].split("@")[0],
+    }
+    MEDIA_URL = "/media/"
+else:
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # --- Middleware ---
 MIDDLEWARE = [
@@ -130,9 +151,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # --- CORS / CSRF ---
 CORS_ALLOWED_ORIGINS = [

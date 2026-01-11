@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box, Typography, Chip, Button } from "@mui/joy";
 import ProjectsCarousel from "./ProjectsCarousel";
 
@@ -10,6 +11,10 @@ function ProjectsCard({
   images = [],
   link,
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const shortDesc = (description || "").trim();
+  const isLong = shortDesc.length > 220; // ha hosszabb, akkor rövidítjük
+
   return (
     <Box
       sx={{
@@ -34,11 +39,7 @@ function ProjectsCard({
       aria-label={`Projekt kártya: ${title}`}
       tabIndex={0}
     >
-      <ProjectsCarousel
-        projectVideo={projectVideo}
-        previewImage={previewImage}
-        images={images}
-      />
+      {/* Title first */}
       <Typography
         level="h2"
         sx={{
@@ -53,16 +54,44 @@ function ProjectsCard({
       >
         {title}
       </Typography>
-      <Typography
-        level="body2"
-        sx={{
-          color: "text.secondary",
-          mb: 1,
-          textAlign: "left",
-        }}
-      >
-        {description}
-      </Typography>
+
+      <ProjectsCarousel
+        projectVideo={projectVideo}
+        previewImage={previewImage}
+        images={images}
+      />
+      {/* Leírás - összecsukható */}
+      <Box>
+        <Typography
+          level="body2"
+          sx={{
+            color: "text.secondary",
+            mb: 1,
+            textAlign: "left",
+            // ha nincs kinyitva, alkalmazzuk a line-clamp stílust
+            display: expanded ? "block" : "-webkit-box",
+            WebkitLineClamp: expanded ? undefined : 4,
+            WebkitBoxOrient: expanded ? undefined : "vertical",
+            overflow: expanded ? "visible" : "hidden",
+          }}
+        >
+          {shortDesc}
+        </Typography>
+
+        {isLong && (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              variant="plain"
+              size="sm"
+              onClick={() => setExpanded((s) => !s)}
+              aria-expanded={expanded}
+            >
+              {expanded ? "Kevesebb" : "Bővebben"}
+            </Button>
+          </Box>
+        )}
+      </Box>
+
       <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mb: 1 }}>
         {tags.map((tag, idx) => (
           <Chip
@@ -85,7 +114,7 @@ function ProjectsCard({
           rel="noopener noreferrer"
           variant="solid"
           color="warning"
-          size="md" // kisebb gomb
+          size="md"
           sx={{
             mt: 1,
             fontWeight: 700,
@@ -93,8 +122,8 @@ function ProjectsCard({
             px: 2.5,
             py: 1,
             borderRadius: 3,
-            backgroundColor: "#ff9800", // narancssárga
-            color: "#212121", // sötét szöveg, WCAG-kompatibilis
+            backgroundColor: "#ff9800",
+            color: "#212121",
             "&:hover": {
               backgroundColor: "#fb8c00",
               color: "#212121",
