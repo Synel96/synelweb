@@ -177,12 +177,15 @@ CORS_ALLOWED_ORIGINS = [
     "https://synelweb.vercel.app",
     "https://synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app",
     "https://synelweb.hu",
+    "https://www.synelweb.hu",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://synelweb.fly.dev",
+    "https://api.synelweb.hu",
     "https://synelweb.vercel.app",
     "https://synelweb-r394y2f2i-szilveszters-projects-d6dfe6cc.vercel.app",
     "https://synelweb.hu",
+    "https://www.synelweb.hu",
 ]
 
 # --- Default PK type ---
