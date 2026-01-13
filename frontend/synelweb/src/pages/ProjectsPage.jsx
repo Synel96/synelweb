@@ -135,19 +135,7 @@ function ProjectsPage() {
                 previewImage={project.preview_image || ""}
                 images={
                   project.extra_images
-                    ? project.extra_images.map((img) => {
-                        // safely resolve image URL (img.image may be null)
-                        const candidate = img.image || img.image_url || "";
-                        if (!candidate) return "";
-                        // if it's already absolute, return as-is
-                        if (
-                          typeof candidate === "string" &&
-                          candidate.startsWith("http")
-                        )
-                          return candidate;
-                        // otherwise assume it's a relative media path and prefix localhost for dev
-                        return `http://localhost:8000${candidate}`;
-                      })
+                    ? project.extra_images.map((img) => img.image_url || "").filter(Boolean)
                     : []
                 }
                 link={project.link || ""}
