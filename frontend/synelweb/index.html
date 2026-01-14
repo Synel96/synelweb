@@ -62,6 +62,22 @@
       imagesizes="100vw"
       fetchpriority="high"
     />
+    <!-- Preload contact section image for mobile LCP -->
+    <link 
+      rel="preload" 
+      as="image" 
+      href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0"
+      imagesrcset="
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/contact_njkcd0 640w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0 768w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/contact_njkcd0 1024w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/contact_njkcd0 1280w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/contact_njkcd0 1536w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0 1920w
+      "
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     
     <!-- Inline critical CSS to prevent render blocking -->
     <style>
