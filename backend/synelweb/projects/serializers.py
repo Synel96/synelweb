@@ -3,10 +3,11 @@ from core.models import Project, ProjectImage
 
 class ProjectImageSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
+    cloudinary_public_id = serializers.SerializerMethodField()
 
     class Meta:
         model = ProjectImage
-        fields = ["id", "image", "image_url", "order"]
+        fields = ["id", "image", "image_url", "cloudinary_public_id", "order"]
 
     def get_image_url(self, obj):
         if obj.image:
@@ -16,11 +17,18 @@ class ProjectImageSerializer(serializers.ModelSerializer):
                 url = url.replace('http://', 'https://', 1)
             return url
         return ""
+    
+    def get_cloudinary_public_id(self, obj):
+        """Extract public_id from CloudinaryField"""
+        if obj.image:
+            return obj.image.public_id
+        return ""
 
 class ProjectSerializer(serializers.ModelSerializer):
     extra_images = ProjectImageSerializer(many=True, read_only=True)
     preview_video = serializers.SerializerMethodField()
     preview_image = serializers.SerializerMethodField()
+    preview_image_public_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -32,6 +40,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "description",
             "preview_video",
             "preview_image",
+            "preview_image_public_id",
             "created_at",
             "updated_at",
             "extra_images",
@@ -52,3 +61,9 @@ class ProjectSerializer(serializers.ModelSerializer):
                 url = url.replace('http://', 'https://', 1)
             return url
         return None
+    
+    def get_preview_image_public_id(self, obj):
+        """Extract public_id from preview_image CloudinaryField"""
+        if obj.preview_image:
+            return obj.preview_image.public_id
+        return ""
