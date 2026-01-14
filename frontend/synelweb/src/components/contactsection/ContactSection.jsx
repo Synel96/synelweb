@@ -34,6 +34,7 @@ function ContactSection() {
       <OptimizedBackgroundImage 
         cloudinaryId="contact_njkcd0"
         alt="Kapcsolat háttérkép"
+        priority={true}
       />
       <Box
         sx={{
