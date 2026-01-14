@@ -90,7 +90,7 @@ function MainPage() {
           }
         `}
       </style>
-      <SectionWrapper id="section-2" delay={200}>
+      <SectionWrapper id="section-2" delay={0}>
         <ContactSection />
       </SectionWrapper>
       <SectionWrapper id="section-3" delay={400}>
