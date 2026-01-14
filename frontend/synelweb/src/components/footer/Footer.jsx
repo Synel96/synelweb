@@ -15,6 +15,7 @@ function Footer() {
           color: "text.primary",
           py: 3,
           mt: 6,
+          minHeight: "120px",
           textAlign: "center",
           borderTop: "1px solid #eee",
         }}
