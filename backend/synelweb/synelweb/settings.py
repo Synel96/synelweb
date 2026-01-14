@@ -53,12 +53,11 @@ INSTALLED_APPS = [
 
 # Cloudinary storage settings - require CLOUDINARY_URL
 CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
-if not CLOUDINARY_URL:
+if not CLOUDINARY_URL and not os.getenv("SKIP_CLOUDINARY_CHECK"):
     raise RuntimeError("CLOUDINARY_URL is required for media storage. Set CLOUDINARY_URL in the environment.")
 
 # Use cloudinary storage for all media files
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-MEDIA_URL = "/media/"
 
 # Parse CLOUDINARY_URL (format: cloudinary://API_KEY:API_SECRET@CLOUD_NAME)
 parsed_cloud = urlparse(CLOUDINARY_URL)
@@ -79,6 +78,7 @@ CLOUDINARY_STORAGE = {
     "CLOUD_NAME": cloud_name,
     "API_KEY": api_key,
     "API_SECRET": api_secret,
+    "SECURE": True,  # Force HTTPS URLs for all Cloudinary assets
 }
 
 # --- Middleware ---

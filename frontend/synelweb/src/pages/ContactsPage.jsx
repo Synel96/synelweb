@@ -3,7 +3,7 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Contacts from "../components/contactspage/Contacts";
-import contactPageBg from "/contactpage.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../components/common/OptimizedBackgroundImage";
 
 function ContactsPage() {
   const { mode } = useColorScheme();
@@ -30,21 +30,10 @@ function ContactsPage() {
       aria-label="Kapcsolat oldal szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={contactPageBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="contactpage_endaex"
         alt="Kapcsolat oldal háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
       {/* Elérhetőség cím és box */}
       <Box

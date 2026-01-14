@@ -6,7 +6,7 @@ import { fetchPackages } from "../services/packagesService";
 import PercentIcon from "@mui/icons-material/Percent";
 import { useColorScheme } from "@mui/joy/styles";
 import Warning from "../components/packages/Warning";
-import packagesPageBg from "/packagespage.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../components/common/OptimizedBackgroundImage";
 import Sheet from "@mui/joy/Sheet";
 
 function PackagesPage() {
@@ -55,22 +55,12 @@ function PackagesPage() {
       aria-label="Csomagok oldal szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={packagesPageBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="packagespage_bxt3c8"
         alt="Csomagok oldal háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
+      {/* Main content box */}
 
       {/* Tartalmi réteg */}
       <Box

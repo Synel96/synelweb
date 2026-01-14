@@ -4,7 +4,7 @@ import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
 import { Link } from "react-router-dom";
-import contactBg from "/contact.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function ContactSection() {
   const { mode } = useColorScheme();
@@ -30,21 +30,10 @@ function ContactSection() {
       aria-label="Kapcsolat szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={contactBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="contact_njkcd0"
         alt="Kapcsolat háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
       <Box
         sx={{

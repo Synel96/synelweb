@@ -1,14 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
-import os
 from cloudinary.models import CloudinaryField
-
-
-def project_media_upload_to(instance, filename):
-    # A project neve alapján alkotjuk meg az elérési utat
-    project_name = slugify(instance.project.name if hasattr(instance, "project") else instance.name)
-    return os.path.join("projects", project_name, filename)
 
 
 class Package(models.Model):
@@ -80,10 +73,12 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
     project_type = models.CharField(max_length=100, db_index=True)
-    description = models.TextField(blank=True, help_text="Projekt részletes leírása")  # ÚJ mező
-    preview_video = models.FileField(
-        upload_to=project_media_upload_to, blank=True, null=True,
-        help_text="Projekt bemutató videó (pl. mp4)"
+    description = models.TextField(blank=True, help_text="Projekt részletes leírása")
+    preview_video = CloudinaryField(
+        'video',
+        blank=True, null=True,
+        help_text="Projekt bemutató videó",
+        resource_type='video'
     )
     preview_image = CloudinaryField(
         'image',

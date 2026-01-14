@@ -1,30 +1,34 @@
 /**
- * Optimized background image component with responsive srcset
- * Generates multiple image sizes for different viewports
+ * Optimized background image component with Cloudinary
+ * Automatically optimizes images with responsive sizes and modern formats
  */
 function OptimizedBackgroundImage({ 
-  src, 
+  cloudinaryId,
   alt, 
   loading = 'lazy',
   priority = false,
   style = {},
   ...props 
 }) {
-  // Extract base path without query params
-  const baseSrc = src.split('?')[0];
+  const CLOUDINARY_BASE = 'https://res.cloudinary.com/dmwulp3dl/image/upload';
+  
+  // Generate Cloudinary transformations for different sizes
+  const generateUrl = (width, quality = 75) => {
+    return `${CLOUDINARY_BASE}/w_${width},q_${quality},f_auto,fl_progressive/${cloudinaryId}`;
+  };
   
   // Generate srcset for responsive images
   const srcSet = [
-    `${baseSrc}?w=640&format=webp&q=75 640w`,
-    `${baseSrc}?w=768&format=webp&q=75 768w`,
-    `${baseSrc}?w=1024&format=webp&q=75 1024w`,
-    `${baseSrc}?w=1280&format=webp&q=75 1280w`,
-    `${baseSrc}?w=1536&format=webp&q=75 1536w`,
-    `${baseSrc}?w=1920&format=webp&q=75 1920w`,
+    `${generateUrl(640)} 640w`,
+    `${generateUrl(768)} 768w`,
+    `${generateUrl(1024)} 1024w`,
+    `${generateUrl(1280)} 1280w`,
+    `${generateUrl(1536)} 1536w`,
+    `${generateUrl(1920)} 1920w`,
   ].join(', ');
 
-  // Default fallback (1920px WebP)
-  const defaultSrc = `${baseSrc}?w=1920&format=webp&q=75`;
+  // Default fallback (1920px)
+  const defaultSrc = generateUrl(1920);
 
   const defaultStyle = {
     position: 'absolute',
@@ -45,8 +49,8 @@ function OptimizedBackgroundImage({
           rel="preload"
           as="image"
           href={defaultSrc}
-          imagesrcset={srcSet}
-          imagesizes="100vw"
+          imageSrcSet={srcSet}
+          imageSizes="100vw"
         />
       )}
       <img
@@ -55,7 +59,7 @@ function OptimizedBackgroundImage({
         sizes="100vw"
         alt={alt}
         loading={priority ? 'eager' : loading}
-        fetchpriority={priority ? 'high' : 'auto'}
+        fetchPriority={priority ? 'high' : 'auto'}
         decoding={priority ? 'sync' : 'async'}
         style={defaultStyle}
         aria-hidden="true"

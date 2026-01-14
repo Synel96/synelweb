@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { fetchReviews } from "../services/reviewsService";
 import SuccessSnackbar from "../components/modals/SucessSnackbar";
 import ReviewsSkeleton from "../components/reviews/ReviewsSkeleton";
-import reviewPageBg from "/reviewpage.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../components/common/OptimizedBackgroundImage";
 
 function ReviewsPage() {
   const { mode } = useColorScheme();
@@ -64,21 +64,10 @@ function ReviewsPage() {
       aria-label="Vélemények szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={reviewPageBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="reviewpage_ub16ki"
         alt="Vélemények háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
       {/* Cím a tetején */}
       <Box

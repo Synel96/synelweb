@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("core", "0002_remove_project_preview_image_url_and_more"),
+        ("core", "0001_initial"),
     ]
 
     operations = [

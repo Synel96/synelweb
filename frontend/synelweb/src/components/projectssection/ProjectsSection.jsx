@@ -5,7 +5,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
-import projectsBg from "/projects.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function ProjectsSection() {
   const { mode } = useColorScheme();
@@ -31,21 +31,10 @@ function ProjectsSection() {
       aria-label="Projektek szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={projectsBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="projects_plkitq"
         alt="Projektek háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
       <Box
         sx={{

@@ -3,8 +3,8 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import { Link } from "react-router-dom"; // React Router Link import
-import reviewBg from "/review.png?w=1920&format=webp";
+import { Link } from "react-router-dom";
+import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function ReviewSection() {
   const { mode } = useColorScheme();
@@ -30,21 +30,10 @@ function ReviewSection() {
       aria-label="Értékelések szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={reviewBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="review_l4aooa"
         alt="Értékelések háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
       <Box
         sx={{

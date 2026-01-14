@@ -6,7 +6,7 @@ import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
 import Greet from "../greet/Greet";
 import HeroInfoOverlay from "./HeroInfoOverlay";
-import heroBg from "/hero.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function HeroSection() {
   const { mode } = useColorScheme();
@@ -32,21 +32,11 @@ function HeroSection() {
       aria-label="Főoldal hős szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={heroBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage
+        cloudinaryId="hero_kfkbus"
         alt="Főoldal háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
+        priority={true}
       />
 
       {/* Joy MUI overlay szekció */}

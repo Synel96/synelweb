@@ -10,13 +10,17 @@ class ProjectImageSerializer(serializers.ModelSerializer):
 
     def get_image_url(self, obj):
         if obj.image:
-            return obj.image.url
+            # Force HTTPS for Cloudinary URLs
+            url = obj.image.url
+            if url.startswith('http://'):
+                url = url.replace('http://', 'https://', 1)
+            return url
         return ""
 
 class ProjectSerializer(serializers.ModelSerializer):
     extra_images = ProjectImageSerializer(many=True, read_only=True)
-    preview_video = serializers.FileField(allow_null=True, required=False)
-    preview_image = serializers.ImageField(allow_null=True, required=False)
+    preview_video = serializers.SerializerMethodField()
+    preview_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -32,3 +36,19 @@ class ProjectSerializer(serializers.ModelSerializer):
             "updated_at",
             "extra_images",
         ]
+
+    def get_preview_video(self, obj):
+        if obj.preview_video:
+            url = obj.preview_video.url
+            if url.startswith('http://'):
+                url = url.replace('http://', 'https://', 1)
+            return url
+        return None
+
+    def get_preview_image(self, obj):
+        if obj.preview_image:
+            url = obj.preview_image.url
+            if url.startswith('http://'):
+                url = url.replace('http://', 'https://', 1)
+            return url
+        return None

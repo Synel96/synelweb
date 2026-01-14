@@ -5,7 +5,7 @@ import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import { Link } from "react-router-dom";
-import packagesBg from "/packages.png?w=1920&format=webp";
+import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function PackagesSection() {
   const { mode } = useColorScheme();
@@ -31,21 +31,10 @@ function PackagesSection() {
       aria-label="Csomagajánlatok szekció"
       tabIndex={0}
     >
-      {/* Háttérkép lazy loadinggal */}
-      <img
-        src={packagesBg}
+      {/* Cloudinary optimalizált háttérkép */}
+      <OptimizedBackgroundImage 
+        cloudinaryId="packages_tkmbuf"
         alt="Csomagok háttérkép"
-        loading="lazy"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100vw",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
       />
       <Box
         sx={{

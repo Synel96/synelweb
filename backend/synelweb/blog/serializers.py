@@ -24,4 +24,9 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
     def get_preview_image_url(self, obj):
         if obj.preview_image:
-            return obj.preview_image.url
+            # Force HTTPS for Cloudinary URLs
+            url = obj.preview_image.url
+            if url.startswith('http://'):
+                url = url.replace('http://', 'https://', 1)
+            return url
+        return None
