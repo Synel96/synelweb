@@ -6,7 +6,7 @@ import Logo from "./Logo";
 
 function Navbar() {
   const { mode, setMode } = useDarkMode();
-  const logoSrc = mode === "light" ? "/darklogo.png" : "/lightlogo.png";
+  const logoSrc = mode === "light" ? "/darklogo.svg" : "/lightlogo.svg";
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
