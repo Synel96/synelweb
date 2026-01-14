@@ -6,7 +6,9 @@ import Logo from "./Logo";
 
 function Navbar() {
   const { mode, setMode } = useDarkMode();
-  const logoSrc = mode === "light" ? "/darklogo.svg" : "/lightlogo.svg";
+  // Dark mode: világos logó kell (#121212 sötét háttéren)
+  // Light mode: sötét logó kell (#fff világos háttéren)
+  const logoSrc = mode === "dark" ? "/lightlogo.svg" : "/darklogo.svg";
   const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
