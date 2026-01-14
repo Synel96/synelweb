@@ -44,9 +44,24 @@
       />
     </noscript>
     
-    <!-- Preload critical assets -->
+    <!-- Preload critical assets for LCP optimization -->
     <link rel="preload" as="image" href="/darklogo.svg" type="image/svg+xml" />
-    <link rel="preload" as="image" href="/hero.png" type="image/png" />
+    <!-- Preload hero image from Cloudinary with responsive srcset -->
+    <link 
+      rel="preload" 
+      as="image" 
+      href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus"
+      imagesrcset="
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/hero_kfkbus 640w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/hero_kfkbus 768w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/hero_kfkbus 1024w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/hero_kfkbus 1280w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/hero_kfkbus 1536w,
+        https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus 1920w
+      "
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     
     <!-- Inline critical CSS to prevent render blocking -->
     <style>
