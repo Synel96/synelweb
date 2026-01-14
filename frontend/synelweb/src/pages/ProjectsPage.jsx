@@ -57,21 +57,23 @@ function ProjectsPage() {
         />
       </Box>
       
-      {/* Tartalom - Scrollable */}
+      {/* Cím - átlátszó háttérrel */}
       <Box
         sx={{
           position: "relative",
           zIndex: 2,
           mt: { xs: 4, sm: 6 },
           mb: 2,
-          p: { xs: 2, sm: 4 },
+          p: { xs: 2, sm: 3 },
           borderRadius: 4,
           backgroundColor:
-            mode === "dark" ? "rgba(30,30,30,0.85)" : "rgba(255,255,255,0.85)",
+            mode === "dark" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.7)",
+          backdropFilter: "blur(10px)",
           boxShadow: "md",
-          width: { xs: "95%", sm: "80%", md: "720px" },
+          width: { xs: "95%", sm: "80%", md: "auto" },
+          maxWidth: "720px",
           mx: "auto",
-          textAlign: { xs: "center", sm: "left" }, // mobilon középen, asztalon balra
+          textAlign: "center",
           opacity: 0,
           animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
         }}
