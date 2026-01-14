@@ -13,6 +13,10 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'mui-vendor': ['@mui/joy', '@mui/material', '@emotion/react', '@emotion/styled'],
         },
+        // Optimize asset loading
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
       },
     },
     // Optimize chunk size
@@ -25,6 +29,14 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
+    // Enable module preload for faster loading
+    modulePreload: {
+      polyfill: true,
+    },
+    // Target modern browsers for smaller bundles
+    target: 'es2015',
+    // Enable CSS code splitting
+    cssCodeSplit: true,
   },
   // Optimize dependencies
   optimizeDeps: {
