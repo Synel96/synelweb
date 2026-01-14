@@ -8,6 +8,7 @@ function ProjectsCard({
   tags = [],
   projectVideo,
   previewImage,
+  previewImagePublicId,
   images = [],
   link,
 }) {
@@ -19,7 +20,7 @@ function ProjectsCard({
     <Box
       sx={{
         width: "100%",
-        maxWidth: 520,
+        maxWidth: { xs: "100%", sm: 520 },
         bgcolor: "background.level1",
         borderRadius: 4,
         boxShadow: "md",
@@ -58,6 +59,7 @@ function ProjectsCard({
       <ProjectsCarousel
         projectVideo={projectVideo}
         previewImage={previewImage}
+        previewImagePublicId={previewImagePublicId}
         images={images}
       />
       {/* Leírás - összecsukható */}

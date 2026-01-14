@@ -2,18 +2,29 @@ import { useState } from "react";
 import { Box, IconButton } from "@mui/joy";
 import ArrowBack from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForward from "@mui/icons-material/ArrowForwardIos";
-import ProjectMediaModal from "../modals/ProjectMediaModal"; // helyes import
+import ProjectMediaModal from "../modals/ProjectMediaModal";
+import OptimizedCloudinaryImage from "../common/OptimizedCloudinaryImage";
 
 function ProjectsCarousel({
   projectVideo = "",
   previewImage = "",
+  previewImagePublicId = "",
   images = [],
 }) {
+  // Build slides array with cloudinary_public_id support
   const slides = [
-    { type: "image", src: previewImage },
+    { 
+      type: "image", 
+      src: previewImage,
+      cloudinaryId: previewImagePublicId
+    },
     { type: "video", src: projectVideo },
-    ...images.map((img) => ({ type: "image", src: img })),
-  ].filter((item) => !!item.src);
+    ...images.map((img) => ({ 
+      type: "image", 
+      src: img.image_url || img,
+      cloudinaryId: img.cloudinary_public_id || ""
+    })),
+  ].filter((item) => !!item.src || !!item.cloudinaryId);
 
   const [current, setCurrent] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,7 +39,7 @@ function ProjectsCarousel({
       <Box
         sx={{
           width: "100%",
-          maxWidth: 520,
+          maxWidth: { xs: "100%", sm: 520 },
           mx: "auto",
           py: 2,
           textAlign: "center",
@@ -48,7 +59,7 @@ function ProjectsCarousel({
       aria-label="Projekt körhinta"
       sx={{
         width: "100%",
-        maxWidth: 520,
+        maxWidth: { xs: "100%", sm: 520 },
         mx: "auto",
         position: "relative",
         display: "flex",
@@ -106,11 +117,19 @@ function ProjectsCarousel({
             aria-label="Projekt bemutató videó"
             tabIndex={0}
           />
+        ) : slides[current].cloudinaryId ? (
+          <OptimizedCloudinaryImage
+            cloudinaryId={slides[current].cloudinaryId}
+            alt={`Projekt kép ${current}`}
+            aspectRatio="16/9"
+            sx={{ borderRadius: 0 }}
+          />
         ) : (
           <img
             src={slides[current].src}
             alt={`Projekt kép ${current}`}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            loading="lazy"
             tabIndex={0}
           />
         )}
@@ -167,7 +186,7 @@ function ProjectsCarousel({
       <ProjectMediaModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        images={slides.filter((s) => s.type === "image").map((s) => s.src)}
+        slides={slides.filter((s) => s.type === "image")}
         video={slides.find((s) => s.type === "video")?.src || ""}
       />
     </Box>

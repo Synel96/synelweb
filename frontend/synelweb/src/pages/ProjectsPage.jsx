@@ -26,13 +26,10 @@ function ProjectsPage() {
       sx={{
         position: "relative",
         width: "100vw",
-        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
-        maxHeight: "100vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
         p: 0,
         m: 0,
         transition: "background 0.3s",
@@ -42,12 +39,25 @@ function ProjectsPage() {
       aria-label="Projektek oldal szekció"
       tabIndex={0}
     >
-      {/* Cloudinary optimalizált háttérkép */}
-      <OptimizedBackgroundImage 
-        cloudinaryId="projectspage_fxqkwn"
-        alt="Projektek oldal háttérkép"
-      />
-      {/* Tartalom */}
+      {/* Cloudinary optimalizált háttérkép - Fixed position */}
+      <Box
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      >
+        <OptimizedBackgroundImage 
+          cloudinaryId="projectspage_fxqkwn"
+          alt="Projektek oldal háttérkép"
+        />
+      </Box>
+      
+      {/* Tartalom - Scrollable */}
       <Box
         sx={{
           position: "relative",
@@ -81,18 +91,22 @@ function ProjectsPage() {
           Projektek
         </Typography>
       </Box>
+      
+      {/* Projektek konténer - Scrollable */}
       <Box
         sx={{
           width: "100%",
           display: "flex",
           flexDirection: { xs: "column", sm: "row" },
           flexWrap: "wrap",
-          gap: 3, // kisebb gap
-          alignItems: { xs: "stretch", sm: "flex-start" },
-          justifyContent: { xs: "center", sm: "flex-start" },
-          px: { xs: 2, sm: 6 },
+          gap: 3,
+          alignItems: "center",
+          justifyContent: "center",
+          px: { xs: 2, sm: 4, md: 6 },
+          py: 4,
           position: "relative",
           zIndex: 2,
+          minHeight: "50vh",
         }}
         role="region"
         aria-label="Projektek listája"
@@ -109,11 +123,10 @@ function ProjectsPage() {
                 animation: `fadeInUp 0.7s cubic-bezier(.4,0,.2,1) ${
                   0.3 + idx * 0.15
                 }s forwards`,
-                // responsive flex-basis so cards wrap correctly across breakpoints
-                flex: "1 1 260px",
-                maxWidth: { xs: "100%", sm: 340, md: 320 },
-                boxSizing: "border-box",
-                width: "auto",
+                width: "100%",
+                maxWidth: { xs: "100%", sm: 520 },
+                display: "flex",
+                justifyContent: "center",
               }}
             >
               <ProjectsCard
@@ -122,11 +135,8 @@ function ProjectsPage() {
                 tags={project.slug ? [project.slug] : []}
                 projectVideo={project.preview_video || ""}
                 previewImage={project.preview_image || ""}
-                images={
-                  project.extra_images
-                    ? project.extra_images.map((img) => img.image_url || "").filter(Boolean)
-                    : []
-                }
+                previewImagePublicId={project.preview_image_public_id || ""}
+                images={project.extra_images || []}
                 link={project.link || ""}
               />
             </Box>

@@ -1,11 +1,13 @@
 import { Modal, ModalDialog, ModalClose, IconButton } from "@mui/joy";
 import { useState } from "react";
+import OptimizedCloudinaryImage from "../common/OptimizedCloudinaryImage";
 
-function ProjectMediaModal({ open, onClose, images = [], video = "" }) {
+function ProjectMediaModal({ open, onClose, slides = [], video = "" }) {
   const [activeIdx, setActiveIdx] = useState(0);
 
-  const mediaList = video ? [video, ...images] : images;
-  const isVideo = activeIdx === 0 && video;
+  const mediaList = video ? [{ type: "video", src: video }, ...slides] : slides;
+  const currentMedia = mediaList[activeIdx];
+  const isVideo = currentMedia?.type === "video" || (activeIdx === 0 && video);
 
   const handlePrev = () =>
     setActiveIdx((idx) => (idx > 0 ? idx - 1 : mediaList.length - 1));
@@ -38,7 +40,7 @@ function ProjectMediaModal({ open, onClose, images = [], video = "" }) {
         <div style={{ width: "100%", textAlign: "center", marginBottom: 16 }}>
           {isVideo ? (
             <video
-              src={video}
+              src={currentMedia?.src || video}
               controls
               style={{
                 width: "100%",
@@ -47,9 +49,20 @@ function ProjectMediaModal({ open, onClose, images = [], video = "" }) {
                 background: "#000",
               }}
             />
+          ) : currentMedia?.cloudinaryId ? (
+            <OptimizedCloudinaryImage
+              cloudinaryId={currentMedia.cloudinaryId}
+              alt={`Projekt média ${activeIdx + 1}`}
+              aspectRatio="16/9"
+              sx={{ 
+                maxHeight: 340,
+                borderRadius: 2,
+                bgcolor: "#000"
+              }}
+            />
           ) : (
             <img
-              src={mediaList[activeIdx]}
+              src={currentMedia?.src || ""}
               alt={`Projekt média ${activeIdx + 1}`}
               style={{
                 width: "100%",
@@ -58,6 +71,7 @@ function ProjectMediaModal({ open, onClose, images = [], video = "" }) {
                 borderRadius: 8,
                 background: "#000",
               }}
+              loading="lazy"
             />
           )}
         </div>
