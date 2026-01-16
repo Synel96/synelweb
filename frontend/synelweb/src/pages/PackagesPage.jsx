@@ -39,12 +39,10 @@ function PackagesPage() {
       sx={{
         position: "relative",
         width: "100vw",
-        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
-        maxHeight: "100vh",
+        minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
         p: 0,
         m: 0,
         transition: "background 0.3s",
@@ -54,71 +52,59 @@ function PackagesPage() {
       aria-label="Csomagok oldal szekció"
       tabIndex={0}
     >
-      {/* Main content box */}
-
-      {/* Tartalmi réteg */}
+      {/* Cím */}
       <Box
         sx={{
           position: "relative",
           zIndex: 2,
-          width: "100%",
-          maxWidth: 1280,
+          mt: { xs: 4, sm: 6 },
+          mb: 2,
+          p: { xs: 2, sm: 3 },
+          borderRadius: 4,
+          boxShadow: "md",
+          width: { xs: "95%", sm: "80%", md: "auto" },
+          maxWidth: "720px",
           mx: "auto",
-          px: { xs: 2, sm: 4 },
-          py: { xs: 4, sm: 6 },
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: { xs: 4, sm: 6, md: 8 },
+          textAlign: "center",
+          opacity: 0,
+          animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
         }}
       >
-        {/* Cím */}
-        <Box
+        <Typography
+          level="h1"
+          tabIndex={0}
           sx={{
-            mt: { xs: 2, sm: 4, md: 6 },
-            p: { xs: 2, sm: 3 },
-            borderRadius: 3,
-            backgroundColor:
-              mode === "dark"
-                ? "rgba(30,30,30,0.85)"
-                : "rgba(255,255,255,0.85)",
-            boxShadow: "md",
-            width: { xs: "100%", sm: "80%", md: 520 },
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            fontWeight: 700,
+            color: mode === "dark" ? "#fff" : "text.primary",
+            letterSpacing: "0.02em",
             textAlign: "center",
-            opacity: 0,
-            animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
-            backdropFilter: "blur(4px)",
           }}
+          aria-label="Szolgáltatások"
         >
-          <Typography
-            level="h1"
-            tabIndex={0}
-            sx={{
-              fontSize: { xs: "2rem", sm: "2.5rem", md: "2.8rem" },
-              fontWeight: 700,
-              color: mode === "dark" ? "#fff" : "#121212",
-              letterSpacing: "0.02em",
-            }}
-            aria-label="Szolgáltatások"
-          >
-            Szolgáltatások
-          </Typography>
-        </Box>
+          Szolgáltatások
+        </Typography>
+      </Box>
 
-        {/* Kártyák */}
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: 1200,
-            display: "flex",
-            flexWrap: "wrap",
-            gap: { xs: 3, sm: 4, md: 6 },
-            justifyContent: { xs: "center", sm: "flex-start" },
-            alignItems: "flex-start", // <-- fontos!
-          }}
-          role="region"
-          aria-label="Szolgáltatáscsomagok listája"
-        >
+      {/* Kártyák konténer - Scrollable */}
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: { xs: 3, sm: 4, md: 6 },
+          justifyContent: "center",
+          alignItems: "flex-start",
+          px: { xs: 2, sm: 4, md: 6 },
+          py: 4,
+          position: "relative",
+          zIndex: 2,
+          maxWidth: 1200,
+          mx: "auto",
+        }}
+        role="region"
+        aria-label="Szolgáltatáscsomagok listája"
+      >
           {loading ? (
             <PackagesSkeleton count={3} />
           ) : (
@@ -210,16 +196,24 @@ function PackagesPage() {
         </Box>
 
         {/* Figyelmeztetés */}
-        <Warning
+        <Box
           sx={{
-            position: "relative",
-            zIndex: 2,
-            mt: { xs: 4, sm: 6, md: 8 },
-            width: { xs: "100%", sm: "80%", md: 520 },
-            mx: "auto",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            px: { xs: 2, sm: 4 },
+            pb: 4,
           }}
-        />
-      </Box>
+        >
+          <Warning
+            sx={{
+              position: "relative",
+              zIndex: 2,
+              width: { xs: "100%", sm: "80%", md: 520 },
+              maxWidth: "720px",
+            }}
+          />
+        </Box>
 
       {/* Animációk */}
       <style>
