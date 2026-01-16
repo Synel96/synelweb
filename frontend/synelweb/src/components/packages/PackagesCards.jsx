@@ -26,28 +26,31 @@ function PackagesCards({
   return (
     <Box
       sx={{
-        bgcolor: "background.level1",
+        bgcolor: "background.surface",
         borderRadius: 4,
+        border: "2px solid",
+        borderColor: is_discounted ? "rgba(255,152,0,0.6)" : "divider",
         boxShadow: is_discounted
-          ? "0 0 32px 12px #ff9800"
-          : "0 2px 8px rgba(0,0,0,0.10)",
+          ? "0 0 32px 12px rgba(255,152,0,0.3)"
+          : "lg",
         p: { xs: 2, sm: 3 },
         display: "flex",
         flexDirection: "column",
         gap: 2,
         position: "relative",
-        transition: "box-shadow 0.3s, filter 0.3s, transform 0.3s",
+        transition: "box-shadow 0.3s, filter 0.3s, transform 0.3s, border-color 0.3s",
         animation: is_discounted
           ? "discountPulse 1.8s infinite cubic-bezier(.4,0,.2,1)"
           : undefined,
         "&:hover": {
           boxShadow: is_discounted
-            ? "0 0 40px 16px #ff9800, 0 0 32px 8px #90caf9"
-            : "0 0 32px 8px #90caf9",
+            ? "0 0 40px 16px rgba(255,152,0,0.5), 0 0 32px 8px rgba(255,140,0,0.3)"
+            : "xl",
           filter: "brightness(0.98)",
           transform: is_discounted
             ? "translateY(-5px) scale(1.02)"
             : "translateY(-8px) scale(1.03)",
+          borderColor: is_discounted ? "rgba(255,152,0,0.8)" : "rgba(255,140,0,0.5)",
         },
         ...sx,
       }}

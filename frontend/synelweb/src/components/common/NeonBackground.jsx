@@ -26,7 +26,7 @@ function NeonBackground({ children, sx = {} }) {
           overflow: "hidden",
         }}
       >
-        {/* Fő narancssárga gradiens */}
+        {/* Fő lila gradiens */}
         <Box
           sx={{
             position: "absolute",
@@ -37,8 +37,8 @@ function NeonBackground({ children, sx = {} }) {
             height: "120%",
             background:
               mode === "dark"
-                ? "radial-gradient(ellipse at center, rgba(255,140,0,0.15) 0%, rgba(255,69,0,0.08) 35%, transparent 70%)"
-                : "radial-gradient(ellipse at center, rgba(255,165,0,0.12) 0%, rgba(255,140,0,0.06) 35%, transparent 70%)",
+                ? "radial-gradient(ellipse at center, rgba(138,43,226,0.18) 0%, rgba(147,51,234,0.10) 35%, transparent 70%)"
+                : "radial-gradient(ellipse at center, rgba(167,139,250,0.15) 0%, rgba(147,51,234,0.08) 35%, transparent 70%)",
             filter: "blur(60px)",
             animation: "neonPulse 8s ease-in-out infinite",
           }}
@@ -55,8 +55,8 @@ function NeonBackground({ children, sx = {} }) {
             height: "80%",
             background:
               mode === "dark"
-                ? "radial-gradient(circle, rgba(255,140,0,0.2) 0%, rgba(255,100,0,0.1) 25%, transparent 50%)"
-                : "radial-gradient(circle, rgba(255,165,0,0.15) 0%, rgba(255,140,0,0.08) 25%, transparent 50%)",
+                ? "radial-gradient(circle, rgba(147,51,234,0.22) 0%, rgba(126,34,206,0.12) 25%, transparent 50%)"
+                : "radial-gradient(circle, rgba(167,139,250,0.18) 0%, rgba(147,51,234,0.10) 25%, transparent 50%)",
             filter: "blur(80px)",
             animation: "neonPulse 6s ease-in-out infinite reverse",
           }}
@@ -72,8 +72,8 @@ function NeonBackground({ children, sx = {} }) {
             height: "60%",
             background:
               mode === "dark"
-                ? "radial-gradient(ellipse, rgba(255,100,0,0.18) 0%, rgba(255,69,0,0.09) 30%, transparent 60%)"
-                : "radial-gradient(ellipse, rgba(255,140,0,0.12) 0%, rgba(255,100,0,0.06) 30%, transparent 60%)",
+                ? "radial-gradient(ellipse, rgba(159,122,234,0.20) 0%, rgba(138,43,226,0.11) 30%, transparent 60%)"
+                : "radial-gradient(ellipse, rgba(167,139,250,0.15) 0%, rgba(147,51,234,0.08) 30%, transparent 60%)",
             filter: "blur(70px)",
             animation: "neonPulse 10s ease-in-out infinite",
           }}
@@ -89,8 +89,8 @@ function NeonBackground({ children, sx = {} }) {
             height: "50%",
             background:
               mode === "dark"
-                ? "radial-gradient(circle, rgba(255,120,0,0.15) 0%, rgba(255,80,0,0.08) 25%, transparent 50%)"
-                : "radial-gradient(circle, rgba(255,150,0,0.1) 0%, rgba(255,120,0,0.05) 25%, transparent 50%)",
+                ? "radial-gradient(circle, rgba(147,51,234,0.17) 0%, rgba(138,43,226,0.09) 25%, transparent 50%)"
+                : "radial-gradient(circle, rgba(167,139,250,0.13) 0%, rgba(147,51,234,0.07) 25%, transparent 50%)",
             filter: "blur(90px)",
             animation: "neonPulse 7s ease-in-out infinite",
           }}

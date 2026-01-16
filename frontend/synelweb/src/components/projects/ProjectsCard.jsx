@@ -21,19 +21,22 @@ function ProjectsCard({
       sx={{
         width: "100%",
         maxWidth: { xs: "100%", sm: 520 },
-        bgcolor: "background.level1",
+        bgcolor: "background.surface",
         borderRadius: 4,
-        boxShadow: "md",
+        boxShadow: "lg",
+        border: "2px solid",
+        borderColor: "divider",
         p: { xs: 2, sm: 3 },
         mb: 4,
         display: "flex",
         flexDirection: "column",
         gap: 2,
         transition:
-          "box-shadow 0.5s cubic-bezier(.4,0,.2,1), filter 0.5s cubic-bezier(.4,0,.2,1)",
+          "box-shadow 0.5s cubic-bezier(.4,0,.2,1), filter 0.5s cubic-bezier(.4,0,.2,1), border-color 0.3s",
         "&:hover": {
-          boxShadow: "lg",
-          filter: "drop-shadow(0 0 24px #90caf9)",
+          boxShadow: "xl",
+          filter: "drop-shadow(0 0 24px rgba(255,140,0,0.4))",
+          borderColor: "rgba(255,140,0,0.5)",
         },
       }}
       role="region"
