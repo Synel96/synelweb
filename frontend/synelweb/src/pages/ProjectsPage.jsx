@@ -4,7 +4,6 @@ import ProjectsCard from "../components/projects/ProjectsCard";
 import ProjectsSkeleton from "../components/projects/ProjectsSkeleton";
 import { getProjects } from "../services/projectsService";
 import { useColorScheme } from "@mui/joy/styles";
-import OptimizedBackgroundImage from "../components/common/OptimizedBackgroundImage";
 
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
@@ -39,23 +38,6 @@ function ProjectsPage() {
       aria-label="Projektek oldal szekció"
       tabIndex={0}
     >
-      {/* Cloudinary optimalizált háttérkép - Fixed position */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: -1,
-          pointerEvents: "none",
-        }}
-      >
-        <OptimizedBackgroundImage 
-          cloudinaryId="projectspage_fxqkwn"
-          alt="Projektek oldal háttérkép"
-        />
-      </Box>
       
       {/* Cím - átlátszó háttérrel */}
       <Box
@@ -66,9 +48,6 @@ function ProjectsPage() {
           mb: 2,
           p: { xs: 2, sm: 3 },
           borderRadius: 4,
-          backgroundColor:
-            mode === "dark" ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(10px)",
           boxShadow: "md",
           width: { xs: "95%", sm: "80%", md: "auto" },
           maxWidth: "720px",
