@@ -4,6 +4,7 @@ import ProjectsCard from "../components/projects/ProjectsCard";
 import ProjectsSkeleton from "../components/projects/ProjectsSkeleton";
 import { getProjects } from "../services/projectsService";
 import { useColorScheme } from "@mui/joy/styles";
+import NeonBackground from "../components/common/NeonBackground";
 
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);
@@ -20,24 +21,26 @@ function ProjectsPage() {
   }, []);
 
   return (
-    <Sheet
-      component="section"
-      sx={{
-        position: "relative",
-        width: "100vw",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        p: 0,
-        m: 0,
-        transition: "background 0.3s",
-      }}
-      variant="plain"
-      role="region"
-      aria-label="Projektek oldal szekció"
-      tabIndex={0}
-    >
+    <NeonBackground>
+      <Sheet
+        component="section"
+        sx={{
+          position: "relative",
+          width: "100vw",
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          p: 0,
+          m: 0,
+          transition: "background 0.3s",
+          background: "transparent",
+        }}
+        variant="plain"
+        role="region"
+        aria-label="Projektek oldal szekció"
+        tabIndex={0}
+      >
       
       {/* Cím - átlátszó háttérrel */}
       <Box
@@ -147,6 +150,7 @@ function ProjectsPage() {
         `}
       </style>
     </Sheet>
+    </NeonBackground>
   );
 }
 

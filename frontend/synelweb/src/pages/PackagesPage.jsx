@@ -7,6 +7,7 @@ import PercentIcon from "@mui/icons-material/Percent";
 import { useColorScheme } from "@mui/joy/styles";
 import Warning from "../components/packages/Warning";
 import Sheet from "@mui/joy/Sheet";
+import NeonBackground from "../components/common/NeonBackground";
 
 function PackagesPage() {
   const [packages, setPackages] = useState([]);
@@ -34,24 +35,26 @@ function PackagesPage() {
   }, []);
 
   return (
-    <Sheet
-      component="section"
-      sx={{
-        position: "relative",
-        width: "100vw",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        p: 0,
-        m: 0,
-        transition: "background 0.3s",
-      }}
-      variant="plain"
-      role="region"
-      aria-label="Csomagok oldal szekció"
-      tabIndex={0}
-    >
+    <NeonBackground>
+      <Sheet
+        component="section"
+        sx={{
+          position: "relative",
+          width: "100vw",
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          p: 0,
+          m: 0,
+          transition: "background 0.3s",
+          background: "transparent",
+        }}
+        variant="plain"
+        role="region"
+        aria-label="Csomagok oldal szekció"
+        tabIndex={0}
+      >
       {/* Cím */}
       <Box
         sx={{
@@ -229,6 +232,7 @@ function PackagesPage() {
         `}
       </style>
     </Sheet>
+    </NeonBackground>
   );
 }
 
