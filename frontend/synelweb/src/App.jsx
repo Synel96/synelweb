@@ -10,6 +10,7 @@ const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 const ReviewsPage = lazy(() => import("./pages/ReviewsPage"));
 const PackagesPage = lazy(() => import("./pages/PackagesPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/elerhetoseg" element={<ContactsPage />} />
             <Route path="/velemenyek" element={<ReviewsPage />} />
             <Route path="/szolgaltatasok" element={<PackagesPage />} />
+            <Route path="/rolam" element={<AboutPage />} />
           </Routes>
         </Suspense>
         <Footer />

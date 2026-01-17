@@ -23,6 +23,7 @@ function Menu() {
     { label: "Vélemények", href: "/velemenyek" },
     { label: "Szolgáltatások", href: "/szolgaltatasok" },
     { label: "Elérhetőség", href: "/elerhetoseg" },
+    { label: "Rólam", href: "/rolam" },
   ];
 
   if (isMobile) {
