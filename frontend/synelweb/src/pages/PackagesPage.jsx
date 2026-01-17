@@ -99,7 +99,7 @@ function PackagesPage() {
           width: "100%",
           display: "flex",
           flexWrap: "wrap",
-          gap: { xs: 6, sm: 5, md: 8 },
+          gap: { xs: 8, sm: 7, md: 10 },
           justifyContent: "center",
           alignItems: "flex-start",
           px: { xs: 2, sm: 4, md: 6 },
@@ -135,9 +135,9 @@ function PackagesPage() {
                   backgroundColor:
                     mode === "dark" ? "rgba(24,24,24,0.92)" : "#fff",
                   "&:hover": {
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
                     filter: "brightness(0.99)",
-                    transform: "translateY(-2px)",
+                    transform: "translateY(-1px)",
                   },
                 }}
                 role="article"
@@ -174,8 +174,8 @@ function PackagesPage() {
                             box-shadow: 0 0 0 0 #ff9800;
                           }
                           50% {
-                            transform: scale(1.18) translateY(-4px);
-                            box-shadow: 0 0 16px 8px #ff9800;
+                            transform: scale(1.08) translateY(-2px);
+                            box-shadow: 0 0 8px 4px rgba(255, 152, 0, 0.4);
                           }
                           100% {
                             transform: scale(1) translateY(0);
@@ -226,7 +226,7 @@ function PackagesPage() {
       <style>
         {`
           @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(28px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
           }
           @keyframes fadeInBg {
