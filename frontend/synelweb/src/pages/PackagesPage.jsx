@@ -158,30 +158,10 @@ function PackagesPage() {
                       alignItems: "center",
                       justifyContent: "center",
                       boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-                      animation:
-                        "percentPulse 1.8s infinite cubic-bezier(.4,0,.2,1)",
                     }}
                     aria-label="Akciós csomag"
                   >
                     <PercentIcon fontSize="small" sx={{ color: "#ff1744" }} />
-                    <style>
-                      {`
-                        @keyframes percentPulse {
-                          0% {
-                            transform: scale(1) translateY(0);
-                            box-shadow: 0 0 0 0 #ff9800;
-                          }
-                          50% {
-                            transform: scale(1.08) translateY(-2px);
-                            box-shadow: 0 0 8px 4px rgba(255, 152, 0, 0.4);
-                          }
-                          100% {
-                            transform: scale(1) translateY(0);
-                            box-shadow: 0 0 0 0 #ff9800;
-                          }
-                        }
-                      `}
-                    </style>
                   </Box>
                 )}
 

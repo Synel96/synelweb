@@ -505,25 +505,37 @@ function AboutPage() {
                   level="body-md"
                   sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
                 >
-                  A SynelWeb olyan weboldalakat készít, amelyek érthetők, gyorsak és könnyen használhatók – akár egy kisvállalkozásról, egy településről vagy egy magánprojektről van szó.
+                  A SynelWeb olyan weboldalakat készít, amelyek érthetők,
+                  gyorsak és könnyen használhatók – akár egy kisvállalkozásról,
+                  egy településről vagy egy magánprojektről van szó.
                 </Typography>
                 <Typography
                   level="body-md"
                   sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
                 >
-                  A közös munka során arra törekszem, hogy az elkészült weboldal valóban segítse a mindennapokat: megkönnyítse a kapcsolattartást, bemutassa a fontos információkat, és elérhetővé tegye azt, amit az emberek keresnek.
+                  A közös munka során arra törekszem, hogy az elkészült weboldal
+                  valóban segítse a mindennapokat: megkönnyítse a
+                  kapcsolattartást, bemutassa a fontos információkat, és
+                  elérhetővé tegye azt, amit az emberek keresnek.
                 </Typography>
                 <Typography
                   level="body-md"
                   sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
                 >
-                  Mivel a munkám jelentős része Sopronban és a környező településeken zajlik, pontosan ismerem a helyi igényeket, és ehhez igazítom a weboldalak felépítését és működését. Az oldalak mobilon is jól használhatók, átláthatók, és hosszú távon is megbízható alapot adnak.
+                  Mivel a munkám jelentős része Sopronban és a környező
+                  településeken zajlik, pontosan ismerem a helyi igényeket, és
+                  ehhez igazítom a weboldalak felépítését és működését. Az
+                  oldalak mobilon is jól használhatók, átláthatók, és hosszú
+                  távon is megbízható alapot adnak.
                 </Typography>
                 <Typography
                   level="body-md"
                   sx={{ color: "text.secondary", lineHeight: 1.8 }}
                 >
-                  A fejlesztés során személyesen és online is elérhető vagyok, így a folyamat végén egy olyan weboldalt kapsz, amely nem túl bonyolult, nem túlmagyarázott, hanem egyszerűen teszi a dolgát.
+                  A fejlesztés során személyesen és online is elérhető vagyok,
+                  így a folyamat végén egy olyan weboldalt kapsz, amely nem túl
+                  bonyolult, nem túlmagyarázott, hanem egyszerűen teszi a
+                  dolgát.
                 </Typography>
               </AccordionDetails>
             </Accordion>

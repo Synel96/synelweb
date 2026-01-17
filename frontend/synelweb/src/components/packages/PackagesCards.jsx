@@ -48,7 +48,7 @@ function PackagesCards({
         gap: 2,
         position: "relative",
         transition: "box-shadow 0.3s, filter 0.3s, transform 0.3s, border-color 0.3s",
-        animation: is_discounted
+        animation: (isActive && is_discounted)
           ? "discountPulse 1.8s infinite cubic-bezier(.4,0,.2,1)"
           : undefined,
         filter: isActive ? "brightness(0.98)" : "brightness(1)",
