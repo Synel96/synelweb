@@ -12,12 +12,8 @@ function PackagesCards({
   sx = {},
 }) {
   const [expanded, setExpanded] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const descRef = useRef(null);
   const [descHeight, setDescHeight] = useState("auto");
-
-  // Debug log
-  console.log(`${name}: isActive=${isActive}, is_discounted=${is_discounted}, animation should run: ${isActive && is_discounted}`);
 
   useLayoutEffect(() => {
     if (descRef.current && expanded) {
@@ -29,41 +25,21 @@ function PackagesCards({
 
   return (
     <Box
-      onClick={() => setIsActive(!isActive)}
-      onTouchStart={() => setIsActive(!isActive)}
       sx={{
         bgcolor: "background.surface",
         borderRadius: 4,
         border: "2px solid",
-        borderColor: isActive 
-          ? (is_discounted ? "rgba(255,152,0,0.8)" : "rgba(255,140,0,0.5)")
-          : (is_discounted ? "rgba(255,152,0,0.6)" : "divider"),
-        boxShadow: isActive
-          ? (is_discounted
-            ? "0 0 40px 16px rgba(255,152,0,0.5), 0 0 32px 8px rgba(255,140,0,0.3)"
-            : "xl")
-          : "lg",
+        borderColor: "divider",
+        boxShadow: "lg",
         p: { xs: 2, sm: 3 },
         display: "flex",
         flexDirection: "column",
         gap: 2,
         position: "relative",
-        transition: "box-shadow 0.3s, filter 0.3s, transform 0.3s, border-color 0.3s",
-        animation: (isActive && is_discounted)
-          ? "discountPulse 1.8s infinite cubic-bezier(.4,0,.2,1)"
-          : "none",
-        filter: isActive ? "brightness(0.98)" : "brightness(1)",
-        transform: isActive
-          ? (is_discounted
-            ? "translateY(-5px) scale(1.02)"
-            : "translateY(-8px) scale(1.03)")
-          : "translateY(0) scale(1)",
-        cursor: "pointer",
         ...sx,
       }}
       role="article"
       aria-label={`Csomag: ${name}`}
-      tabIndex={0}
     >
       {/* Előnézeti kép */}
       {preview_image_url && (
@@ -219,25 +195,6 @@ function PackagesCards({
           )
         )}
       </Box>
-      {/* Pulzáló animáció stílus */}
-      <style>
-        {`
-          @keyframes discountPulse {
-            0% {
-              box-shadow: 0 0 0 0 #ff9800;
-              transform: scale(1);
-            }
-            50% {
-              box-shadow: 0 0 32px 12px #ff9800;
-              transform: scale(1.06);
-            }
-            100% {
-              box-shadow: 0 0 0 0 #ff9800;
-              transform: scale(1);
-            }
-          }
-        `}
-      </style>
     </Box>
   );
 }
