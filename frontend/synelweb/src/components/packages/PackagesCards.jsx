@@ -40,12 +40,6 @@ function PackagesCards({
         flexDirection: "column",
         gap: 2,
         position: "relative",
-        cursor: "pointer",
-        transition: "box-shadow 0.3s, border-color 0.3s",
-        "&:active": {
-          boxShadow: "0 0 24px rgba(255,140,0,0.6)",
-          borderColor: "rgba(255,140,0,0.8)",
-        },
         ...sx,
       }}
       role="region"
