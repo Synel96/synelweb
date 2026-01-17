@@ -1,6 +1,8 @@
 import { useColorScheme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
+import Button from "@mui/joy/Button";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function HeroInfoOverlay(props) {
@@ -44,12 +46,38 @@ function HeroInfoOverlay(props) {
           fontWeight: 500,
           fontSize: { xs: "1rem", sm: "1.15rem" },
           color: mode === "dark" ? "#fff" : "#121212",
+          mb: 3,
         }}
       >
-        Böngésszen szolgáltatásaink között, vagy görgessen lejjebb további
-        információkért!
+        Böngésszen szolgáltatásaink között, vagy ismerd meg jobban a munkámat!
       </Typography>
-      {/* Nyíl és animáció teljesen eltávolítva */}
+      
+      <Button
+        component={Link}
+        to="/rolam"
+        size="lg"
+        sx={{
+          bgcolor: "#e65100",
+          color: "#fff",
+          fontWeight: 600,
+          fontSize: { xs: "1rem", sm: "1.1rem" },
+          px: { xs: 3, sm: 4 },
+          py: { xs: 1.5, sm: 2 },
+          borderRadius: 3,
+          boxShadow: "0 4px 14px rgba(230,81,0,0.4)",
+          transition: "all 0.3s cubic-bezier(.4,0,.2,1)",
+          "&:hover": {
+            bgcolor: "#bf360c",
+            boxShadow: "0 6px 20px rgba(230,81,0,0.6)",
+            transform: "translateY(-2px)",
+          },
+          "&:active": {
+            transform: "translateY(0)",
+          },
+        }}
+      >
+        Tudj meg többet Rólam és a Munkámról
+      </Button>
     </Sheet>
   );
 }
