@@ -8,25 +8,6 @@ export default defineConfig({
     // Enable code splitting
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          // Split node_modules into separate chunks
-          if (id.includes('node_modules')) {
-            // React and React DOM together (avoid splitting React ecosystem)
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
-            // React Router separate
-            if (id.includes('react-router')) {
-              return 'react-router';
-            }
-            // MUI and Emotion together (they're tightly coupled)
-            if (id.includes('@mui') || id.includes('@emotion')) {
-              return 'mui-vendor';
-            }
-            // Other vendors
-            return 'vendor';
-          }
-        },
         // Optimize asset loading
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
