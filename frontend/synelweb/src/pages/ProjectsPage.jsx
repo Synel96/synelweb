@@ -12,12 +12,19 @@ function ProjectsPage() {
   const { mode } = useColorScheme();
 
   useEffect(() => {
-    getProjects()
-      .then((data) => {
+    // Start fetching immediately on mount
+    const fetchProjects = async () => {
+      try {
+        const data = await getProjects();
         setProjects(data);
+      } catch (error) {
+        console.error('Failed to load projects:', error);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    };
+    
+    fetchProjects();
   }, []);
 
   return (

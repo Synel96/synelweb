@@ -42,7 +42,25 @@ export default defineConfig({
   },
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', '@mui/joy'],
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom', 
+      '@mui/joy',
+      '@mui/icons-material',
+      '@emotion/react',
+      '@emotion/styled'
+    ],
     exclude: ['@mui/material'], // Exclude if not used
+  },
+  server: {
+    // Warm up frequently used files
+    warmup: {
+      clientFiles: [
+        './src/pages/ProjectsPage.jsx',
+        './src/components/projects/ProjectsCard.jsx',
+        './src/services/projectsService.js',
+      ],
+    },
   },
 });
