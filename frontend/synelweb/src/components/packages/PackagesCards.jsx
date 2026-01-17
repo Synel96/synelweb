@@ -40,12 +40,11 @@ function PackagesCards({
         flexDirection: "column",
         gap: 2,
         position: "relative",
-        transition:
-          "box-shadow 0.5s cubic-bezier(.4,0,.2,1), filter 0.5s cubic-bezier(.4,0,.2,1), border-color 0.3s",
-        "&:hover": {
-          boxShadow: "xl",
-          filter: "drop-shadow(0 0 24px rgba(255,140,0,0.4))",
-          borderColor: "rgba(255,140,0,0.5)",
+        cursor: "pointer",
+        transition: "box-shadow 0.3s, border-color 0.3s",
+        "&:active": {
+          boxShadow: "0 0 24px rgba(255,140,0,0.6)",
+          borderColor: "rgba(255,140,0,0.8)",
         },
         ...sx,
       }}
