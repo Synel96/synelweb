@@ -11,25 +11,17 @@ export default defineConfig({
         manualChunks(id) {
           // Split node_modules into separate chunks
           if (id.includes('node_modules')) {
-            // React ecosystem
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+            // React and React DOM together (avoid splitting React ecosystem)
+            if (id.includes('react') || id.includes('react-dom')) {
               return 'react-vendor';
             }
-            // MUI Joy and core components
-            if (id.includes('@mui/joy')) {
-              return 'mui-joy';
+            // React Router separate
+            if (id.includes('react-router')) {
+              return 'react-router';
             }
-            // MUI Material (if used)
-            if (id.includes('@mui/material')) {
-              return 'mui-material';
-            }
-            // MUI icons
-            if (id.includes('@mui/icons-material')) {
-              return 'mui-icons';
-            }
-            // Emotion (styling)
-            if (id.includes('@emotion')) {
-              return 'emotion';
+            // MUI and Emotion together (they're tightly coupled)
+            if (id.includes('@mui') || id.includes('@emotion')) {
+              return 'mui-vendor';
             }
             // Other vendors
             return 'vendor';
