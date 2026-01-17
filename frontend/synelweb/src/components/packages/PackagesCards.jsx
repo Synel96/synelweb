@@ -39,9 +39,7 @@ function PackagesCards({
           ? (is_discounted
             ? "0 0 40px 16px rgba(255,152,0,0.5), 0 0 32px 8px rgba(255,140,0,0.3)"
             : "xl")
-          : (is_discounted
-            ? "0 0 32px 12px rgba(255,152,0,0.3)"
-            : "lg"),
+          : "lg",
         p: { xs: 2, sm: 3 },
         display: "flex",
         flexDirection: "column",
