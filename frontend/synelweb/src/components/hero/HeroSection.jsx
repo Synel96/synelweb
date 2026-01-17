@@ -68,7 +68,6 @@ function HeroSection() {
           transform: "translateX(-50%)",
           width: "min(90%, 1100px)",
           zIndex: 1,
-          pointerEvents: "none",
         }}
       />
 

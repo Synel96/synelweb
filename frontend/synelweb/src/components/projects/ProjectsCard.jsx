@@ -11,6 +11,7 @@ function ProjectsCard({
   previewImagePublicId,
   images = [],
   link,
+  priority = false, // Add priority prop for LCP optimization
 }) {
   const [expanded, setExpanded] = useState(false);
   const shortDesc = (description || "").trim();
@@ -64,6 +65,7 @@ function ProjectsCard({
         previewImage={previewImage}
         previewImagePublicId={previewImagePublicId}
         images={images}
+        priority={priority}
       />
       {/* Leírás - összecsukható */}
       <Box>

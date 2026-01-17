@@ -10,6 +10,7 @@ function ProjectsCarousel({
   previewImage = "",
   previewImagePublicId = "",
   images = [],
+  priority = false, // Add priority for LCP optimization
 }) {
   // Build slides array with cloudinary_public_id support
   const slides = [
@@ -122,6 +123,7 @@ function ProjectsCarousel({
             cloudinaryId={slides[current].cloudinaryId}
             alt={`Projekt kép ${current}`}
             aspectRatio="16/9"
+            priority={priority} // Pass priority directly - only first carousel gets it
             sx={{ borderRadius: 0 }}
           />
         ) : (

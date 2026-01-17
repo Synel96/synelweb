@@ -6,12 +6,14 @@ import { Box } from "@mui/joy";
  * @param {string} cloudinaryId - Cloudinary public_id (e.g., "projects/image_abc123")
  * @param {string} alt - Alt text for accessibility
  * @param {string} aspectRatio - CSS aspect ratio (default: "16/9")
+ * @param {boolean} priority - If true, loads eagerly with high priority for LCP optimization
  * @param {object} sx - Additional MUI sx props
  */
 function OptimizedCloudinaryImage({ 
   cloudinaryId, 
   alt = "", 
   aspectRatio = "16/9",
+  priority = false,
   sx = {} 
 }) {
   const [loaded, setLoaded] = useState(false);
@@ -85,12 +87,13 @@ function OptimizedCloudinaryImage({
       
       {/* Optimized image */}
       <img
-        src={generateUrl(1024)} // Default size for src
+        src={generateUrl(768)} // Default size for src
         srcSet={srcSet}
         sizes={sizes}
         alt={alt}
-        loading="lazy"
-        decoding="async"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        decoding={priority ? "sync" : "async"}
         onLoad={() => setLoaded(true)}
         style={{
           width: "100%",

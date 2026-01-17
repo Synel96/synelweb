@@ -126,6 +126,7 @@ function ProjectsPage() {
                 previewImagePublicId={project.preview_image_public_id || ""}
                 images={project.extra_images || []}
                 link={project.link || ""}
+                priority={idx === 0} // First project image gets priority for LCP
               />
             </Box>
           ))

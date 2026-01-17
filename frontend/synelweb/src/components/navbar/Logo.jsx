@@ -5,6 +5,7 @@ function Logo({ src, isMobile }) {
       alt="Synel Web Solutions logó"
       width="120"
       height="40"
+      fetchpriority="high"
       style={{
         width: 120,
         height: "auto",
