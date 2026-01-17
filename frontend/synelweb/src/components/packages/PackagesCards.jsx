@@ -16,6 +16,9 @@ function PackagesCards({
   const descRef = useRef(null);
   const [descHeight, setDescHeight] = useState("auto");
 
+  // Debug log
+  console.log(`${name}: isActive=${isActive}, is_discounted=${is_discounted}, animation should run: ${isActive && is_discounted}`);
+
   useLayoutEffect(() => {
     if (descRef.current && expanded) {
       setDescHeight(descRef.current.scrollHeight + "px");
@@ -48,7 +51,7 @@ function PackagesCards({
         transition: "box-shadow 0.3s, filter 0.3s, transform 0.3s, border-color 0.3s",
         animation: (isActive && is_discounted)
           ? "discountPulse 1.8s infinite cubic-bezier(.4,0,.2,1)"
-          : undefined,
+          : "none",
         filter: isActive ? "brightness(0.98)" : "brightness(1)",
         transform: isActive
           ? (is_discounted
