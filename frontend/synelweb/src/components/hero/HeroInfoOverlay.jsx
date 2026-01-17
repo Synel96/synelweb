@@ -44,9 +44,9 @@ function HeroInfoOverlay(props) {
         level="body-lg"
         sx={{
           fontWeight: 500,
-          fontSize: { xs: "1rem", sm: "1.15rem" },
+          fontSize: { xs: "0.9rem", sm: "1.15rem" },
           color: mode === "dark" ? "#fff" : "#121212",
-          mb: 3,
+          mb: { xs: 2, sm: 3 },
         }}
       >
         Böngésszen szolgáltatásaink között, vagy ismerd meg jobban a munkámat!

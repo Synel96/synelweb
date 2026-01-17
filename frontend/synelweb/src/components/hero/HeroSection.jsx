@@ -17,14 +17,15 @@ function HeroSection() {
       sx={{
         position: "relative",
         width: "100vw",
-        minHeight: { xs: "60vw", sm: "60vw", md: "60vw" },
-        maxHeight: "100vh",
+        minHeight: { xs: "100vh", sm: "60vw", md: "60vw" },
+        maxHeight: { xs: "none", sm: "100vh" },
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
         p: 0,
         m: 0,
+        pb: { xs: 8, sm: 0 },
         transition: "background 0.3s",
       }}
       variant="plain"
@@ -82,9 +83,9 @@ function HeroSection() {
               border-radius: 0 0 16px 16px;
             }
             .hero-info-overlay {
-              top: clamp(240px, 42vh, 520px) !important;
+              top: clamp(200px, 35vh, 380px) !important;
               bottom: auto !important;
-              width: 80% !important;
+              width: 85% !important;
               left: 50% !important;
               transform: translateX(-50%) !important;
               border-radius: 0 0 12px 12px;
