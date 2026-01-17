@@ -9,20 +9,20 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Optimize asset loading
-        assetFileNames: 'assets/[name]-[hash][extname]',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: "assets/[name]-[hash][extname]",
+        chunkFileNames: "assets/[name]-[hash].js",
+        entryFileNames: "assets/[name]-[hash].js",
       },
     },
     // Optimize chunk size
     chunkSizeWarningLimit: 500,
     // Enable minification
-    minify: 'terser',
+    minify: "terser",
     terserOptions: {
       compress: {
         drop_console: true, // Remove console.logs in production
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'], // Remove specific console methods
+        pure_funcs: ["console.log", "console.info", "console.debug"], // Remove specific console methods
         passes: 2, // Run compression twice for better results
       },
       mangle: {
@@ -34,7 +34,7 @@ export default defineConfig({
       polyfill: true,
     },
     // Target modern browsers for smaller bundles
-    target: 'es2015',
+    target: "es2015",
     // Enable CSS code splitting
     cssCodeSplit: true,
     // Compress output
@@ -43,23 +43,23 @@ export default defineConfig({
   // Optimize dependencies
   optimizeDeps: {
     include: [
-      'react', 
-      'react-dom', 
-      'react-router-dom', 
-      '@mui/joy',
-      '@mui/icons-material',
-      '@emotion/react',
-      '@emotion/styled'
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "@mui/joy",
+      "@mui/icons-material",
+      "@emotion/react",
+      "@emotion/styled",
     ],
-    exclude: ['@mui/material'], // Exclude if not used
+    exclude: ["@mui/material"], // Exclude if not used
   },
   server: {
     // Warm up frequently used files
     warmup: {
       clientFiles: [
-        './src/pages/ProjectsPage.jsx',
-        './src/components/projects/ProjectsCard.jsx',
-        './src/services/projectsService.js',
+        "./src/pages/ProjectsPage.jsx",
+        "./src/components/projects/ProjectsCard.jsx",
+        "./src/services/projectsService.js",
       ],
     },
   },

@@ -55,63 +55,66 @@ function PackagesPage() {
         aria-label="Csomagok oldal szekció"
         tabIndex={0}
       >
-      {/* Cím */}
-      <Box
-        sx={{
-          position: "relative",
-          zIndex: 2,
-          mt: { xs: 4, sm: 6 },
-          mb: { xs: 4, sm: 6, md: 8 },
-          p: { xs: 2, sm: 3 },
-          borderRadius: 4,
-          bgcolor: mode === "dark" ? "rgba(18,18,18,0.85)" : "rgba(255,255,255,0.85)",
-          backdropFilter: "blur(10px)",
-          border: "2px solid",
-          borderColor: "rgba(255,140,0,0.3)",
-          boxShadow: "lg",
-          width: { xs: "95%", sm: "80%", md: "auto" },
-          maxWidth: "720px",
-          mx: "auto",
-          textAlign: "center",
-          opacity: 0,
-          animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
-        }}
-      >
-        <Typography
-          level="h1"
-          tabIndex={0}
+        {/* Cím */}
+        <Box
           sx={{
-            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-            fontWeight: 700,
-            color: mode === "dark" ? "#fff" : "text.primary",
-            letterSpacing: "0.02em",
+            position: "relative",
+            zIndex: 2,
+            mt: { xs: 4, sm: 6 },
+            mb: { xs: 4, sm: 6, md: 8 },
+            p: { xs: 2, sm: 3 },
+            borderRadius: 4,
+            bgcolor:
+              mode === "dark"
+                ? "rgba(18,18,18,0.85)"
+                : "rgba(255,255,255,0.85)",
+            backdropFilter: "blur(10px)",
+            border: "2px solid",
+            borderColor: "rgba(255,140,0,0.3)",
+            boxShadow: "lg",
+            width: { xs: "95%", sm: "80%", md: "auto" },
+            maxWidth: "720px",
+            mx: "auto",
             textAlign: "center",
+            opacity: 0,
+            animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.1s forwards",
           }}
-          aria-label="Szolgáltatások"
         >
-          Szolgáltatások
-        </Typography>
-      </Box>
+          <Typography
+            level="h1"
+            tabIndex={0}
+            sx={{
+              fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+              fontWeight: 700,
+              color: mode === "dark" ? "#fff" : "text.primary",
+              letterSpacing: "0.02em",
+              textAlign: "center",
+            }}
+            aria-label="Szolgáltatások"
+          >
+            Szolgáltatások
+          </Typography>
+        </Box>
 
-      {/* Kártyák konténer - Scrollable */}
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: { xs: 8, sm: 7, md: 10 },
-          justifyContent: "center",
-          alignItems: "flex-start",
-          px: { xs: 2, sm: 4, md: 6 },
-          py: 4,
-          position: "relative",
-          zIndex: 2,
-          maxWidth: 1200,
-          mx: "auto",
-        }}
-        role="region"
-        aria-label="Szolgáltatáscsomagok listája"
-      >
+        {/* Kártyák konténer - Scrollable */}
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: { xs: 8, sm: 7, md: 10 },
+            justifyContent: "center",
+            alignItems: "flex-start",
+            px: { xs: 2, sm: 4, md: 6 },
+            py: 4,
+            position: "relative",
+            zIndex: 2,
+            maxWidth: 1200,
+            mx: "auto",
+          }}
+          role="region"
+          aria-label="Szolgáltatáscsomagok listája"
+        >
           {loading ? (
             <PackagesSkeleton count={3} />
           ) : (
@@ -134,11 +137,6 @@ function PackagesPage() {
                   borderRadius: 2,
                   backgroundColor:
                     mode === "dark" ? "rgba(24,24,24,0.92)" : "#fff",
-                  "&:hover": {
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-                    filter: "brightness(0.99)",
-                    transform: "translateY(-1px)",
-                  },
                 }}
                 role="article"
                 aria-label={`Csomag: ${pkg.name}`}
@@ -222,9 +220,9 @@ function PackagesPage() {
           />
         </Box>
 
-      {/* Animációk */}
-      <style>
-        {`
+        {/* Animációk */}
+        <style>
+          {`
           @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -234,8 +232,8 @@ function PackagesPage() {
             to { opacity: 1; }
           }
         `}
-      </style>
-    </Sheet>
+        </style>
+      </Sheet>
     </NeonBackground>
   );
 }

@@ -12,6 +12,7 @@ function PackagesCards({
   sx = {},
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const descRef = useRef(null);
   const [descHeight, setDescHeight] = useState("auto");
 
@@ -25,14 +26,22 @@ function PackagesCards({
 
   return (
     <Box
+      onClick={() => setIsActive(!isActive)}
+      onTouchStart={() => setIsActive(!isActive)}
       sx={{
         bgcolor: "background.surface",
         borderRadius: 4,
         border: "2px solid",
-        borderColor: is_discounted ? "rgba(255,152,0,0.6)" : "divider",
-        boxShadow: is_discounted
-          ? "0 0 32px 12px rgba(255,152,0,0.3)"
-          : "lg",
+        borderColor: isActive 
+          ? (is_discounted ? "rgba(255,152,0,0.8)" : "rgba(255,140,0,0.5)")
+          : (is_discounted ? "rgba(255,152,0,0.6)" : "divider"),
+        boxShadow: isActive
+          ? (is_discounted
+            ? "0 0 40px 16px rgba(255,152,0,0.5), 0 0 32px 8px rgba(255,140,0,0.3)"
+            : "xl")
+          : (is_discounted
+            ? "0 0 32px 12px rgba(255,152,0,0.3)"
+            : "lg"),
         p: { xs: 2, sm: 3 },
         display: "flex",
         flexDirection: "column",
@@ -42,20 +51,18 @@ function PackagesCards({
         animation: is_discounted
           ? "discountPulse 1.8s infinite cubic-bezier(.4,0,.2,1)"
           : undefined,
-        "&:hover": {
-          boxShadow: is_discounted
-            ? "0 0 40px 16px rgba(255,152,0,0.5), 0 0 32px 8px rgba(255,140,0,0.3)"
-            : "xl",
-          filter: "brightness(0.98)",
-          transform: is_discounted
+        filter: isActive ? "brightness(0.98)" : "brightness(1)",
+        transform: isActive
+          ? (is_discounted
             ? "translateY(-5px) scale(1.02)"
-            : "translateY(-8px) scale(1.03)",
-          borderColor: is_discounted ? "rgba(255,152,0,0.8)" : "rgba(255,140,0,0.5)",
-        },
+            : "translateY(-8px) scale(1.03)")
+          : "translateY(0) scale(1)",
+        cursor: "pointer",
         ...sx,
       }}
       role="article"
       aria-label={`Csomag: ${name}`}
+      tabIndex={0}
     >
       {/* Előnézeti kép */}
       {preview_image_url && (
