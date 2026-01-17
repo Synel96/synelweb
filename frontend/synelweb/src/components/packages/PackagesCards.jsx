@@ -26,20 +26,30 @@ function PackagesCards({
   return (
     <Box
       sx={{
+        width: "100%",
+        maxWidth: { xs: "100%", sm: 520 },
         bgcolor: "background.surface",
         borderRadius: 4,
+        boxShadow: "lg",
         border: "2px solid",
         borderColor: "divider",
-        boxShadow: "lg",
         p: { xs: 2, sm: 3 },
+        mb: 4,
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        position: "relative",
+        transition:
+          "box-shadow 0.5s cubic-bezier(.4,0,.2,1), filter 0.5s cubic-bezier(.4,0,.2,1), border-color 0.3s",
+        "&:hover": {
+          boxShadow: "xl",
+          filter: "drop-shadow(0 0 24px rgba(255,140,0,0.4))",
+          borderColor: "rgba(255,140,0,0.5)",
+        },
         ...sx,
       }}
-      role="article"
+      role="region"
       aria-label={`Csomag: ${name}`}
+      tabIndex={0}
     >
       {/* Előnézeti kép */}
       {preview_image_url && (
@@ -161,10 +171,10 @@ function PackagesCards({
                 mr: 1,
                 display: "inline",
               }}
-              aria-label={`Eredeti ár: ${price} Ft`}
+              aria-label={`Eredeti ár: ${Math.round(price)} Ft`}
               tabIndex={0}
             >
-              {price} Ft
+              {Math.round(price)} Ft
             </Typography>
             <Typography
               sx={{
@@ -173,10 +183,10 @@ function PackagesCards({
                 fontSize: "1.25rem",
                 display: "inline",
               }}
-              aria-label={`Akciós ár: ${discounted_price} Ft`}
+              aria-label={`Akciós ár: ${Math.round(discounted_price)} Ft`}
               tabIndex={0}
             >
-              {discounted_price} Ft
+              {Math.round(discounted_price)} Ft
             </Typography>
           </>
         ) : (
@@ -187,10 +197,10 @@ function PackagesCards({
                 fontWeight: 700,
                 fontSize: "1.15rem",
               }}
-              aria-label={`Ár: ${price} Ft`}
+              aria-label={`Ár: ${Math.round(price)} Ft`}
               tabIndex={0}
             >
-              {price} Ft
+              {Math.round(price)} Ft
             </Typography>
           )
         )}
