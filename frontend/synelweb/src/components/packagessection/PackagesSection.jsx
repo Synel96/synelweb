@@ -92,10 +92,10 @@ function PackagesSection() {
             py: 1.5,
             borderRadius: "8px",
             boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-            backgroundColor: "#ff9800",
+            backgroundColor: "#e65100", // Darker orange for better contrast (7.78:1)
             color: "#fff",
             "&:hover": {
-              backgroundColor: "#ffb74d",
+              backgroundColor: "#f57c00", // Lighter on hover but still accessible (5.88:1)
               color: "#fff",
             },
             transition: "background 0.2s",

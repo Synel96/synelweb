@@ -99,7 +99,7 @@ function PackagesPage() {
           width: "100%",
           display: "flex",
           flexWrap: "wrap",
-          gap: { xs: 4, sm: 5, md: 8 },
+          gap: { xs: 6, sm: 5, md: 8 },
           justifyContent: "center",
           alignItems: "flex-start",
           px: { xs: 2, sm: 4, md: 6 },
