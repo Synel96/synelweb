@@ -86,7 +86,7 @@ function AboutPage() {
               border: "2px solid",
               borderColor: "divider",
               boxShadow: "lg",
-              p: { xs: 3, sm: 4 },
+              p: { xs: 4, sm: 5, md: 6 }, // Increased padding
               opacity: 0,
               animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.3s forwards",
             }}
@@ -136,6 +136,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.5s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>
@@ -170,6 +178,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.6s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>
@@ -210,6 +226,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.7s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>
@@ -240,6 +264,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.8s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>
@@ -273,6 +305,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.9s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>
@@ -302,6 +342,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 1.0s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>
@@ -327,6 +375,14 @@ function AboutPage() {
                 boxShadow: "lg",
                 opacity: 0,
                 animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 1.1s forwards",
+                "& .MuiAccordionSummary-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 2.5 },
+                },
+                "& .MuiAccordionDetails-root": {
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 2, sm: 3 },
+                },
               }}
             >
               <AccordionSummary>

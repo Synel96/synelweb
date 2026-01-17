@@ -22,6 +22,7 @@ function Footer() {
           alignItems: "center",
           textAlign: "center",
           borderTop: "1px solid #eee",
+          flexShrink: 0, // Prevent shrinking
         }}
         role="contentinfo"
         aria-label="Oldal lábléc"
@@ -31,12 +32,14 @@ function Footer() {
           sx={{
             fontSize: { xs: "0.875rem", sm: "0.875rem" },
             lineHeight: 1.5,
+            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', // Fallback fonts
+            fontWeight: 400,
           }}
         >
           © {new Date().getFullYear()} Synel Web Solutions | Minden jog
           fenntartva.
         </Typography>
-        <Box sx={{ mt: 1 }}>
+        <Box sx={{ mt: 1, height: "28px", display: "flex", alignItems: "center" }}> {/* Fixed height for link container */}
           <Link
             component="button"
             onClick={() => setOpenPolicy(true)}
@@ -44,6 +47,7 @@ function Footer() {
               fontSize: { xs: "0.875rem", sm: "1rem" },
               fontWeight: 500,
               lineHeight: 1.5,
+              fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', // Fallback fonts
             }}
             aria-label="Adatvédelmi tájékoztató megnyitása"
           >

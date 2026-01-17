@@ -8,10 +8,32 @@ export default defineConfig({
     // Enable code splitting
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Split vendor chunks
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'mui-vendor': ['@mui/joy', '@mui/material', '@emotion/react', '@emotion/styled'],
+        manualChunks(id) {
+          // Split node_modules into separate chunks
+          if (id.includes('node_modules')) {
+            // React ecosystem
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            // MUI Joy and core components
+            if (id.includes('@mui/joy')) {
+              return 'mui-joy';
+            }
+            // MUI Material (if used)
+            if (id.includes('@mui/material')) {
+              return 'mui-material';
+            }
+            // MUI icons
+            if (id.includes('@mui/icons-material')) {
+              return 'mui-icons';
+            }
+            // Emotion (styling)
+            if (id.includes('@emotion')) {
+              return 'emotion';
+            }
+            // Other vendors
+            return 'vendor';
+          }
         },
         // Optimize asset loading
         assetFileNames: 'assets/[name]-[hash][extname]',
@@ -27,6 +49,11 @@ export default defineConfig({
       compress: {
         drop_console: true, // Remove console.logs in production
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'], // Remove specific console methods
+        passes: 2, // Run compression twice for better results
+      },
+      mangle: {
+        safari10: true, // Fix Safari 10 bugs
       },
     },
     // Enable module preload for faster loading
@@ -37,9 +64,12 @@ export default defineConfig({
     target: 'es2015',
     // Enable CSS code splitting
     cssCodeSplit: true,
+    // Compress output
+    reportCompressedSize: true,
   },
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    include: ['react', 'react-dom', 'react-router-dom', '@mui/joy'],
+    exclude: ['@mui/material'], // Exclude if not used
   },
 });
