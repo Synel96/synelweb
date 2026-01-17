@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
   <head>
     <meta charset="UTF-8" />
@@ -25,21 +25,21 @@
     <meta property="og:image" content="/logo.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="hu_HU" />
-    
+
     <!-- Preconnect to Google Fonts for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
+
     <!-- Preconnect to backend API to reduce latency -->
     <link rel="preconnect" href="https://synelweb.fly.dev" />
     <link rel="dns-prefetch" href="https://synelweb.fly.dev" />
-    
+
     <!-- Non-blocking Google Fonts with font-display: optional for better CLS -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=optional"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
@@ -47,13 +47,19 @@
         rel="stylesheet"
       />
     </noscript>
-    
+
     <!-- Preload critical assets for LCP optimization -->
-    <link rel="preload" as="image" href="/darklogo.svg" type="image/svg+xml" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/darklogo.svg"
+      type="image/svg+xml"
+      fetchpriority="high"
+    />
     <!-- Preload hero image from Cloudinary with responsive srcset -->
-    <link 
-      rel="preload" 
-      as="image" 
+    <link
+      rel="preload"
+      as="image"
       href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus"
       imagesrcset="
         https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/hero_kfkbus 640w,
@@ -67,9 +73,9 @@
       fetchpriority="high"
     />
     <!-- Preload contact section image for mobile LCP -->
-    <link 
-      rel="preload" 
-      as="image" 
+    <link
+      rel="preload"
+      as="image"
       href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0"
       imagesrcset="
         https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/contact_njkcd0 640w,
@@ -82,13 +88,19 @@
       imagesizes="100vw"
       fetchpriority="high"
     />
-    
+
     <!-- Inline critical CSS to prevent render blocking -->
     <style>
       /* Critical CSS - prevents FOUC and CLS */
       body {
         margin: 0;
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }

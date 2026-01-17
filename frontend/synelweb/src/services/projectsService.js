@@ -13,7 +13,7 @@ const cache = {
 export async function getProjects() {
   // Check if cache is valid
   const now = Date.now();
-  if (cache.data && (now - cache.timestamp) < cache.ttl) {
+  if (cache.data && now - cache.timestamp < cache.ttl) {
     return cache.data;
   }
 
@@ -22,10 +22,10 @@ export async function getProjects() {
     // Add timeout to prevent hanging
     timeout: 10000,
   });
-  
+
   // Update cache
   cache.data = response.data;
   cache.timestamp = now;
-  
+
   return response.data;
 }

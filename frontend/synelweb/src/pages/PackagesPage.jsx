@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import PackagesCards from "../components/packages/PackagesCards";
 import PackagesSkeleton from "../components/packages/PackagesSkeleton";
 import { fetchPackages } from "../services/packagesService";
-import PercentIcon from "@mui/icons-material/Percent";
 import { useColorScheme } from "@mui/joy/styles";
 import Warning from "../components/packages/Warning";
 import Sheet from "@mui/joy/Sheet";
@@ -96,7 +95,7 @@ function PackagesPage() {
           </Typography>
         </Box>
 
-        {/* Kártyák konténer - Scrollable */}
+        {/* Kártyák konténer */}
         <Box
           sx={{
             width: "100%",
@@ -118,64 +117,17 @@ function PackagesPage() {
           {loading ? (
             <PackagesSkeleton count={3} />
           ) : (
-            packages.map((pkg, idx) => (
-              <Box
+            packages.map((pkg) => (
+              <PackagesCards
                 key={pkg.id}
-                sx={{
-                  width: { xs: "100%", sm: "calc(50% - 16px)", md: "360px" },
-                  display: "flex",
-                  flexDirection: "column",
-                  alignSelf: "flex-start", // <-- fontos!
-                  gap: 2,
-                  position: "relative",
-                  transition: "box-shadow 0.3s, filter 0.3s, transform 0.2s",
-                  opacity: 0,
-                  animation: `fadeInUp 0.7s cubic-bezier(.4,0,.2,1) ${
-                    0.25 + idx * 0.12
-                  }s forwards`,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-                  borderRadius: 2,
-                  backgroundColor:
-                    mode === "dark" ? "rgba(24,24,24,0.92)" : "#fff",
-                }}
-                role="article"
-                aria-label={`Csomag: ${pkg.name}`}
-              >
-                {/* % ikon */}
-                {pkg.is_discounted && (
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 8,
-                      right: 12,
-                      zIndex: 3,
-                      background: "#ff9800",
-                      color: "#fff",
-                      borderRadius: "50%",
-                      width: 36,
-                      height: 36,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
-                    }}
-                    aria-label="Akciós csomag"
-                  >
-                    <PercentIcon fontSize="small" sx={{ color: "#ff1744" }} />
-                  </Box>
-                )}
-
-                {/* A kártya tartalma */}
-                <PackagesCards
-                  name={pkg.name}
-                  description={pkg.description}
-                  tags={pkg.tags}
-                  is_discounted={pkg.is_discounted}
-                  preview_image_url={pkg.preview_image_url}
-                  price={pkg.price}
-                  discounted_price={pkg.discounted_price}
-                />
-              </Box>
+                name={pkg.name}
+                description={pkg.description}
+                tags={pkg.tags}
+                is_discounted={pkg.is_discounted}
+                preview_image_url={pkg.preview_image_url}
+                price={pkg.price}
+                discounted_price={pkg.discounted_price}
+              />
             ))
           )}
         </Box>

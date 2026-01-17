@@ -51,7 +51,7 @@ function HeroInfoOverlay(props) {
       >
         Böngésszen szolgáltatásaink között, vagy ismerd meg jobban a munkámat!
       </Typography>
-      
+
       <Button
         component={Link}
         to="/rolam"

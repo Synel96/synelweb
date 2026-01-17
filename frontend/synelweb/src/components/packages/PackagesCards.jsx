@@ -1,5 +1,6 @@
 import { Box, Typography, Chip, Button } from "@mui/joy";
 import { useState, useRef, useLayoutEffect } from "react";
+import PercentIcon from "@mui/icons-material/Percent";
 
 function PackagesCards({
   name,
@@ -38,6 +39,7 @@ function PackagesCards({
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        position: "relative",
         transition:
           "box-shadow 0.5s cubic-bezier(.4,0,.2,1), filter 0.5s cubic-bezier(.4,0,.2,1), border-color 0.3s",
         "&:hover": {
@@ -51,6 +53,30 @@ function PackagesCards({
       aria-label={`Csomag: ${name}`}
       tabIndex={0}
     >
+      {/* % ikon */}
+      {is_discounted && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 12,
+            zIndex: 3,
+            background: "#ff9800",
+            color: "#fff",
+            borderRadius: "50%",
+            width: 36,
+            height: 36,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
+          }}
+          aria-label="Akciós csomag"
+        >
+          <PercentIcon fontSize="small" sx={{ color: "#ff1744" }} />
+        </Box>
+      )}
+
       {/* Előnézeti kép */}
       {preview_image_url && (
         <Box
@@ -210,22 +236,3 @@ function PackagesCards({
 }
 
 export default PackagesCards;
-
-<Box
-  sx={{
-    width: "100%",
-    maxWidth: 1200,
-    mx: "auto",
-    zIndex: 2,
-    display: "flex",
-    flexWrap: "wrap",
-    gap: 3,
-    justifyContent: { xs: "center", sm: "flex-start" },
-    alignItems: "flex-start", // vagy töröld ezt a sort
-    alignContent: "flex-start",
-  }}
-  role="region"
-  aria-label="Szolgáltatáscsomagok listája"
->
-  {/* ...kártyák... */}
-</Box>;
