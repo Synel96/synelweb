@@ -1,4 +1,11 @@
-import { Box, Typography, Sheet, Accordion, AccordionDetails, AccordionSummary } from "@mui/joy";
+import {
+  Box,
+  Typography,
+  Sheet,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "@mui/joy";
 import { useColorScheme } from "@mui/joy/styles";
 import NeonBackground from "../components/common/NeonBackground";
 
@@ -111,8 +118,11 @@ function AboutPage() {
                 mb: 3,
               }}
             >
-              A SynelWeb weboldal-készítési szolgáltatásait Sopronban és a környező településeken működő vállalkozások számára nyújtja.
-              Olyan kis- és középvállalkozásokkal, szolgáltatókkal és induló cégekkel dolgozom együtt, akiknek fontos, hogy a weboldaluk nemcsak jól nézzen ki, hanem üzleti eredményeket is hozzon.
+              A SynelWeb weboldal-készítési szolgáltatásait Sopronban és a
+              környező településeken működő vállalkozások számára nyújtja. Olyan
+              kis- és középvállalkozásokkal, szolgáltatókkal és induló cégekkel
+              dolgozom együtt, akiknek fontos, hogy a weboldaluk nemcsak jól
+              nézzen ki, hanem üzleti eredményeket is hozzon.
             </Typography>
 
             <Typography
@@ -123,8 +133,10 @@ function AboutPage() {
                 mb: 3,
               }}
             >
-              A készülő weboldalak célja, hogy segítsék a helyi ügyfelek elérését, támogassák az online jelenlétet, és jól működjenek olyan keresések esetén, mint
-              „weboldal készítés Sopron", „honlapkészítés Sopron" vagy „soproni vállalkozás weboldala".
+              A készülő weboldalak célja, hogy segítsék a helyi ügyfelek
+              elérését, támogassák az online jelenlétet, és jól működjenek olyan
+              keresések esetén, mint „weboldal készítés Sopron", „honlapkészítés
+              Sopron" vagy „soproni vállalkozás weboldala".
             </Typography>
 
             <Typography
@@ -134,8 +146,11 @@ function AboutPage() {
                 lineHeight: 1.8,
               }}
             >
-              A fejlesztés során kiemelten figyelek arra, hogy a weboldal mobilbarát, gyors és könnyen használható legyen, hiszen a helyi érdeklődők többsége telefonról keres szolgáltatót.
-              Így a weboldalad nemcsak technikailag lesz erős, hanem valódi támogatást nyújt a helyi ügyfélszerzésben is.
+              A fejlesztés során kiemelten figyelek arra, hogy a weboldal
+              mobilbarát, gyors és könnyen használható legyen, hiszen a helyi
+              érdeklődők többsége telefonról keres szolgáltatót. Így a
+              weboldalad nemcsak technikailag lesz erős, hanem valódi támogatást
+              nyújt a helyi ügyfélszerzésben is.
             </Typography>
           </Box>
 
@@ -157,7 +172,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.5s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.5s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -174,18 +190,28 @@ function AboutPage() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
                   Egy jó weboldal nem csak jelen van, hanem dolgozik helyetted.
                   Nem egy online névjegykártya, hanem a branded aktív része:
                 </Typography>
-                <Box component="ul" sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}>
+                <Box
+                  component="ul"
+                  sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}
+                >
                   <li>képes eladni,</li>
                   <li>növeli a forgalmad,</li>
                   <li>segíti az ügyfeleiddel való kapcsolattartást,</li>
                   <li>és leveszi a válladról a repetitív feladatokat.</li>
                 </Box>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mt: 2 }}>
-                  Egy jól megtervezett weboldal olyan, mint egy megbízható munkatárs, aki 0–24-ben érted dolgozik.
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mt: 2 }}
+                >
+                  Egy jól megtervezett weboldal olyan, mint egy megbízható
+                  munkatárs, aki 0–24-ben érted dolgozik.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -199,7 +225,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.6s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.6s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -216,24 +243,52 @@ function AboutPage() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
                   Hiszem, hogy megfizethető áron is lehet:
                 </Typography>
-                <Box component="ul" sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
+                <Box
+                  component="ul"
+                  sx={{
+                    pl: 3,
+                    color: "text.secondary",
+                    lineHeight: 1.8,
+                    mb: 2,
+                  }}
+                >
                   <li>szép,</li>
                   <li>modern,</li>
                   <li>és villámgyors weboldalt készíteni.</li>
                 </Box>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
-                  Nem sablonokat árulok, hanem egyedi megoldásokat.
-                  Közösen megkeressük a számodra és a vállalkozásod számára legmegfelelőbb irányt, majd erre építjük fel a rendszert.
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
+                  Nem sablonokat árulok, hanem egyedi megoldásokat. Közösen
+                  megkeressük a számodra és a vállalkozásod számára
+                  legmegfelelőbb irányt, majd erre építjük fel a rendszert.
                 </Typography>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
-                  Az általam használt technológiáknak és teljesítmény-optimalizálásnak köszönhetően a végeredmény:
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
+                  Az általam használt technológiáknak és
+                  teljesítmény-optimalizálásnak köszönhetően a végeredmény:
                 </Typography>
-                <Box component="ul" sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}>
-                  <li>lényegesen gyorsabb, mint egy átlagos tartalomkezelővel (WordPress, Shopify) készült oldal,</li>
-                  <li>különösen mobilon, ami kulcsfontosságú, hiszen a látogatók 70–80%-a telefonról érkezik.</li>
+                <Box
+                  component="ul"
+                  sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}
+                >
+                  <li>
+                    lényegesen gyorsabb, mint egy átlagos tartalomkezelővel
+                    (WordPress, Shopify) készült oldal,
+                  </li>
+                  <li>
+                    különösen mobilon, ami kulcsfontosságú, hiszen a látogatók
+                    70–80%-a telefonról érkezik.
+                  </li>
                 </Box>
               </AccordionDetails>
             </Accordion>
@@ -247,7 +302,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.7s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.7s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -264,10 +320,17 @@ function AboutPage() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
-                  Az admin felületet egyedileg alakítjuk ki, így bármilyen dinamikus funkció megvalósítható, például:
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
+                  Az admin felületet egyedileg alakítjuk ki, így bármilyen
+                  dinamikus funkció megvalósítható, például:
                 </Typography>
-                <Box component="ul" sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}>
+                <Box
+                  component="ul"
+                  sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}
+                >
                   <li>időpontfoglalás,</li>
                   <li>online portfólió vagy galéria,</li>
                   <li>kapcsolatfelvételi űrlapok,</li>
@@ -285,7 +348,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.8s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.8s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -302,13 +366,22 @@ function AboutPage() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
                   A weboldal mellett az alábbiakat is biztosítani tudom:
                 </Typography>
-                <Box component="ul" sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}>
+                <Box
+                  component="ul"
+                  sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}
+                >
                   <li>teljes körű frontend és backend fejlesztés,</li>
                   <li>Neon / PostgreSQL adatbázis,</li>
-                  <li>felhőalapú képtárolás automatikus, performance-optimalizált konvertálással,</li>
+                  <li>
+                    felhőalapú képtárolás automatikus, performance-optimalizált
+                    konvertálással,
+                  </li>
                   <li>domain és tárhely ügyintézés,</li>
                   <li>céges e-mailek, SMTP és automatikus e-mail küldés,</li>
                   <li>Google Business beállítás,</li>
@@ -326,7 +399,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.9s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 0.9s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -343,12 +417,19 @@ function AboutPage() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Box component="ol" sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}>
+                <Box
+                  component="ol"
+                  sx={{ pl: 3, color: "text.secondary", lineHeight: 1.8 }}
+                >
                   <li>Közös egyeztetés és specifikáció készítése</li>
                   <li>Látványterv a megbeszéltek alapján</li>
                   <li>Projekt kickoff, fejlesztés megkezdése</li>
-                  <li>Teljesítmény- és SEO-optimalizálás mobilra és asztalra</li>
-                  <li>Domain, céges e-mailek és Google-beállítások összekötése</li>
+                  <li>
+                    Teljesítmény- és SEO-optimalizálás mobilra és asztalra
+                  </li>
+                  <li>
+                    Domain, céges e-mailek és Google-beállítások összekötése
+                  </li>
                   <li>Átadás</li>
                 </Box>
               </AccordionDetails>
@@ -363,7 +444,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 1.0s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 1.0s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -380,9 +462,14 @@ function AboutPage() {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8 }}>
-                  Agilis szemléletben dolgozom, ahol a folyamatos kommunikáció kulcsfontosságú.
-                  Ez biztosítja, hogy a végeredmény pontosan olyan weboldal legyen, amilyet elképzeltél – kompromisszumok nélkül.
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8 }}
+                >
+                  Agilis szemléletben dolgozom, ahol a folyamatos kommunikáció
+                  kulcsfontosságú. Ez biztosítja, hogy a végeredmény pontosan
+                  olyan weboldal legyen, amilyet elképzeltél – kompromisszumok
+                  nélkül.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -396,7 +483,8 @@ function AboutPage() {
                 borderColor: "divider",
                 boxShadow: "lg",
                 opacity: 0,
-                animation: "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 1.1s forwards",
+                animation:
+                  "fadeInUp 0.7s cubic-bezier(.4,0,.2,1) 1.1s forwards",
                 "& .MuiAccordionSummary-root": {
                   px: { xs: 3, sm: 4 },
                   py: { xs: 2, sm: 2.5 },
@@ -409,21 +497,33 @@ function AboutPage() {
             >
               <AccordionSummary>
                 <Typography level="title-lg" sx={{ fontWeight: 600 }}>
-                  Weboldal készítés Sopronban helyi vállalkozásoknak
+                  Weboldalak helyi vállalkozásoknak és közösségeknek
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
-                  A SynelWeb weboldal-készítési szolgáltatásait elsősorban Sopronban és a környező településeken működő vállalkozások számára nyújtom.
-                  Olyan kis- és középvállalkozásokkal, szolgáltatókkal és induló cégekkel dolgozom együtt, akiknek fontos, hogy a weboldaluk ne csak szép legyen, hanem üzleti eredményeket is hozzon.
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
+                  A SynelWeb olyan weboldalakat készít, amelyek érthetők, gyorsak és könnyen használhatók – akár egy kisvállalkozásról, egy településről vagy egy magánprojektről van szó.
                 </Typography>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}>
-                  A weboldalak kialakításánál cél, hogy támogassák a helyi ügyfelek elérését, és jól működjenek olyan keresések esetén, mint
-                  „weboldal készítés Sopron", „honlapkészítés Sopron" vagy „soproni vállalkozás weboldala".
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
+                  A közös munka során arra törekszem, hogy az elkészült weboldal valóban segítse a mindennapokat: megkönnyítse a kapcsolattartást, bemutassa a fontos információkat, és elérhetővé tegye azt, amit az emberek keresnek.
                 </Typography>
-                <Typography level="body-md" sx={{ color: "text.secondary", lineHeight: 1.8 }}>
-                  A fejlesztés során kiemelten figyelek arra, hogy az elkészült weboldal mobilbarát, gyors és könnyen használható legyen, hiszen a helyi érdeklődők többsége telefonról keres szolgáltatót.
-                  Így a weboldalad nemcsak technikailag lesz erős, hanem valódi segítséget nyújt a helyi ügyfélszerzésben is.
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8, mb: 2 }}
+                >
+                  Mivel a munkám jelentős része Sopronban és a környező településeken zajlik, pontosan ismerem a helyi igényeket, és ehhez igazítom a weboldalak felépítését és működését. Az oldalak mobilon is jól használhatók, átláthatók, és hosszú távon is megbízható alapot adnak.
+                </Typography>
+                <Typography
+                  level="body-md"
+                  sx={{ color: "text.secondary", lineHeight: 1.8 }}
+                >
+                  A fejlesztés során személyesen és online is elérhető vagyok, így a folyamat végén egy olyan weboldalt kapsz, amely nem túl bonyolult, nem túlmagyarázott, hanem egyszerűen teszi a dolgát.
                 </Typography>
               </AccordionDetails>
             </Accordion>
