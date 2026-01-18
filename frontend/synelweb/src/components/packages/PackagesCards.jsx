@@ -41,10 +41,11 @@ function PackagesCards({
         gap: 2,
         position: "relative",
         cursor: "pointer",
-        transition: "box-shadow 0.3s, border-color 0.3s",
-        "&:active": {
+        transition: "box-shadow 0.3s, border-color 0.3s, transform 0.3s",
+        "&:hover": {
           boxShadow: "0 0 24px rgba(255,140,0,0.6)",
           borderColor: "rgba(255,140,0,0.8)",
+          transform: "translateY(-4px)",
         },
         ...sx,
       }}

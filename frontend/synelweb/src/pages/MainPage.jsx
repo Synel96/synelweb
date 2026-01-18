@@ -94,13 +94,13 @@ function MainPage() {
         <ContactSection />
       </SectionWrapper>
       <SectionWrapper id="section-3" delay={400}>
-        <ReviewSection />
-      </SectionWrapper>
-      <SectionWrapper id="section-4" delay={600}>
         <ProjectsSection />
       </SectionWrapper>
-      <SectionWrapper id="section-5" delay={800}>
+      <SectionWrapper id="section-4" delay={600}>
         <PackagesSection />
+      </SectionWrapper>
+      <SectionWrapper id="section-5" delay={800}>
+        <ReviewSection />
       </SectionWrapper>
     </main>
   );
