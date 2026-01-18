@@ -27,15 +27,16 @@ function PackagesCards({
   return (
     <Box
       sx={{
-        width: "100%",
+        width: { xs: "100%", md: "calc(50% - 24px)", lg: "calc(33.333% - 32px)" },
         maxWidth: { xs: "100%", sm: 520 },
+        minWidth: { md: 320 },
         bgcolor: "background.surface",
         borderRadius: 4,
         boxShadow: "lg",
         border: "2px solid",
         borderColor: "divider",
         p: { xs: 2, sm: 3 },
-        mb: 4,
+        mb: { xs: 0, md: 0 },
         display: "flex",
         flexDirection: "column",
         gap: 2,

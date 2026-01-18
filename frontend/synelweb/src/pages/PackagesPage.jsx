@@ -99,15 +99,16 @@ function PackagesPage() {
           sx={{
             width: "100%",
             display: "flex",
-            flexWrap: "wrap",
-            gap: { xs: 8, sm: 7, md: 10 },
+            flexDirection: { xs: "column", md: "row" },
+            flexWrap: { xs: "nowrap", md: "wrap" },
+            gap: { xs: 4, sm: 5, md: 6 },
             justifyContent: "center",
-            alignItems: "flex-start",
+            alignItems: { xs: "center", md: "flex-start" },
             px: { xs: 2, sm: 4, md: 6 },
             py: 4,
             position: "relative",
             zIndex: 2,
-            maxWidth: 1200,
+            maxWidth: 1400,
             mx: "auto",
           }}
           role="region"
