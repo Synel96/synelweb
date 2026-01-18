@@ -45,10 +45,10 @@ function MainPage() {
         sx={{
           display: "inline-flex",
           position: "fixed",
-          right: 24,
-          bottom: 24,
+          right: { xs: 16, sm: 24 },
+          bottom: { xs: 20, sm: 24 },
           zIndex: 100,
-          fontSize: 38, // egységes méret
+          fontSize: { xs: 36, sm: 38 },
           color: "#ff9800",
           cursor: "pointer",
           animation: "bounce 1.2s infinite",
@@ -63,10 +63,10 @@ function MainPage() {
       <ArrowUpwardIcon
         sx={{
           position: "fixed",
-          right: 24,
-          bottom: 80,
+          right: { xs: 16, sm: 24 },
+          bottom: { xs: 72, sm: 80 },
           zIndex: 100,
-          fontSize: 38, // egységes méret
+          fontSize: { xs: 36, sm: 38 },
           color: "#ff9800",
           cursor: "pointer",
           background: "rgba(255,255,255,0.85)",

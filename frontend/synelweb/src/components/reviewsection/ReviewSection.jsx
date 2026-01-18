@@ -23,7 +23,7 @@ function ReviewSection() {
         overflow: "hidden",
         p: 0,
         m: 0,
-        mb: { xs: 4, sm: 6, md: 8 },
+        mb: 0,
         transition: "background 0.3s",
       }}
       variant="plain"
@@ -45,8 +45,8 @@ function ReviewSection() {
           borderRadius: { xs: 2, sm: 3 },
           p: { xs: 2, sm: 4 },
           boxShadow: "md",
-          maxWidth: 420,
-          width: { xs: "95%", sm: "80%", md: "420px" },
+          maxWidth: { xs: 420, md: 520 },
+          width: { xs: "95%", sm: "85%", md: "520px" },
           textAlign: "center",
           transition: "background 0.3s",
         }}

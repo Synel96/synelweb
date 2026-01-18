@@ -46,8 +46,8 @@ function ContactSection() {
           borderRadius: { xs: 2, sm: 3 },
           p: { xs: 2, sm: 4 },
           boxShadow: "md",
-          maxWidth: 420,
-          width: { xs: "95%", sm: "80%", md: "420px" },
+          maxWidth: { xs: 420, md: 520 },
+          width: { xs: "95%", sm: "85%", md: "520px" },
           textAlign: "center",
         }}
         role="region"
@@ -59,7 +59,7 @@ function ContactSection() {
           tabIndex={0}
           sx={{
             mb: 2,
-            fontSize: { xs: "1.5rem", sm: "2.2rem" },
+            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.2rem" },
             color: mode === "dark" ? "#fff" : "#121212",
             fontWeight: 700,
             letterSpacing: "0.02em",
