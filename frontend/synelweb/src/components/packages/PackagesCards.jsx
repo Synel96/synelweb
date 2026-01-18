@@ -190,22 +190,22 @@ function PackagesCards({
                 mr: 1,
                 display: "inline",
               }}
-              aria-label={`Eredeti ár: ${Math.round(price)} Ft`}
+              aria-label={`Eredeti ár: ${parseInt(price, 10)} Ft`}
               tabIndex={0}
             >
-              {Math.round(price)} Ft
+              {parseInt(price, 10)} Ft
             </Typography>
             <Typography
               sx={{
-                color: "#39ff14", // neon zöld mindkét módban
+                color: "#39ff14",
                 fontWeight: 700,
                 fontSize: "1.25rem",
                 display: "inline",
               }}
-              aria-label={`Akciós ár: ${Math.round(discounted_price)} Ft`}
+              aria-label={`Akciós ár: ${parseInt(discounted_price, 10)} Ft`}
               tabIndex={0}
             >
-              {Math.round(discounted_price)} Ft
+              {parseInt(discounted_price, 10)} Ft
             </Typography>
           </>
         ) : (
@@ -216,10 +216,10 @@ function PackagesCards({
                 fontWeight: 700,
                 fontSize: "1.15rem",
               }}
-              aria-label={`Ár: ${Math.round(price)} Ft`}
+              aria-label={`Ár: ${parseInt(price, 10)} Ft`}
               tabIndex={0}
             >
-              {Math.round(price)} Ft
+              {parseInt(price, 10)} Ft
             </Typography>
           )
         )}
