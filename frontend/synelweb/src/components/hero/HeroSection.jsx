@@ -45,17 +45,17 @@ function HeroSection() {
         className="hero-overlay"
         style={{
           position: "absolute",
-          top: "10%",
+          top: "5%",
           left: "50%",
           transform: "translateX(-50%)",
           width: "90%",
+          maxWidth: "700px",
           zIndex: 2,
           background:
             mode === "dark" ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.85)",
           borderRadius: "16px",
-          padding: "1rem",
+          padding: "0.75rem",
           boxShadow: "0 2px 16px rgba(0,0,0,0.15)",
-          marginBottom: "3rem", // Biztosítja a távolságot
         }}
       >
         <Greet />
@@ -65,8 +65,8 @@ function HeroSection() {
       <HeroInfoOverlay
         style={{
           position: "absolute",
-          top: "auto", // Auto pozícionálás
-          bottom: "15%", // Alulról rögzítve
+          top: "auto",
+          bottom: "8%",
           left: "50%",
           transform: "translateX(-50%)",
           width: "min(90%, 1100px)",
@@ -80,15 +80,16 @@ function HeroSection() {
             .hero-overlay {
               top: 0 !important;
               width: 100% !important;
+              max-width: none !important;
               left: 50%;
               transform: translateX(-50%);
               border-radius: 0 0 16px 16px;
-              margin-bottom: 2rem !important;
+              padding: 0.5rem !important;
             }
             .hero-info-overlay {
               top: auto !important;
-              bottom: 5% !important;
-              width: 85% !important;
+              bottom: 3% !important;
+              width: 90% !important;
               left: 50% !important;
               transform: translateX(-50%) !important;
               border-radius: 12px;
