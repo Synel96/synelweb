@@ -55,6 +55,7 @@ function HeroSection() {
           borderRadius: "16px",
           padding: "1rem",
           boxShadow: "0 2px 16px rgba(0,0,0,0.15)",
+          marginBottom: "3rem", // Biztosítja a távolságot
         }}
       >
         <Greet />
@@ -64,7 +65,8 @@ function HeroSection() {
       <HeroInfoOverlay
         style={{
           position: "absolute",
-          top: "60vh", // korábban: bottom: "50vh"
+          top: "auto", // Auto pozícionálás
+          bottom: "15%", // Alulról rögzítve
           left: "50%",
           transform: "translateX(-50%)",
           width: "min(90%, 1100px)",
@@ -81,14 +83,15 @@ function HeroSection() {
               left: 50%;
               transform: translateX(-50%);
               border-radius: 0 0 16px 16px;
+              margin-bottom: 2rem !important;
             }
             .hero-info-overlay {
-              top: clamp(200px, 35vh, 380px) !important;
-              bottom: auto !important;
+              top: auto !important;
+              bottom: 5% !important;
               width: 85% !important;
               left: 50% !important;
               transform: translateX(-50%) !important;
-              border-radius: 0 0 12px 12px;
+              border-radius: 12px;
             }
           }
         `}
