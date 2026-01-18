@@ -22,7 +22,7 @@ function SectionWrapper({ id, children, delay = 0 }) {
       id={id}
       ref={ref}
       className={`fade-in${visible ? " visible" : ""}`}
-      style={{ width: "100%" }}
+      style={{ width: "100%", paddingTop: "2rem", paddingBottom: "2rem" }}
     >
       {children}
     </section>

@@ -24,6 +24,7 @@ function ProjectsSection() {
         overflow: "hidden",
         p: 0,
         m: 0,
+        mb: { xs: 4, sm: 6, md: 8 },
         transition: "background 0.3s",
       }}
       variant="plain"
