@@ -1,7 +1,0 @@
-{
-  "name": "synelweb-monorepo",
-  "private": true,
-  "workspaces": [
-    "frontend/synelweb"
-  ]
-}
