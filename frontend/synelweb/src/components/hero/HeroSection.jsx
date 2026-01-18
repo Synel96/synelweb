@@ -17,15 +17,15 @@ function HeroSection() {
       sx={{
         position: "relative",
         width: "100vw",
-        minHeight: { xs: "100vh", sm: "60vw", md: "60vw" },
-        maxHeight: { xs: "none", sm: "100vh" },
+        minHeight: { xs: "85vh", sm: "50vw", md: "50vw" },
+        maxHeight: { xs: "none", sm: "85vh" },
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
         p: 0,
         m: 0,
-        pb: { xs: 8, sm: 0 },
+        pb: { xs: 4, sm: 0 },
         transition: "background 0.3s",
       }}
       variant="plain"
