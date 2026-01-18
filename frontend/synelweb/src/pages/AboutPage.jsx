@@ -107,36 +107,7 @@ function AboutPage() {
                 mb: 3,
               }}
             >
-              Weboldal készítés Sopronban helyi vállalkozásoknak
-            </Typography>
-
-            <Typography
-              level="body-lg"
-              sx={{
-                color: "text.secondary",
-                lineHeight: 1.8,
-                mb: 3,
-              }}
-            >
-              A SynelWeb weboldal-készítési szolgáltatásait Sopronban és a
-              környező településeken működő vállalkozások számára nyújtja. Olyan
-              kis- és középvállalkozásokkal, szolgáltatókkal és induló cégekkel
-              dolgozom együtt, akiknek fontos, hogy a weboldaluk nemcsak jól
-              nézzen ki, hanem üzleti eredményeket is hozzon.
-            </Typography>
-
-            <Typography
-              level="body-lg"
-              sx={{
-                color: "text.secondary",
-                lineHeight: 1.8,
-                mb: 3,
-              }}
-            >
-              A készülő weboldalak célja, hogy segítsék a helyi ügyfelek
-              elérését, támogassák az online jelenlétet, és jól működjenek olyan
-              keresések esetén, mint „weboldal készítés Sopron", „honlapkészítés
-              Sopron" vagy „soproni vállalkozás weboldala".
+              Szia, Szilveszter vagyok!
             </Typography>
 
             <Typography
@@ -146,11 +117,11 @@ function AboutPage() {
                 lineHeight: 1.8,
               }}
             >
-              A fejlesztés során kiemelten figyelek arra, hogy a weboldal
-              mobilbarát, gyors és könnyen használható legyen, hiszen a helyi
-              érdeklődők többsége telefonról keres szolgáltatót. Így a
-              weboldalad nemcsak technikailag lesz erős, hanem valódi támogatást
-              nyújt a helyi ügyfélszerzésben is.
+              Több mint egy éve foglalkozom webfejlesztéssel, azon belül is
+              modern, nagyvállalati környezetben is bizonyított technológiákkal.
+              Olyan rendszerekkel dolgozom, amelyeket olyan cégek használnak, mint
+              a Facebook, Instagram, Pinterest, vagy akár a NASA adminisztrációs
+              rendszerei.
             </Typography>
           </Box>
 
