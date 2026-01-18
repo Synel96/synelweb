@@ -46,7 +46,6 @@ function PackagesPage() {
           alignItems: "center",
           p: 0,
           m: 0,
-          transition: "background 0.3s",
           background: "transparent",
         }}
         variant="plain"

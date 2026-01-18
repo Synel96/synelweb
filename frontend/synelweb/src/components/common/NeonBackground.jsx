@@ -40,7 +40,7 @@ function NeonBackground({ children, sx = {} }) {
                 ? "radial-gradient(ellipse at center, rgba(138,43,226,0.18) 0%, rgba(147,51,234,0.10) 35%, transparent 70%)"
                 : "radial-gradient(ellipse at center, rgba(167,139,250,0.15) 0%, rgba(147,51,234,0.08) 35%, transparent 70%)",
             filter: "blur(60px)",
-            animation: "neonPulse 8s ease-in-out infinite",
+            animation: "none",
           }}
         />
 
@@ -58,7 +58,7 @@ function NeonBackground({ children, sx = {} }) {
                 ? "radial-gradient(circle, rgba(147,51,234,0.22) 0%, rgba(126,34,206,0.12) 25%, transparent 50%)"
                 : "radial-gradient(circle, rgba(167,139,250,0.18) 0%, rgba(147,51,234,0.10) 25%, transparent 50%)",
             filter: "blur(80px)",
-            animation: "neonPulse 6s ease-in-out infinite reverse",
+            animation: "none",
           }}
         />
 
@@ -75,7 +75,7 @@ function NeonBackground({ children, sx = {} }) {
                 ? "radial-gradient(ellipse, rgba(159,122,234,0.20) 0%, rgba(138,43,226,0.11) 30%, transparent 60%)"
                 : "radial-gradient(ellipse, rgba(167,139,250,0.15) 0%, rgba(147,51,234,0.08) 30%, transparent 60%)",
             filter: "blur(70px)",
-            animation: "neonPulse 10s ease-in-out infinite",
+            animation: "none",
           }}
         />
 
@@ -92,7 +92,7 @@ function NeonBackground({ children, sx = {} }) {
                 ? "radial-gradient(circle, rgba(147,51,234,0.17) 0%, rgba(138,43,226,0.09) 25%, transparent 50%)"
                 : "radial-gradient(circle, rgba(167,139,250,0.13) 0%, rgba(147,51,234,0.07) 25%, transparent 50%)",
             filter: "blur(90px)",
-            animation: "neonPulse 7s ease-in-out infinite",
+            animation: "none",
           }}
         />
       </Box>
