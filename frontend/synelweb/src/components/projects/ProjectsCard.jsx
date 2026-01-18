@@ -11,11 +11,12 @@ function ProjectsCard({
   previewImagePublicId,
   images = [],
   link,
-  priority = false, // Add priority prop for LCP optimization
+  priority = false,
 }) {
   const [expanded, setExpanded] = useState(false);
+  const [descHeight, setDescHeight] = useState("auto");
   const shortDesc = (description || "").trim();
-  const isLong = shortDesc.length > 220; // ha hosszabb, akkor rövidítjük
+  const isLong = shortDesc.length > 220;
 
   return (
     <Box
@@ -32,19 +33,12 @@ function ProjectsCard({
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        transition:
-          "box-shadow 0.5s cubic-bezier(.4,0,.2,1), filter 0.5s cubic-bezier(.4,0,.2,1), border-color 0.3s",
-        "&:hover": {
-          boxShadow: "xl",
-          filter: "drop-shadow(0 0 24px rgba(255,140,0,0.4))",
-          borderColor: "rgba(255,140,0,0.5)",
-        },
+        position: "relative",
       }}
       role="region"
-      aria-label={`Projekt kártya: ${title}`}
+      aria-label={`Projekt: ${title}`}
       tabIndex={0}
     >
-      {/* Title first */}
       <Typography
         level="h2"
         sx={{
@@ -67,7 +61,7 @@ function ProjectsCard({
         images={images}
         priority={priority}
       />
-      {/* Leírás - összecsukható */}
+
       <Box>
         <Typography
           level="body2"
@@ -75,7 +69,6 @@ function ProjectsCard({
             color: "text.secondary",
             mb: 1,
             textAlign: "left",
-            // ha nincs kinyitva, alkalmazzuk a line-clamp stílust
             display: expanded ? "block" : "-webkit-box",
             WebkitLineClamp: expanded ? undefined : 4,
             WebkitBoxOrient: expanded ? undefined : "vertical",
@@ -90,7 +83,7 @@ function ProjectsCard({
             <Button
               variant="plain"
               size="sm"
-              onClick={() => setExpanded((s) => !s)}
+              onClick={() => setExpanded((prev) => !prev)}
               aria-expanded={expanded}
             >
               {expanded ? "Kevesebb" : "Bővebben"}
@@ -99,20 +92,23 @@ function ProjectsCard({
         )}
       </Box>
 
-      <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mb: 1 }}>
-        {tags.map((tag, idx) => (
-          <Chip
-            key={idx}
-            color="primary"
-            variant="soft"
-            sx={{ fontSize: "0.95rem" }}
-            aria-label={`Címke: ${tag}`}
-            tabIndex={0}
-          >
-            {tag}
-          </Chip>
-        ))}
-      </Box>
+      {tags && tags.length > 0 && (
+        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mb: 1 }}>
+          {tags.map((tag, idx) => (
+            <Chip
+              key={idx}
+              color="primary"
+              variant="soft"
+              sx={{ fontSize: "0.95rem" }}
+              aria-label={`Címke: ${tag}`}
+              tabIndex={0}
+            >
+              {tag}
+            </Chip>
+          ))}
+        </Box>
+      )}
+
       {link && (
         <Button
           component="a"
@@ -133,7 +129,6 @@ function ProjectsCard({
             color: "#212121",
             "&:hover": {
               backgroundColor: "#fb8c00",
-              color: "#212121",
             },
             boxShadow: "sm",
           }}
