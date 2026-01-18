@@ -198,10 +198,10 @@ function PackagesCards({
                 mr: 1,
                 display: "inline",
               }}
-              aria-label={`Eredeti ár: ${parseInt(price, 10)} Ft`}
+              aria-label={`Eredeti ár: ${parseInt(price, 10)} Ft-tól`}
               tabIndex={0}
             >
-              {parseInt(price, 10)} Ft
+              {parseInt(price, 10)} Ft-tól
             </Typography>
             <Typography
               sx={{
@@ -210,10 +210,10 @@ function PackagesCards({
                 fontSize: "1.25rem",
                 display: "inline",
               }}
-              aria-label={`Akciós ár: ${parseInt(discounted_price, 10)} Ft`}
+              aria-label={`Akciós ár: ${parseInt(discounted_price, 10)} Ft-tól`}
               tabIndex={0}
             >
-              {parseInt(discounted_price, 10)} Ft
+              {parseInt(discounted_price, 10)} Ft-tól
             </Typography>
           </>
         ) : (
@@ -224,10 +224,10 @@ function PackagesCards({
                 fontWeight: 700,
                 fontSize: "1.15rem",
               }}
-              aria-label={`Ár: ${parseInt(price, 10)} Ft`}
+              aria-label={`Ár: ${parseInt(price, 10)} Ft-tól`}
               tabIndex={0}
             >
-              {parseInt(price, 10)} Ft
+              {parseInt(price, 10)} Ft-tól
             </Typography>
           )
         )}
