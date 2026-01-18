@@ -28,7 +28,7 @@ const PageLoader = () => (
 
 function App() {
   return (
-    <CssVarsProvider>
+    <CssVarsProvider defaultMode="dark">
       <CssBaseline />
       <BrowserRouter>
         <Navbar />
