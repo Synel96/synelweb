@@ -3,12 +3,12 @@ function Logo({ src, isMobile }) {
     <img
       src={src}
       alt="Synel Web Solutions logó"
-      width="120"
-      height="40"
+      width="180"
+      height="60"
       fetchpriority="high"
       style={{
-        width: 120,
-        height: 40,
+        width: 180,
+        height: 60,
         margin: isMobile ? "0 auto" : "0",
         position: "static",
         zIndex: 2,
