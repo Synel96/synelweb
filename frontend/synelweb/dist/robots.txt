@@ -1,0 +1,18 @@
+# Synel Web Solutions - robots.txt
+# Minden keresőmotor indexelheti az oldalt
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap helye (Vercel URL-lel frissítsd majd)
+Sitemap: https://synelweb.vercel.app/sitemap.xml
+
+# Crawl delay Google-nek
+User-agent: Googlebot
+Allow: /
+
+# Crawl delay Bing-nek  
+User-agent: Bingbot
+Allow: /
