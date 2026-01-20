@@ -8,7 +8,8 @@ function Logo({ src, isMobile }) {
       fetchpriority="high"
       style={{
         width: 180,
-        height: 60,
+        height: "auto",
+        maxHeight: 60,
         margin: isMobile ? "0 auto" : "0",
         position: "static",
         zIndex: 2,
