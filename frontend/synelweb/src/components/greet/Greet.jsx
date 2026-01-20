@@ -74,7 +74,7 @@ function Greet() {
             display: "inline-block",
           }}
         >
-          Üdvözöllek!
+          Üdvözöllek a SynelWeb-nél!
           <Box
             component="span"
             sx={{
