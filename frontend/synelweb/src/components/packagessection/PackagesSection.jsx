@@ -67,7 +67,7 @@ function PackagesSection() {
             transition: "color 0.3s",
           }}
         >
-          Fedezze fel csomagajánlatainkat!
+          Fedezd fel csomagajnlataimat!
         </Typography>
         <Typography
           tabIndex={0}
@@ -79,7 +79,7 @@ function PackagesSection() {
             transition: "color 0.3s",
           }}
         >
-          Válasszon az Ön igényeihez legjobban illő szolgáltatáscsomagjaink
+          Válassz az igényeidhez legjobban illő szolgáltatáscsomagjaim
           közül!
         </Typography>
         <Button

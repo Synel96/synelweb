@@ -49,7 +49,7 @@ function HeroInfoOverlay(props) {
           mb: { xs: 2, sm: 3 },
         }}
       >
-        Böngésszen szolgáltatásaink között, vagy ismerd meg jobban a munkámat!
+        Böngéssz szolgáltatásaim között, vagy ismerd meg jobban a munkámat!
       </Typography>
 
       <Button
@@ -61,8 +61,8 @@ function HeroInfoOverlay(props) {
           color: "#fff",
           fontWeight: 600,
           fontSize: { xs: "1rem", sm: "1.1rem" },
-          px: { xs: 3, sm: 4 },
-          py: { xs: 1.5, sm: 2 },
+          px: { xs: 2.5, sm: 3.5 },
+          py: { xs: 1.2, sm: 1.5 },
           borderRadius: 3,
           boxShadow: "0 4px 14px rgba(230,81,0,0.4)",
           transition: "all 0.3s cubic-bezier(.4,0,.2,1)",
@@ -76,7 +76,7 @@ function HeroInfoOverlay(props) {
           },
         }}
       >
-        Tudj meg többet Rólam és a Munkámról
+        Ismerj meg jobban
       </Button>
     </Sheet>
   );

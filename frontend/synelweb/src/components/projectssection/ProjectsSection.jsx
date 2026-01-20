@@ -67,7 +67,7 @@ function ProjectsSection() {
             transition: "color 0.3s",
           }}
         >
-          Tekintse meg projektjeinket!
+          Tekintsd meg projektjeimet!
         </Typography>
         <Typography
           tabIndex={0}
@@ -79,7 +79,7 @@ function ProjectsSection() {
             transition: "color 0.3s",
           }}
         >
-          Ismerje meg eddigi munkáinkat és referenciáinkat!
+          Ismerd meg eddigi munkáimat és referenciáimat!
         </Typography>
         <Button
           size="lg"

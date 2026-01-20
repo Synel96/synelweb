@@ -66,7 +66,7 @@ function ReviewSection() {
             transition: "color 0.3s",
           }}
         >
-          Értékelje szolgáltatásunkat!
+          Értékeld szolgáltatásomat!
         </Typography>
         <Typography
           tabIndex={0}
@@ -78,8 +78,8 @@ function ReviewSection() {
             transition: "color 0.3s",
           }}
         >
-          Fontos számunkra a véleménye! Kérjük, ossza meg tapasztalatát, és
-          segítse munkánkat egy értékeléssel.
+          Fontos számomra a véleményed! Kérlek, oszd meg tapasztalatod, és
+          segítsd munkámat egy értékeléssel.
         </Typography>
         <Button
           size="lg"

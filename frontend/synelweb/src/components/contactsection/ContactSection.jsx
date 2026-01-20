@@ -66,7 +66,7 @@ function ContactSection() {
             transition: "color 0.3s",
           }}
         >
-          Lépjen kapcsolatba velünk!
+          Lépj kapcsolatba velem!
         </Typography>
         <Typography
           tabIndex={0}
@@ -77,8 +77,8 @@ function ContactSection() {
             fontWeight: 400,
           }}
         >
-          Kérdése van, ajánlatot szeretne vagy visszahívást kérne? Küldje el
-          nekünk üzenetét!
+          Kérdésed van, ajánlatot szeretnél vagy visszahívást kérsz? Küld el
+          nekem az üzeneteted!
         </Typography>
         <Button
           size="lg"
