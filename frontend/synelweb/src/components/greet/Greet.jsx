@@ -60,11 +60,11 @@ function Greet() {
             transform: greetVisible ? "translateY(0)" : "translateY(32px)",
             transition:
               "opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1)",
-            fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
+            fontSize: { xs: "1.5rem", sm: "2rem", md: "2.75rem" },
             fontWeight: 700,
             fontFamily: '"Inter", "Roboto", "Arial", sans-serif',
             letterSpacing: "0.02em",
-            lineHeight: 1.2,
+            lineHeight: 1.3,
             textShadow:
               mode === "dark"
                 ? "0 2px 12px rgba(0,0,0,0.7)"
@@ -79,7 +79,7 @@ function Greet() {
             component="span"
             sx={{
               marginLeft: "0.5rem",
-              fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
+              fontSize: { xs: "1.5rem", sm: "2rem", md: "2.75rem" },
               display: "inline-block",
               animation: waveOnce ? "wave 1.2s" : "none",
               transformOrigin: "70% 70%",
@@ -109,8 +109,8 @@ function Greet() {
             transform: descVisible ? "translateY(0)" : "translateY(32px)",
             transition:
               "opacity 0.7s cubic-bezier(.4,0,.2,1) 0.2s, transform 0.7s cubic-bezier(.4,0,.2,1) 0.2s",
-            fontSize: { xs: "0.95rem", sm: "1.1rem", md: "1.2rem" },
-            mt: 2,
+            fontSize: { xs: "0.875rem", sm: "1rem", md: "1.2rem" },
+            mt: { xs: 1.5, sm: 2 },
             color: mode === "dark" ? "#fff" : "#121212",
             maxWidth: 600,
             fontWeight: 400,

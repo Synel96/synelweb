@@ -17,7 +17,7 @@ function HeroSection() {
       sx={{
         position: "relative",
         width: "100vw",
-        minHeight: { xs: "60vh", sm: "40vw", md: "40vw" },
+        minHeight: { xs: "70vh", sm: "40vw", md: "40vw" },
         maxHeight: { xs: "none", sm: "70vh" },
         display: "flex",
         alignItems: "center",
