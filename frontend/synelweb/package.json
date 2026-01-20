@@ -18,8 +18,12 @@
     },
     "puppeteerArgs": [
       "--no-sandbox",
-      "--disable-setuid-sandbox"
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage"
     ],
+    "concurrency": 1,
+    "inlineCss": false,
+    "timeout": 60000,
     "include": [
       "/",
       "/projektek",

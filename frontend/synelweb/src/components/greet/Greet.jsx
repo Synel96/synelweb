@@ -74,7 +74,7 @@ function Greet() {
             display: "inline-block",
           }}
         >
-          SynelWeb - Professzionális Weboldal kompromisszumok nélkül
+          SynelWeb - Professzionális Weboldal Kompromisszumok nélkül
           <Box
             component="span"
             sx={{
