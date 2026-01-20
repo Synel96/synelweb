@@ -1,6 +1,4 @@
 {
-  "buildCommand": "npm run prerender",
-  "outputDirectory": "static-pages",
   "rewrites": [
     {
       "source": "/(.*)",
