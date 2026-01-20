@@ -67,7 +67,7 @@ function PackagesSection() {
             transition: "color 0.3s",
           }}
         >
-          Fedezd fel csomagajnlataimat!
+          Fedezd fel csomagajánlataimat!
         </Typography>
         <Typography
           tabIndex={0}
