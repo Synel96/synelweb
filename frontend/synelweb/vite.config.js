@@ -12,6 +12,12 @@ export default defineConfig({
         assetFileNames: "assets/[name]-[hash][extname]",
         chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
+        // Manual chunks for better splitting
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-mui': ['@mui/joy', '@emotion/react', '@emotion/styled'],
+          'vendor-icons': ['@mui/icons-material'],
+        }
       },
     },
     // Optimize chunk size
