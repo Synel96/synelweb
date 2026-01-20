@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="hu" data-joy-color-scheme="dark"><head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynelWeb Professzionális Weboldal Kompromisszumok nélkül</title>
+    <meta name="description" content="Professzionális weboldal készítés Sopronban és környékén. Modern, gyors, reszponzív céges weboldalak és PWA fejlesztés – Synel Web Solutions">
+    <meta name="keywords" content="weboldal készítés, Sopron, PWA, céges weboldal, reszponzív weboldal, webfejlesztés, modern weboldal">
+    <meta name="author" content="Synel Web Solutions">
+    
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="https://synelweb.vercel.app/">
+    
+    <meta property="og:title" content="Weboldal készítés Sopron és környéke | Synel Web">
+    <meta property="og:description" content="Professzionális weboldal készítés Sopronban és környékén. Modern, gyors, reszponzív céges weboldalak és PWA fejlesztés – Synel Web Solutions.">
+    <meta property="og:url" content="https://synelweb.vercel.app/">
+    <meta property="og:image" content="/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="hu_HU">
+
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    
+    <!-- Preconnect to Cloudinary for faster image loading -->
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+    <!-- Preconnect to backend API to reduce latency -->
+    <link rel="preconnect" href="https://synelweb.fly.dev">
+    <link rel="dns-prefetch" href="https://synelweb.fly.dev">
+
+    <!-- Non-blocking Google Fonts with font-display: optional for better CLS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=optional" rel="stylesheet" media="all" onload="this.media = 'all'">
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=optional"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Preload critical assets for LCP optimization -->
+    <link rel="preload" as="image" href="/darklogo.svg" type="image/svg+xml" fetchpriority="high">
+    <!-- Preload hero image from Cloudinary with responsive srcset -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus" imagesrcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/hero_kfkbus 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/hero_kfkbus 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/hero_kfkbus 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/hero_kfkbus 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/hero_kfkbus 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus 1920w" imagesizes="100vw" fetchpriority="high">
+    <!-- Preload contact section image for mobile LCP -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0" imagesrcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/contact_njkcd0 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/contact_njkcd0 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/contact_njkcd0 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/contact_njkcd0 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0 1920w" imagesizes="100vw" fetchpriority="high">
+
+    <!-- Inline critical CSS to prevent render blocking -->
+    <style>
+      /* Critical CSS - prevents FOUC and CLS */
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Reserve space for footer to prevent CLS */
+      footer {
+        min-height: 120px;
+      }
+      /* Loading state styles */
+      .loading-fallback {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+        font-size: 1.2rem;
+        color: #1976d2;
+      }
+    </style>
+    <script type="module" crossorigin="" src="/assets/index-CkrTUWqy.js"></script>
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-react-BzWZx-Tx.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-mui-MjNwMW3h.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-icons-D7S9NPV8.js">
+  <link rel="modulepreload" as="script" crossorigin="" href="/assets/MainPage-Ckb8iQ8X.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/OptimizedBackgroundImage-i9SbUT2P.js"><link rel="stylesheet" crossorigin="" href="/assets/MainPage-CRZV3B2S.css"><style data-emotion="css-global" data-s=""></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css" data-s=""></style><link rel="preload" as="image" href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus" imagesrcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/hero_kfkbus 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/hero_kfkbus 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/hero_kfkbus 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/hero_kfkbus 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/hero_kfkbus 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus 1920w" imagesizes="100vw"><link rel="preload" as="image" href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0" imagesrcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/contact_njkcd0 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/contact_njkcd0 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/contact_njkcd0 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/contact_njkcd0 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0 1920w" imagesizes="100vw"></head>
+  <body>
+    <div id="root"><div style="display: flex; flex-direction: column; min-height: 100vh;"><header class="MuiBox-root css-ijqxh0" role="banner" aria-label="Fő navigációs sáv"><div class="MuiBox-root css-70qvj9" role="region" aria-label="Weboldal logó"><img alt="Synel Web Solutions logó" width="180" height="60" fetchpriority="high" tabindex="0" aria-label="Synel Web Solutions logó" src="/lightlogo.svg" style="width: 180px; height: 60px; object-fit: contain; margin: 0px; position: static; z-index: 2; display: block; transition: transform 0.2s; cursor: pointer; outline: none; will-change: transform;"></div><div class="MuiBox-root css-70qvj9" role="navigation" aria-label="Főmenü"><nav aria-label="Fő navigáció"><div class="MuiBox-root css-10egq61"><a aria-label="Főoldal" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/" data-discover="true">Főoldal</a><a aria-label="Projektek" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/projektek" data-discover="true">Projektek</a><a aria-label="Vélemények" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/velemenyek" data-discover="true">Vélemények</a><a aria-label="Szolgáltatások" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/szolgaltatasok" data-discover="true">Szolgáltatások</a><a aria-label="Elérhetőség" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/elerhetoseg" data-discover="true">Elérhetőség</a><a aria-label="Rólam" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/rolam" data-discover="true">Rólam</a></div></nav></div><button aria-label="Világos mód bekapcsolása" class="MuiIconButton-root MuiIconButton-variantSoft MuiIconButton-colorNeutral MuiIconButton-sizeMd css-urv1zd" type="button">🌞</button></header><main style="flex: 1 1 0%;"><main><section id="section-1" class="fade-in visible" style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; content-visibility: auto; contain-intrinsic-size: auto 500px;"><section role="region" aria-label="Főoldal hős szekció" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1gfa1of"><img sizes="100vw" alt="Főoldal háttérkép" loading="eager" fetchpriority="high" decoding="sync" aria-hidden="true" srcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/hero_kfkbus 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/hero_kfkbus 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/hero_kfkbus 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/hero_kfkbus 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/hero_kfkbus 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus 1920w" src="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus" style="position: absolute; inset: 0px; width: 100vw; height: 100%; object-fit: cover; z-index: 1; pointer-events: none;"><div class="hero-overlay" style="position: absolute; top: 5%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 700px; z-index: 2; background: rgba(0, 0, 0, 0.65); border-radius: 16px; padding: 0.75rem; box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 16px;"><div role="region" aria-labelledby="greet-heading greet-desc" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1mk9zls"><div class="MuiBox-root css-0"><h1 id="greet-heading" class="MuiTypography-root MuiTypography-h1 css-xsd7ws">Üdvözöllek a SynelWeb-en!<span class="MuiBox-root css-1bgv7cf">👋</span><style>
+              @keyframes wave {
+                0% { transform: rotate(0deg); }
+                15% { transform: rotate(20deg); }
+                30% { transform: rotate(-10deg); }
+                40% { transform: rotate(20deg); }
+                50% { transform: rotate(-4deg); }
+                60% { transform: rotate(10deg); }
+                100% { transform: rotate(0deg); }
+              }
+            </style></h1><p id="greet-desc" class="MuiTypography-root MuiTypography-body-lg css-1apea48">Teljes körű webfejlesztés, dizájn, hosting és mobilbarát megoldások egy helyen!</p></div></div></div><div role="region" aria-labelledby="hero-info-desc" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral hero-info-overlay css-1qjq3sm"><p id="hero-info-desc" class="MuiTypography-root MuiTypography-body-lg css-qfx06e">Böngéssz szolgáltatásaim között, vagy ismerd meg jobban a munkámat!</p><a class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg css-13ytpq8" href="/rolam" data-discover="true">Ismerj meg jobban</a></div><style>
+          @media (max-width: 600px) {
+            .hero-overlay {
+              top: 0 !important;
+              width: 100% !important;
+              max-width: none !important;
+              left: 50%;
+              transform: translateX(-50%);
+              border-radius: 0 0 16px 16px;
+              padding: 0.5rem !important;
+            }
+            .hero-info-overlay {
+              top: auto !important;
+              bottom: 3% !important;
+              width: 90% !important;
+              left: 50% !important;
+              transform: translateX(-50%) !important;
+              border-radius: 12px;
+            }
+          }
+        </style></section></section><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-l5td22" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m20 12-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8z"></path></svg><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-6jqa6k" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 12 1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8z"></path></svg><style>
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(14px); }
+          }
+          @keyframes bounceUp {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-14px); }
+          }
+        </style><section id="section-2" class="fade-in" style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; content-visibility: auto; contain-intrinsic-size: auto 500px;"><section role="region" aria-label="Kapcsolat szekció" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1u1b3ja"><img sizes="100vw" alt="Kapcsolat háttérkép" loading="eager" fetchpriority="high" decoding="sync" aria-hidden="true" srcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/contact_njkcd0 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/contact_njkcd0 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/contact_njkcd0 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/contact_njkcd0 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0 1920w" src="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0" style="position: absolute; inset: 0px; width: 100vw; height: 100%; object-fit: cover; z-index: 1; pointer-events: none;"><div class="MuiBox-root css-19mmqdo" role="region" aria-label="Kapcsolat tartalom" tabindex="0"><h2 tabindex="0" class="MuiTypography-root MuiTypography-h2 css-1du4ae0">Lépj kapcsolatba velem!</h2><p tabindex="0" class="MuiTypography-root MuiTypography-body-md css-74rr4n">Kérdésed van, ajánlatot szeretnél vagy visszahívást kérsz? Küld el nekem az üzeneteted!</p><a tabindex="0" aria-label="Kapcsolatfelvétel gomb" class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg css-18hfnnu" href="/elerhetoseg" data-discover="true">Kapcsolatfelvétel</a></div></section></section><section id="section-3" class="fade-in" style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; content-visibility: auto; contain-intrinsic-size: auto 500px;"><section role="region" aria-label="Projektek szekció" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1u1b3ja"><img sizes="100vw" alt="Projektek háttérkép" loading="lazy" fetchpriority="auto" decoding="async" aria-hidden="true" srcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/projects_plkitq 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/projects_plkitq 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/projects_plkitq 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/projects_plkitq 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/projects_plkitq 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/projects_plkitq 1920w" src="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/projects_plkitq" style="position: absolute; inset: 0px; width: 100vw; height: 100%; object-fit: cover; z-index: 1; pointer-events: none;"><div class="MuiBox-root css-1w2tgfr" role="region" aria-label="Projektek tartalom" tabindex="0"><h2 tabindex="0" class="MuiTypography-root MuiTypography-h2 css-87fold">Tekintsd meg projektjeimet!</h2><p tabindex="0" class="MuiTypography-root MuiTypography-body-md css-15w5dw">Ismerd meg eddigi munkáimat és referenciáimat!</p><a tabindex="0" aria-label="Projektek megtekintése gomb" class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg css-12l1vo3" href="/projektek" data-discover="true">Projektek megtekintése</a></div></section></section><section id="section-4" class="fade-in" style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; content-visibility: auto; contain-intrinsic-size: auto 500px;"><section role="region" aria-label="Csomagajánlatok szekció" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1u1b3ja"><img sizes="100vw" alt="Csomagok háttérkép" loading="lazy" fetchpriority="auto" decoding="async" aria-hidden="true" srcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/packages_tkmbuf 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/packages_tkmbuf 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/packages_tkmbuf 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/packages_tkmbuf 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/packages_tkmbuf 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/packages_tkmbuf 1920w" src="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/packages_tkmbuf" style="position: absolute; inset: 0px; width: 100vw; height: 100%; object-fit: cover; z-index: 1; pointer-events: none;"><div class="MuiBox-root css-1w2tgfr" role="region" aria-label="Csomagajánlatok tartalom" tabindex="0"><h2 tabindex="0" class="MuiTypography-root MuiTypography-h2 css-87fold">Fedezd fel csomagajánlataimat!</h2><p tabindex="0" class="MuiTypography-root MuiTypography-body-md css-15w5dw">Válassz az igényeidhez legjobban illő szolgáltatáscsomagjaim közül!</p><a tabindex="0" aria-label="Csomagok megtekintése gomb" class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg css-12l1vo3" href="/szolgaltatasok" data-discover="true">Csomagok megtekintése</a></div></section></section><section id="section-5" class="fade-in" style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; content-visibility: auto; contain-intrinsic-size: auto 500px;"><section role="region" aria-label="Értékelések szekció" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1bz6vkb"><img sizes="100vw" alt="Értékelések háttérkép" loading="lazy" fetchpriority="auto" decoding="async" aria-hidden="true" srcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/review_l4aooa 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/review_l4aooa 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/review_l4aooa 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/review_l4aooa 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/review_l4aooa 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/review_l4aooa 1920w" src="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/review_l4aooa" style="position: absolute; inset: 0px; width: 100vw; height: 100%; object-fit: cover; z-index: 1; pointer-events: none;"><div class="MuiBox-root css-1w2tgfr" role="region" aria-label="Értékelések tartalom" tabindex="0"><h2 tabindex="0" class="MuiTypography-root MuiTypography-h2 css-87fold">Értékeld a Szolgáltatásaimat!</h2><p tabindex="0" class="MuiTypography-root MuiTypography-body-md css-15w5dw">Fontos számomra a véleményed! Kérlek, oszd meg tapasztalatod, és segítsd munkámat egy értékeléssel.</p><a tabindex="0" aria-label="Értékelés írása gomb" class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg css-12l1vo3" href="/velemenyek" data-discover="true">Értékelés írása</a></div></section></section></main></main><footer class="MuiBox-root css-1me6lkd" role="contentinfo" aria-label="Oldal lábléc"><span class="MuiTypography-root MuiTypography-body2 css-1igzbc0">© 2026 Synel Web Solutions | Minden jog fenntartva.</span><div class="MuiBox-root css-fgzb59"> <button aria-label="Adatvédelmi tájékoztató megnyitása" class="MuiLink-root MuiLink-colorPrimary MuiLink-body-md MuiLink-underlineHover css-1fopz5n">Adatvédelmi tájékoztató</button></div></footer></div></div>
+
+  
+
+</body></html>

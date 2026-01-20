@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="hu" data-joy-color-scheme="dark"><head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynelWeb Professzionális Weboldal Kompromisszumok nélkül</title>
+    <meta name="description" content="Professzionális weboldal készítés Sopronban és környékén. Modern, gyors, reszponzív céges weboldalak és PWA fejlesztés – Synel Web Solutions">
+    <meta name="keywords" content="weboldal készítés, Sopron, PWA, céges weboldal, reszponzív weboldal, webfejlesztés, modern weboldal">
+    <meta name="author" content="Synel Web Solutions">
+    
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="https://synelweb.vercel.app/">
+    
+    <meta property="og:title" content="Weboldal készítés Sopron és környéke | Synel Web">
+    <meta property="og:description" content="Professzionális weboldal készítés Sopronban és környékén. Modern, gyors, reszponzív céges weboldalak és PWA fejlesztés – Synel Web Solutions.">
+    <meta property="og:url" content="https://synelweb.vercel.app/">
+    <meta property="og:image" content="/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="hu_HU">
+
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    
+    <!-- Preconnect to Cloudinary for faster image loading -->
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+    <!-- Preconnect to backend API to reduce latency -->
+    <link rel="preconnect" href="https://synelweb.fly.dev">
+    <link rel="dns-prefetch" href="https://synelweb.fly.dev">
+
+    <!-- Non-blocking Google Fonts with font-display: optional for better CLS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=optional" rel="stylesheet" media="all" onload="this.media = 'all'">
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=optional"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Preload critical assets for LCP optimization -->
+    <link rel="preload" as="image" href="/darklogo.svg" type="image/svg+xml" fetchpriority="high">
+    <!-- Preload hero image from Cloudinary with responsive srcset -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus" imagesrcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/hero_kfkbus 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/hero_kfkbus 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/hero_kfkbus 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/hero_kfkbus 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/hero_kfkbus 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/hero_kfkbus 1920w" imagesizes="100vw" fetchpriority="high">
+    <!-- Preload contact section image for mobile LCP -->
+    <link rel="preload" as="image" href="https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0" imagesrcset="https://res.cloudinary.com/dmwulp3dl/image/upload/w_640,q_75,f_auto,fl_progressive/contact_njkcd0 640w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_768,q_75,f_auto,fl_progressive/contact_njkcd0 768w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1024,q_75,f_auto,fl_progressive/contact_njkcd0 1024w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1280,q_75,f_auto,fl_progressive/contact_njkcd0 1280w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1536,q_75,f_auto,fl_progressive/contact_njkcd0 1536w, https://res.cloudinary.com/dmwulp3dl/image/upload/w_1920,q_75,f_auto,fl_progressive/contact_njkcd0 1920w" imagesizes="100vw" fetchpriority="high">
+
+    <!-- Inline critical CSS to prevent render blocking -->
+    <style>
+      /* Critical CSS - prevents FOUC and CLS */
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Reserve space for footer to prevent CLS */
+      footer {
+        min-height: 120px;
+      }
+      /* Loading state styles */
+      .loading-fallback {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+        font-size: 1.2rem;
+        color: #1976d2;
+      }
+    </style>
+    <script type="module" crossorigin="" src="/assets/index-CkrTUWqy.js"></script>
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-react-BzWZx-Tx.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-mui-MjNwMW3h.js">
+    <link rel="modulepreload" crossorigin="" href="/assets/vendor-icons-D7S9NPV8.js">
+  <link rel="modulepreload" as="script" crossorigin="" href="/assets/AboutPage-Cy7fOUs_.js"><link rel="modulepreload" as="script" crossorigin="" href="/assets/NeonBackground-nBNIpehg.js"><style data-emotion="css-global" data-s=""></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css-global" data-s=""></style><style data-emotion="css" data-s=""></style></head>
+  <body>
+    <div id="root"><div style="display: flex; flex-direction: column; min-height: 100vh;"><header class="MuiBox-root css-ijqxh0" role="banner" aria-label="Fő navigációs sáv"><div class="MuiBox-root css-70qvj9" role="region" aria-label="Weboldal logó"><img alt="Synel Web Solutions logó" width="180" height="60" fetchpriority="high" tabindex="0" aria-label="Synel Web Solutions logó" src="/lightlogo.svg" style="width: 180px; height: 60px; object-fit: contain; margin: 0px; position: static; z-index: 2; display: block; transition: transform 0.2s; cursor: pointer; outline: none; will-change: transform;"></div><div class="MuiBox-root css-70qvj9" role="navigation" aria-label="Főmenü"><nav aria-label="Fő navigáció"><div class="MuiBox-root css-10egq61"><a aria-label="Főoldal" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/" data-discover="true">Főoldal</a><a aria-label="Projektek" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/projektek" data-discover="true">Projektek</a><a aria-label="Vélemények" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/velemenyek" data-discover="true">Vélemények</a><a aria-label="Szolgáltatások" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/szolgaltatasok" data-discover="true">Szolgáltatások</a><a aria-label="Elérhetőség" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/elerhetoseg" data-discover="true">Elérhetőség</a><a aria-label="Rólam" class="MuiListItemButton-root MuiListItemButton-colorNeutral MuiListItemButton-variantPlain css-te2wjv" href="/rolam" data-discover="true">Rólam</a></div></nav></div><button aria-label="Világos mód bekapcsolása" class="MuiIconButton-root MuiIconButton-variantSoft MuiIconButton-colorNeutral MuiIconButton-sizeMd css-urv1zd" type="button">🌞</button></header><main style="flex: 1 1 0%;"><div class="MuiBox-root css-1g8smxd"><div class="MuiBox-root css-1545s3d"><div class="MuiBox-root css-vxem5f"></div><div class="MuiBox-root css-1ho9v1j"></div><div class="MuiBox-root css-1kucmyy"></div><div class="MuiBox-root css-qg6z9"></div></div><section role="region" aria-label="Rólam oldal szekció" tabindex="0" class="MuiSheet-root MuiSheet-variantPlain MuiSheet-colorNeutral css-1twkthz"><div class="MuiBox-root css-1y0qvcm"><h1 tabindex="0" aria-label="Rólam" class="MuiTypography-root MuiTypography-h1 css-1sqbqal">Rólam</h1></div><div class="MuiBox-root css-1aroh1r"><div class="MuiBox-root css-erom9y"><p class="MuiTypography-root MuiTypography-title-lg css-g81nl1">Szia, Szilveszter vagyok!</p><p class="MuiTypography-root MuiTypography-body-lg css-y65l6i">Több mint egy éve foglalkozom webfejlesztéssel, azon belül is modern, nagyvállalati környezetben is bizonyított technológiákkal. Olyan rendszerekkel dolgozom, amelyeket olyan cégek használnak, mint a Facebook, Instagram, Pinterest, vagy akár a NASA adminisztrációs rendszerei.</p></div><div class="MuiBox-root css-1fnyhtf"><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-1o16bwy"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r1»-summary" aria-expanded="false" aria-controls="«r1»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Mit csinál egy jó weboldal valójában?</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r1»-details" aria-labelledby="«r1»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">Egy jó weboldal nem csak jelen van, hanem dolgozik helyetted. Nem egy online névjegykártya, hanem a branded aktív része:</p><ul class="MuiBox-root css-1vh9mlc"><li>képes eladni,</li><li>növeli a forgalmad,</li><li>segíti az ügyfeleiddel való kapcsolattartást,</li><li>és leveszi a válladról a repetitív feladatokat.</li></ul><p class="MuiTypography-root MuiTypography-body-md css-vugkan">Egy jól megtervezett weboldal olyan, mint egy megbízható munkatárs, aki 0–24-ben érted dolgozik.</p></div></div></div><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-1fvvzzt"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r2»-summary" aria-expanded="false" aria-controls="«r2»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Miért engem válassz?</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r2»-details" aria-labelledby="«r2»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">Hiszem, hogy megfizethető áron is lehet:</p><ul class="MuiBox-root css-13sgvi"><li>szép,</li><li>modern,</li><li>és villámgyors weboldalt készíteni.</li></ul><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">Nem sablonokat árulok, hanem egyedi megoldásokat. Közösen megkeressük a számodra és a vállalkozásod számára legmegfelelőbb irányt, majd erre építjük fel a rendszert.</p><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">Az általam használt technológiáknak és teljesítmény-optimalizálásnak köszönhetően a végeredmény:</p><ul class="MuiBox-root css-1vh9mlc"><li>lényegesen gyorsabb, mint egy átlagos tartalomkezelővel (WordPress, Shopify) készült oldal,</li><li>különösen mobilon, ami kulcsfontosságú, hiszen a látogatók 70–80%-a telefonról érkezik.</li></ul></div></div></div><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-tj5aml"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r3»-summary" aria-expanded="false" aria-controls="«r3»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Egyedi admin felület, korlátok nélkül</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r3»-details" aria-labelledby="«r3»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">Az admin felületet egyedileg alakítjuk ki, így bármilyen dinamikus funkció megvalósítható, például:</p><ul class="MuiBox-root css-1vh9mlc"><li>időpontfoglalás,</li><li>online portfólió vagy galéria,</li><li>kapcsolatfelvételi űrlapok,</li><li>rendelésleadás vagy egyedi üzleti logika.</li></ul></div></div></div><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-1lqiffm"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r4»-summary" aria-expanded="false" aria-controls="«r4»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Teljes körű szolgáltatás</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r4»-details" aria-labelledby="«r4»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">A weboldal mellett az alábbiakat is biztosítani tudom:</p><ul class="MuiBox-root css-1vh9mlc"><li>teljes körű frontend és backend fejlesztés,</li><li>Neon / PostgreSQL adatbázis,</li><li>felhőalapú képtárolás automatikus, performance-optimalizált konvertálással,</li><li>domain és tárhely ügyintézés,</li><li>céges e-mailek, SMTP és automatikus e-mail küldés,</li><li>Google Business beállítás,</li><li>alap SEO és technikai optimalizálás.</li></ul></div></div></div><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-4345nn"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r5»-summary" aria-expanded="false" aria-controls="«r5»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Hogyan zajlik egy projekt?</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r5»-details" aria-labelledby="«r5»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><ol class="MuiBox-root css-1vh9mlc"><li>Közös egyeztetés és specifikáció készítése</li><li>Látványterv a megbeszéltek alapján</li><li>Projekt kickoff, fejlesztés megkezdése</li><li>Teljesítmény- és SEO-optimalizálás mobilra és asztalra</li><li>Domain, céges e-mailek és Google-beállítások összekötése</li><li>Átadás</li></ol></div></div></div><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-8if0lo"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r6»-summary" aria-expanded="false" aria-controls="«r6»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Munkamódszer</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r6»-details" aria-labelledby="«r6»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><p class="MuiTypography-root MuiTypography-body-md css-vcq54g">Agilis szemléletben dolgozom, ahol a folyamatos kommunikáció kulcsfontosságú. Ez biztosítja, hogy a végeredmény pontosan olyan weboldal legyen, amilyet elképzeltél – kompromisszumok nélkül.</p></div></div></div><div class="MuiAccordion-root MuiAccordion-colorNeutral MuiAccordion-variantPlain css-1cf1d0k"><div data-first-child="" class="MuiAccordionSummary-root css-11p4x9a"><button id="«r7»-summary" aria-expanded="false" aria-controls="«r7»-details" type="button" class="MuiAccordionSummary-button css-94smq3"><p class="MuiTypography-root MuiTypography-title-lg css-1xcuknq">Weboldalak helyi vállalkozásoknak és közösségeknek</p><span class="MuiAccordionSummary-indicator css-1cc4zh4"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon" class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-c6bb0f"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg></span></button></div><div id="«r7»-details" aria-labelledby="«r7»-summary" role="region" hidden="" class="MuiAccordionDetails-root css-aztl00"><div class="MuiAccordionDetails-content css-15s96me"><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">A SynelWeb olyan weboldalakat készít, amelyek érthetők, gyorsak és könnyen használhatók – akár egy kisvállalkozásról, egy településről vagy egy magánprojektről van szó.</p><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">A közös munka során arra törekszem, hogy az elkészült weboldal valóban segítse a mindennapokat: megkönnyítse a kapcsolattartást, bemutassa a fontos információkat, és elérhetővé tegye azt, amit az emberek keresnek.</p><p class="MuiTypography-root MuiTypography-body-md css-1tezbsy">Mivel a munkám jelentős része Sopronban és a környező településeken zajlik, pontosan ismerem a helyi igényeket, és ehhez igazítom a weboldalak felépítését és működését. Az oldalak mobilon is jól használhatók, átláthatók, és hosszú távon is megbízható alapot adnak.</p><p class="MuiTypography-root MuiTypography-body-md css-vcq54g">A fejlesztés során személyesen és online is elérhető vagyok, így a folyamat végén egy olyan weboldalt kapsz, amely nem túl bonyolult, nem túlmagyarázott, hanem egyszerűen teszi a dolgát.</p></div></div></div></div></div><style>
+            @keyframes fadeInUp {
+              from {
+                opacity: 0;
+                transform: translateY(32px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          </style></section><style>
+          @keyframes neonPulse {
+            0%, 100% {
+              opacity: 1;
+              transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+              opacity: 0.85;
+              transform: translate(-50%, -50%) scale(1.05);
+            }
+          }
+        </style></div></main><footer class="MuiBox-root css-1me6lkd" role="contentinfo" aria-label="Oldal lábléc"><span class="MuiTypography-root MuiTypography-body2 css-1igzbc0">© 2026 Synel Web Solutions | Minden jog fenntartva.</span><div class="MuiBox-root css-fgzb59"> <button aria-label="Adatvédelmi tájékoztató megnyitása" class="MuiLink-root MuiLink-colorPrimary MuiLink-body-md MuiLink-underlineHover css-1fopz5n">Adatvédelmi tájékoztató</button></div></footer></div></div>
+
+  
+
+</body></html>
