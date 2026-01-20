@@ -18,11 +18,22 @@ const PageLoader = () => (
     display: 'flex', 
     justifyContent: 'center', 
     alignItems: 'center', 
-    minHeight: '60vh',
-    fontSize: '1.2rem',
-    color: '#1976d2'
+    minHeight: '60vh'
   }}>
-    Betöltés...
+    <div style={{
+      width: '40px',
+      height: '40px',
+      border: '3px solid #e0e0e0',
+      borderTop: '3px solid #1976d2',
+      borderRadius: '50%',
+      animation: 'spin 0.8s linear infinite'
+    }}></div>
+    <style>{`
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}</style>
   </div>
 );
 
