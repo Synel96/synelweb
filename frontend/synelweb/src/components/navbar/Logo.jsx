@@ -8,43 +8,38 @@ function Logo({ src, isMobile }) {
       fetchpriority="high"
       style={{
         width: 120,
-        height: "auto",
+        height: 40,
         margin: isMobile ? "0 auto" : "0",
         position: "static",
         zIndex: 2,
         display: "block",
-        transition: "transform 0.2s, filter 0.2s",
+        transition: "transform 0.2s",
         cursor: "pointer",
         outline: "none",
+        willChange: "transform",
       }}
       tabIndex={0}
       aria-label="Synel Web Solutions logó"
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "scale(1.08)";
-        e.currentTarget.style.filter = "drop-shadow(0 0 8px #1976d2)";
+        e.currentTarget.style.transform = "scale(1.05)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.filter = "none";
       }}
       onTouchStart={(e) => {
-        e.currentTarget.style.transform = "scale(1.08)";
-        e.currentTarget.style.filter = "drop-shadow(0 0 8px #1976d2)";
+        e.currentTarget.style.transform = "scale(1.05)";
       }}
       onTouchEnd={(e) => {
         e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.filter = "none";
       }}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
-          e.currentTarget.style.transform = "scale(1.08)";
-          e.currentTarget.style.filter = "drop-shadow(0 0 8px #1976d2)";
+          e.currentTarget.style.transform = "scale(1.05)";
         }
       }}
       onKeyUp={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.filter = "none";
         }
       }}
     />

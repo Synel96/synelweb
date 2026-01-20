@@ -42,18 +42,26 @@ function App() {
     <CssVarsProvider defaultMode="dark">
       <CssBaseline />
       <BrowserRouter>
-        <Navbar />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/projektek" element={<ProjectsPage />} />
-            <Route path="/elerhetoseg" element={<ContactsPage />} />
-            <Route path="/velemenyek" element={<ReviewsPage />} />
-            <Route path="/szolgaltatasok" element={<PackagesPage />} />
-            <Route path="/rolam" element={<AboutPage />} />
-          </Routes>
-        </Suspense>
-        <Footer />
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          minHeight: '100vh' 
+        }}>
+          <Navbar />
+          <main style={{ flex: 1 }}>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/projektek" element={<ProjectsPage />} />
+                <Route path="/elerhetoseg" element={<ContactsPage />} />
+                <Route path="/velemenyek" element={<ReviewsPage />} />
+                <Route path="/szolgaltatasok" element={<PackagesPage />} />
+                <Route path="/rolam" element={<AboutPage />} />
+              </Routes>
+            </Suspense>
+          </main>
+          <Footer />
+        </div>
       </BrowserRouter>
     </CssVarsProvider>
   );
