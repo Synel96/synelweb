@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/joy";
 import { useEffect, useState } from "react";
-import PackagesCards from "../components/packages/PackagesCards";
-import PackagesSkeleton from "../components/packages/PackagesSkeleton";
-import { fetchPackages } from "../services/packagesService";
+import PackagesCards from "../../components/packages/PackagesCards";
+import PackagesSkeleton from "../../components/packages/PackagesSkeleton";
+import { fetchPackages } from "../../services/packagesService";
 import { useColorScheme } from "@mui/joy/styles";
-import Warning from "../components/packages/Warning";
+import Warning from "../../components/packages/Warning";
 import Sheet from "@mui/joy/Sheet";
-import NeonBackground from "../components/common/NeonBackground";
+import NeonBackground from "../../components/common/NeonBackground";
 
 function PackagesPage() {
   const [packages, setPackages] = useState([]);

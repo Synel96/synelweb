@@ -3,7 +3,7 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import { Link } from "react-router-dom";
+
 import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function ReviewSection() {
@@ -100,8 +100,8 @@ function ReviewSection() {
             },
             transition: "background 0.2s",
           }}
-          component={Link}
-          to="/velemenyek" // ide irányít
+          component="a"
+          href="/velemenyek" // ide irányít
           tabIndex={0}
           aria-label="Értékelés írása gomb"
         >

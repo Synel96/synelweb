@@ -1,25 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import vike from "vike/plugin";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), vike({ prerender: true })],
+  resolve: {
+    extensions: ['.js', '.jsx', '.json']
+  },
+  ssr: {
+    noExternal: ['@mui/joy', '@mui/material', '@mui/icons-material', '@mui/base', '@emotion/react', '@emotion/styled', '@emotion/cache']
+  },
   build: {
-    // Enable code splitting
-    rollupOptions: {
-      output: {
-        // Optimize asset loading
-        assetFileNames: "assets/[name]-[hash][extname]",
-        chunkFileNames: "assets/[name]-[hash].js",
-        entryFileNames: "assets/[name]-[hash].js",
-        // Manual chunks for better splitting
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-mui': ['@mui/joy', '@emotion/react', '@emotion/styled'],
-          'vendor-icons': ['@mui/icons-material'],
-        }
-      },
-    },
     // Optimize chunk size
     chunkSizeWarningLimit: 500,
     // Enable minification

@@ -7,7 +7,7 @@ import {
   AccordionSummary,
 } from "@mui/joy";
 import { useColorScheme } from "@mui/joy/styles";
-import NeonBackground from "../components/common/NeonBackground";
+import NeonBackground from "../../components/common/NeonBackground";
 
 function AboutPage() {
   const { mode } = useColorScheme();

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Sheet } from "@mui/joy";
-import ProjectsCard from "../components/projects/ProjectsCard";
-import ProjectsSkeleton from "../components/projects/ProjectsSkeleton";
-import { getProjects } from "../services/projectsService";
+import ProjectsCard from "../../components/projects/ProjectsCard";
+import ProjectsSkeleton from "../../components/projects/ProjectsSkeleton";
+import { getProjects } from "../../services/projectsService";
 import { useColorScheme } from "@mui/joy/styles";
-import NeonBackground from "../components/common/NeonBackground";
+import NeonBackground from "../../components/common/NeonBackground";
 
 function ProjectsPage() {
   const [projects, setProjects] = useState([]);

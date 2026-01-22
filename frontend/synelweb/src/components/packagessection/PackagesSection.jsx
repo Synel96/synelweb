@@ -4,7 +4,7 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import { Link } from "react-router-dom";
+
 import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function PackagesSection() {
@@ -101,8 +101,8 @@ function PackagesSection() {
             },
             transition: "background 0.2s",
           }}
-          component={Link}
-          to="/szolgaltatasok"
+          component="a"
+          href="/szolgaltatasok"
           tabIndex={0}
           aria-label="Csomagok megtekintése gomb"
         >

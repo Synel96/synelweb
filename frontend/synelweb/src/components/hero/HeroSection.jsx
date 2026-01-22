@@ -3,7 +3,7 @@ import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
-import { Link } from "react-router-dom";
+
 import Greet from "../greet/Greet";
 import HeroInfoOverlay from "./HeroInfoOverlay";
 import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";

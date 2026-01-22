@@ -2,7 +2,7 @@ import { useColorScheme } from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import Button from "@mui/joy/Button";
-import { Link } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 
 function HeroInfoOverlay(props) {
@@ -53,8 +53,8 @@ function HeroInfoOverlay(props) {
       </Typography>
 
       <Button
-        component={Link}
-        to="/rolam"
+        component="a"
+        href="/rolam"
         size="lg"
         sx={{
           bgcolor: "#e65100",

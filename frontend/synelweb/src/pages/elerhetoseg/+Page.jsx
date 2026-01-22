@@ -2,45 +2,11 @@ import { useColorScheme } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
-import ReviewsCarousel from "../components/reviews/ReviewsCarousel";
-import CreateReviewButton from "../components/reviews/CreateReviewButton";
-import { useEffect, useState } from "react";
-import { fetchReviews } from "../services/reviewsService";
-import SuccessSnackbar from "../components/modals/SucessSnackbar";
-import ReviewsSkeleton from "../components/reviews/ReviewsSkeleton";
-import OptimizedBackgroundImage from "../components/common/OptimizedBackgroundImage";
+import Contacts from "../../components/contactspage/Contacts";
+import OptimizedBackgroundImage from "../../components/common/OptimizedBackgroundImage";
 
-function ReviewsPage() {
+function ContactsPage() {
   const { mode } = useColorScheme();
-  const [reviews, setReviews] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [loading, setLoading] = useState(true); // új állapot
-
-  // Frissítés sikeres beküldés után
-  const refreshReviews = () => {
-    setLoading(true);
-    fetchReviews()
-      .then((data) => {
-        const approvedReviews = Array.isArray(data)
-          ? data.filter((review) => review.is_approved)
-          : [];
-        setReviews(approvedReviews);
-        setLoading(false);
-      })
-      .catch(() => {
-        setReviews([]);
-        setLoading(false);
-      });
-  };
-
-  const handleReviewSuccess = () => {
-    refreshReviews();
-    setShowSuccess(true);
-  };
-
-  useEffect(() => {
-    refreshReviews();
-  }, []);
 
   return (
     <Sheet
@@ -61,15 +27,15 @@ function ReviewsPage() {
       }}
       variant="plain"
       role="region"
-      aria-label="Vélemények szekció"
+      aria-label="Kapcsolat oldal szekció"
       tabIndex={0}
     >
       {/* Cloudinary optimalizált háttérkép */}
       <OptimizedBackgroundImage 
-        cloudinaryId="reviewpage_ub16ki"
-        alt="Vélemények háttérkép"
+        cloudinaryId="contactpage_endaex"
+        alt="Kapcsolat oldal háttérkép"
       />
-      {/* Cím a tetején */}
+      {/* Elérhetőség cím és box */}
       <Box
         sx={{
           position: "relative",
@@ -79,8 +45,8 @@ function ReviewsPage() {
           borderRadius: 4,
           p: { xs: 2, sm: 4 },
           boxShadow: "md",
-          width: { xs: "95%", sm: "80%", md: "420px" },
-          mx: "auto",
+          maxWidth: 900,
+          width: { xs: "95%", sm: "80%", md: "720px" },
           textAlign: "center",
           mt: { xs: 4, sm: 6 },
           opacity: 0,
@@ -102,50 +68,27 @@ function ReviewsPage() {
           }}
           tabIndex={0}
         >
-          Vélemények
+          Elérhetőség
         </Typography>
       </Box>
-      {/* Körhinta animáltan, késleltetve */}
+      {/* Contacts komponens külön, animáltan */}
       <Box
         sx={{
           position: "relative",
           zIndex: 2,
           width: "100%",
-          maxWidth: 420,
+          maxWidth: 900,
           mt: 3,
-          mx: "auto",
           opacity: 0,
           transform: "translateY(32px)",
           animation: "fadeInUp 0.8s cubic-bezier(.4,0,.2,1) 0.6s forwards",
-        }}
-      >
-        {loading ? <ReviewsSkeleton /> : <ReviewsCarousel reviews={reviews} />}
-      </Box>
-      {/* Vélemény beküldő gomb legalul, utolsóként animálva */}
-      <Box
-        sx={{
-          position: "relative",
-          zIndex: 2,
-          width: "100%",
-          maxWidth: 420,
-          mt: 4,
-          mb: 2,
-          mx: "auto",
-          opacity: 0,
-          transform: "translateY(32px)",
-          animation: "fadeInUp 0.8s cubic-bezier(.4,0,.2,1) 1.1s forwards",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          justifyContent: { xs: "center", md: "flex-start" },
+          px: { xs: 2, md: 6 },
         }}
       >
-        <CreateReviewButton onSuccess={handleReviewSuccess} />
+        <Contacts />
       </Box>
-      {/* Sikeres mentés visszajelzés */}
-      <SuccessSnackbar
-        open={showSuccess}
-        onClose={() => setShowSuccess(false)}
-      />
       {/* Animációs kulcsszavak */}
       <style>
         {`
@@ -173,4 +116,4 @@ function ReviewsPage() {
   );
 }
 
-export default ReviewsPage;
+export default ContactsPage;

@@ -3,7 +3,7 @@ import Button from "@mui/joy/Button";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import Box from "@mui/joy/Box";
-import { Link } from "react-router-dom";
+
 import OptimizedBackgroundImage from "../common/OptimizedBackgroundImage";
 
 function ContactSection() {
@@ -83,8 +83,8 @@ function ContactSection() {
         <Button
           size="lg"
           variant="solid"
-          component={Link}
-          to="/elerhetoseg"
+          component="a"
+          href="/elerhetoseg"
           sx={{
             fontWeight: 600,
             fontSize: "1.1rem",

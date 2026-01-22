@@ -1,13 +1,13 @@
 import { useState } from "react";
-import HeroSection from "../components/hero/HeroSection";
-import ContactSection from "../components/contactsection/ContactSection";
-import ReviewSection from "../components/reviewsection/ReviewSection";
-import ProjectsSection from "../components/projectssection/ProjectsSection";
-import PackagesSection from "../components/packagessection/PackagesSection";
+import HeroSection from "../../components/hero/HeroSection";
+import ContactSection from "../../components/contactsection/ContactSection";
+import ReviewSection from "../../components/reviewsection/ReviewSection";
+import ProjectsSection from "../../components/projectssection/ProjectsSection";
+import PackagesSection from "../../components/packagessection/PackagesSection";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import SectionWrapper from "../components/wrapper/SectionWrapper";
-import "../App.css";
+import SectionWrapper from "../../components/wrapper/SectionWrapper";
+import "../../App.css";
 
 const sectionIds = [
   "section-1",
