@@ -5,6 +5,7 @@ import vike from "vike/plugin";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), vike({ prerender: true })],
+  publicDir: 'public',
   resolve: {
     extensions: ['.js', '.jsx', '.json']
   },
