@@ -5,14 +5,19 @@ import ProjectsSkeleton from "../../components/projects/ProjectsSkeleton";
 import { getProjects } from "../../services/projectsService";
 import { useColorScheme } from "@mui/joy/styles";
 import NeonBackground from "../../components/common/NeonBackground";
+import { useData } from "vike-react/useData";
 
 function ProjectsPage() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Use SSR data if available, otherwise fetch client-side
+  const ssrData = useData();
+  const [projects, setProjects] = useState(ssrData?.projects || []);
+  const [loading, setLoading] = useState(!ssrData?.projects);
   const { mode } = useColorScheme();
 
   useEffect(() => {
-    // Start fetching immediately on mount
+    // Only fetch if no SSR data
+    if (ssrData?.projects) return;
+    
     const fetchProjects = async () => {
       try {
         const data = await getProjects();
@@ -25,7 +30,7 @@ function ProjectsPage() {
     };
 
     fetchProjects();
-  }, []);
+  }, [ssrData]);
 
   return (
     <NeonBackground>

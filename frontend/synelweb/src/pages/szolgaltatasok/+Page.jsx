@@ -7,13 +7,19 @@ import { useColorScheme } from "@mui/joy/styles";
 import Warning from "../../components/packages/Warning";
 import Sheet from "@mui/joy/Sheet";
 import NeonBackground from "../../components/common/NeonBackground";
+import { useData } from "vike-react/useData";
 
 function PackagesPage() {
-  const [packages, setPackages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Use SSR data if available
+  const ssrData = useData();
+  const [packages, setPackages] = useState(ssrData?.packages || []);
+  const [loading, setLoading] = useState(!ssrData?.packages);
   const { mode } = useColorScheme();
 
   useEffect(() => {
+    // Only fetch if no SSR data
+    if (ssrData?.packages) return;
+    
     fetchPackages()
       .then((res) => {
         const pkgs = Array.isArray(res.data)
@@ -31,7 +37,7 @@ function PackagesPage() {
       })
       .catch(() => setPackages([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [ssrData]);
 
   return (
     <NeonBackground>

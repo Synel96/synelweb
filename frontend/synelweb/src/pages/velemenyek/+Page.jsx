@@ -9,12 +9,15 @@ import { fetchReviews } from "../../services/reviewsService";
 import SuccessSnackbar from "../../components/modals/SucessSnackbar";
 import ReviewsSkeleton from "../../components/reviews/ReviewsSkeleton";
 import OptimizedBackgroundImage from "../../components/common/OptimizedBackgroundImage";
+import { useData } from "vike-react/useData";
 
 function ReviewsPage() {
   const { mode } = useColorScheme();
-  const [reviews, setReviews] = useState([]);
+  // Use SSR data if available
+  const ssrData = useData();
+  const [reviews, setReviews] = useState(ssrData?.reviews || []);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [loading, setLoading] = useState(true); // új állapot
+  const [loading, setLoading] = useState(!ssrData?.reviews);
 
   // Frissítés sikeres beküldés után
   const refreshReviews = () => {
@@ -39,8 +42,11 @@ function ReviewsPage() {
   };
 
   useEffect(() => {
-    refreshReviews();
-  }, []);
+    // Only fetch if no SSR data
+    if (!ssrData?.reviews) {
+      refreshReviews();
+    }
+  }, [ssrData]);
 
   return (
     <Sheet
