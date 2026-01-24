@@ -7,7 +7,37 @@ import createEmotionServer from '@emotion/server/create-instance'
 import Layout from './_Layout'
 
 async function onRenderHtml(pageContext) {
-  const { Page } = pageContext
+  const { Page, urlPathname } = pageContext
+  
+  // Page-specific titles and descriptions
+  const pageMeta = {
+    '/': {
+      title: 'SynelWeb - Weboldal készítés Sopronban | Webdesign',
+      description: 'Professzionális weboldal készítés és webdesign szolgáltatások Sopronban. Modern, reszponzív weboldalak gyors telepítési idővel.'
+    },
+    '/projektek': {
+      title: 'Projektek - SynelWeb',
+      description: 'Nézd meg befejezett projektjeinket és weboldalainkat. Portfólió és referenciamunkák.'
+    },
+    '/szolgaltatasok': {
+      title: 'Szolgáltatások és Csomagok - SynelWeb',
+      description: 'Weboldal készítés, webdesign és hosting csomagok. Válaszd ki a számodra megfelelő szolgáltatást.'
+    },
+    '/velemenyek': {
+      title: 'Vélemények - SynelWeb',
+      description: 'Ügyfeleink véleménye és tapasztalatai a szolgáltatásainkról.'
+    },
+    '/elerhetoseg': {
+      title: 'Elérhetőség és Kapcsolat - SynelWeb',
+      description: 'Vedd fel velünk a kapcsolatot! Kérdés, ajánlatkérés vagy konzultáció.'
+    },
+    '/rolam': {
+      title: 'Rólam - SynelWeb',
+      description: 'Ismerd meg a csapatot és a SynelWeb történetét.'
+    }
+  }
+  
+  const meta = pageMeta[urlPathname] || pageMeta['/']
   
   // Create emotion cache for SSR
   const cache = createEmotionCache()
@@ -29,7 +59,8 @@ async function onRenderHtml(pageContext) {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="SynelWeb - Weboldal készítés és webdesign szolgáltatások" />
+        <title>${meta.title}</title>
+        <meta name="description" content="${meta.description}" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
