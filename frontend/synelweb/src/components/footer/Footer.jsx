@@ -35,6 +35,7 @@ function Footer() {
             fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', // Fallback fonts
             fontWeight: 400,
           }}
+          suppressHydrationWarning
         >
           © {new Date().getFullYear()} Synel Web Solutions | Minden jog
           fenntartva.

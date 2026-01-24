@@ -19,6 +19,7 @@ const sectionIds = [
 
 function MainPage() {
   const scrollToNextSection = () => {
+    if (typeof window === 'undefined') return;
     const sections = sectionIds.map((id) => document.getElementById(id));
     const scrollY = window.scrollY;
     const nextIndex = sections.findIndex(
@@ -32,6 +33,7 @@ function MainPage() {
   };
 
   const scrollToTop = () => {
+    if (typeof window === 'undefined') return;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

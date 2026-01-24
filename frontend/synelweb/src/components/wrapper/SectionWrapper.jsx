@@ -5,6 +5,8 @@ function SectionWrapper({ id, children, delay = 0 }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const observer = new window.IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
