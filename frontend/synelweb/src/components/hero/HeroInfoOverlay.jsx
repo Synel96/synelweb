@@ -22,6 +22,7 @@ function HeroInfoOverlay(props) {
       role="region"
       aria-labelledby="hero-info-desc"
       tabIndex={0}
+      suppressHydrationWarning
       sx={{
         ...props.style,
         margin: "0 auto",
