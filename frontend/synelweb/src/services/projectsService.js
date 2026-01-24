@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 // Simple in-memory cache with TTL
 const cache = {
@@ -18,7 +18,7 @@ export async function getProjects() {
   }
 
   // Fetch fresh data
-  const response = await axios.get(`${API_BASE_URL}projects/projects/`, {
+  const response = await axios.get(`${API_BASE_URL}/projects/projects/`, {
     // Add timeout to prevent hanging
     timeout: 10000,
   });
