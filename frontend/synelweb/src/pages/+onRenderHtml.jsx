@@ -93,6 +93,9 @@ async function onRenderHtml(pageContext) {
   };
 
   const structuredData = getStructuredData(urlPathname);
+  const structuredDataHtml = structuredData.map(schema => 
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>`
+  ).join('');
   
   // Create emotion cache for SSR
   const cache = createEmotionCache()
@@ -120,9 +123,7 @@ async function onRenderHtml(pageContext) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
-        ${structuredData.map(schema => 
-          dangerouslySkipEscape(`<script type="application/ld+json">${JSON.stringify(schema)}</script>`)
-        ).join('')}
+        ${dangerouslySkipEscape(structuredDataHtml)}
         ${dangerouslySkipEscape(emotionCss)}
       </head>
       <body>
