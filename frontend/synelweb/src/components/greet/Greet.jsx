@@ -37,6 +37,7 @@ function Greet() {
   return (
     <Sheet
       variant="plain"
+      suppressHydrationWarning
       sx={{
         textAlign: "center",
         boxShadow: "none",
