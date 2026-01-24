@@ -39,6 +39,61 @@ async function onRenderHtml(pageContext) {
   
   const meta = pageMeta[urlPathname] || pageMeta['/']
   
+  // Structured data (JSON-LD) for SEO
+  const getStructuredData = (pathname) => {
+    const baseSchema = {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "SynelWeb",
+      "description": "Weboldal készítés és webdesign szolgáltatások Sopronban",
+      "url": "https://www.synelweb.hu",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sopron",
+        "addressCountry": "HU"
+      },
+      "priceRange": "$$"
+    };
+
+    if (pathname === '/') {
+      return [
+        baseSchema,
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "SynelWeb",
+          "url": "https://www.synelweb.hu",
+          "logo": "https://www.synelweb.hu/lightlogo.svg",
+          "sameAs": []
+        }
+      ];
+    }
+
+    if (pathname === '/velemenyek') {
+      return [baseSchema];
+    }
+
+    if (pathname === '/szolgaltatasok') {
+      return [
+        baseSchema,
+        {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Weboldal készítés",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "SynelWeb"
+          },
+          "areaServed": "Sopron, HU"
+        }
+      ];
+    }
+
+    return [baseSchema];
+  };
+
+  const structuredData = getStructuredData(urlPathname);
+  
   // Create emotion cache for SSR
   const cache = createEmotionCache()
   const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache)
@@ -65,6 +120,9 @@ async function onRenderHtml(pageContext) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="preconnect" href="https://res.cloudinary.com" />
+        ${structuredData.map(schema => 
+          dangerouslySkipEscape(`<script type="application/ld+json">${JSON.stringify(schema)}</script>`)
+        ).join('')}
         ${dangerouslySkipEscape(emotionCss)}
       </head>
       <body>

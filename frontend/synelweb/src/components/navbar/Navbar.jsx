@@ -23,7 +23,10 @@ function Navbar() {
         py: 2,
         bgcolor: mode === "dark" ? "#121212" : "#fff",
         borderBottom: "none",
-        position: "relative",
+        position: "sticky",
+        top: 0,
+        zIndex: 1000,
+        boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
       }}
       role="banner"
       aria-label="Fő navigációs sáv"
