@@ -112,6 +112,9 @@ async function onRenderHtml(pageContext) {
   const emotionChunks = extractCriticalToChunks(html)
   const emotionCss = constructStyleTagsFromChunks(emotionChunks)
   
+  // Canonical URL
+  const canonicalUrl = `https://www.synelweb.hu${urlPathname === '/' ? '' : urlPathname}`;
+
   return escapeInject`<!DOCTYPE html>
     <html lang="hu">
       <head>
@@ -119,6 +122,7 @@ async function onRenderHtml(pageContext) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>${meta.title}</title>
         <meta name="description" content="${meta.description}" />
+        <link rel="canonical" href="${canonicalUrl}" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
