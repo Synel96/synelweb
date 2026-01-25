@@ -20,6 +20,7 @@ function ProjectsCard({
 
   return (
     <Box
+      suppressHydrationWarning
       sx={{
         width: "100%",
         maxWidth: { xs: "100%", sm: 520 },

@@ -109,6 +109,7 @@ function CreateReviewModal({ open, onClose, onSuccess }) {
         }}
       >
         <ModalDialog
+          suppressHydrationWarning
           sx={{
             width: { xs: "95vw", sm: 420 },
             maxWidth: "100vw",

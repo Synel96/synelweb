@@ -22,6 +22,7 @@ function ProjectMediaModal({ open, onClose, slides = [], video = "" }) {
       aria-modal="true"
     >
       <ModalDialog
+        suppressHydrationWarning
         sx={{
           minWidth: 320,
           maxWidth: 540,

@@ -79,7 +79,7 @@ function Menu() {
   // Desktop nézet
   return (
     <nav aria-label="Fő navigáció">
-      <Box sx={{ display: "flex", gap: 2 }}>
+      <Box suppressHydrationWarning sx={{ display: "flex", gap: 2 }}>
         {menuItems.map(({ label, href }) => (
           <ListItemButton
             key={label}

@@ -56,6 +56,7 @@ function ProjectsCarousel({
 
   return (
     <Box
+      suppressHydrationWarning
       role="region"
       aria-label="Projekt körhinta"
       sx={{

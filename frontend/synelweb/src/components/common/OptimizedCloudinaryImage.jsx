@@ -57,6 +57,7 @@ function OptimizedCloudinaryImage({
 
   return (
     <Box
+      suppressHydrationWarning
       sx={{
         position: "relative",
         width: "100%",

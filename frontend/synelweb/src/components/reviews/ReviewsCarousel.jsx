@@ -71,6 +71,7 @@ function ReviewsCarousel({ reviews = [] }) {
 
   return (
     <Box
+      suppressHydrationWarning
       sx={{
         width: "100%",
         maxWidth: 420,
