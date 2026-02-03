@@ -1,6 +1,13 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/client",
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://www.synelweb.hu/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
