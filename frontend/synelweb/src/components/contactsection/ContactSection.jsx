@@ -12,6 +12,7 @@ function ContactSection() {
   return (
     <Sheet
       component="section"
+      suppressHydrationWarning
       sx={{
         position: "relative",
         width: "100vw",
@@ -38,6 +39,7 @@ function ContactSection() {
         priority={true}
       />
       <Box
+        suppressHydrationWarning
         sx={{
           position: "relative",
           zIndex: 2,

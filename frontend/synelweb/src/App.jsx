@@ -6,7 +6,7 @@ import Footer from "./components/footer/Footer";
 
 // Lazy load pages for code splitting
 const MainPage = lazy(() => import("./pages/MainPage"));
-const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
+const ProjectsPage = lazy(() => import("./pages/projektek/+Page.jsx"));
 const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 const ReviewsPage = lazy(() => import("./pages/ReviewsPage"));
 const PackagesPage = lazy(() => import("./pages/PackagesPage"));
