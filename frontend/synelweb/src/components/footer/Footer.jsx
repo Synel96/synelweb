@@ -1,9 +1,14 @@
 import { Box, Typography, Link } from "@mui/joy";
-import { useState } from "react";
-import PrivacyPolicyModal from "../modals/PrivacyPolicyModal"; // helyes import
+import { useState, useEffect } from "react";
+import PrivacyPolicyModal from "../modals/PrivacyPolicyModal";
 
 function Footer() {
   const [openPolicy, setOpenPolicy] = useState(false);
+  const [year, setYear] = useState("");
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <>
@@ -15,40 +20,38 @@ function Footer() {
           color: "text.primary",
           py: { xs: 3, sm: 3 },
           mt: 6,
-          height: { xs: "140px", sm: "120px" }, // Fix height to prevent CLS
+          height: { xs: "140px", sm: "120px" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
           borderTop: "1px solid #eee",
-          flexShrink: 0, // Prevent shrinking
+          flexShrink: 0,
         }}
         role="contentinfo"
         aria-label="Oldal lábléc"
       >
-        <Typography 
+        <Typography
           level="body2"
           sx={{
             fontSize: { xs: "0.875rem", sm: "0.875rem" },
             lineHeight: 1.5,
-            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', // Fallback fonts
+            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
             fontWeight: 400,
           }}
-          suppressHydrationWarning
         >
-          © {new Date().getFullYear()} Synel Web Solutions | Minden jog
-          fenntartva.
+          © {year || "2026"} Synel Web Solutions | Minden jog fenntartva.
         </Typography>
-        <Box sx={{ mt: 1, height: "28px", display: "flex", alignItems: "center" }}> {/* Fixed height for link container */}
+        <Box sx={{ mt: 1, height: "28px", display: "flex", alignItems: "center" }}>
           <Link
             component="button"
             onClick={() => setOpenPolicy(true)}
-            sx={{ 
+            sx={{
               fontSize: { xs: "0.875rem", sm: "1rem" },
               fontWeight: 500,
               lineHeight: 1.5,
-              fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif', // Fallback fonts
+              fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
             }}
             aria-label="Adatvédelmi tájékoztató megnyitása"
           >
