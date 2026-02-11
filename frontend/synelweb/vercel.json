@@ -5,25 +5,7 @@
     {
       "source": "/(.*)",
       "has": [
-        { "type": "host", "value": "synelweb.hu" },
-        { "type": "protocol", "value": "http" }
-      ],
-      "destination": "https://www.synelweb.hu/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
         { "type": "host", "value": "synelweb.hu" }
-      ],
-      "destination": "https://www.synelweb.hu/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "www.synelweb.hu" },
-        { "type": "protocol", "value": "http" }
       ],
       "destination": "https://www.synelweb.hu/$1",
       "permanent": true
