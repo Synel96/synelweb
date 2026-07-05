@@ -13,13 +13,24 @@ class ProjectImageInline(admin.TabularInline):
 
 
 class ProjectAdminForm(forms.ModelForm):
+	STACK_OPTIONS = [
+		("react", "React"),
+		("tailwind", "TailwindCSS"),
+		("typescript", "TypeScript"),
+		("python", "Python"),
+		("django", "Django"),
+		("postgresql", "PostgreSQL"),
+	]
+	STACK_NAME_BY_LOGO = {logo: name for logo, name in STACK_OPTIONS}
+
 	description_hu = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
 	description_en = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
 	description_de = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
-	stack_plain = forms.CharField(
-		required=False,
-		widget=forms.Textarea(attrs={"rows": 6}),
-		help_text="Soronkent: Tech Name|logo_key, pl: React|react",
+	stack_choices = forms.MultipleChoiceField(
+		choices=STACK_OPTIONS,
+		required=True,
+		widget=forms.CheckboxSelectMultiple,
+		help_text="Valaszd ki a projekt technologiait.",
 	)
 	lh_mobile_performance = forms.IntegerField(required=False, min_value=0, max_value=100)
 	lh_mobile_accessibility = forms.IntegerField(required=False, min_value=0, max_value=100)
@@ -61,7 +72,7 @@ class ProjectAdminForm(forms.ModelForm):
 			self.fields["description_en"].initial = description.get("en", "")
 			self.fields["description_de"].initial = description.get("de", "")
 		stack = payload.get("stack") if isinstance(payload.get("stack"), list) else self.DEFAULT_STACK
-		self.fields["stack_plain"].initial = self._stack_to_plain(stack)
+		self.fields["stack_choices"].initial = self._stack_to_choices(stack)
 
 		mobile = self._lighthouse_to_map(payload.get("lighthouseMobile"), self.DEFAULT_LIGHTHOUSE)
 		desktop = self._lighthouse_to_map(payload.get("lighthouseDesktop"), self.DEFAULT_LIGHTHOUSE)
@@ -90,16 +101,16 @@ class ProjectAdminForm(forms.ModelForm):
 			pass
 		return {}
 
-	def _stack_to_plain(self, stack_items):
-		lines = []
+	def _stack_to_choices(self, stack_items):
+		choices = []
+		allowed = {logo for logo, _ in self.STACK_OPTIONS}
 		for item in stack_items:
 			if not isinstance(item, dict):
 				continue
-			name = (item.get("name") or "").strip()
 			logo = (item.get("logo") or "").strip()
-			if name and logo:
-				lines.append(f"{name}|{logo}")
-		return "\n".join(lines)
+			if logo in allowed:
+				choices.append(logo)
+		return choices
 
 	def _lighthouse_to_map(self, value, fallback):
 		result = dict(fallback)
@@ -114,26 +125,11 @@ class ProjectAdminForm(forms.ModelForm):
 				result[label] = raw_value
 		return result
 
-	def clean_stack_plain(self):
-		raw = (self.cleaned_data.get("stack_plain") or "").strip()
-		if not raw:
-			raise forms.ValidationError("Adj meg legalabb 1 stack sort (name|logo).")
-		stack = []
-		for i, line in enumerate(raw.splitlines(), start=1):
-			text = line.strip()
-			if not text:
-				continue
-			if "|" not in text:
-				raise forms.ValidationError(f"Hibas stack sor #{i}. Formatum: Name|logo")
-			name, logo = text.split("|", 1)
-			name = name.strip()
-			logo = logo.strip()
-			if not name or not logo:
-				raise forms.ValidationError(f"Hibas stack sor #{i}. A name es logo kotelezo.")
-			stack.append({"name": name, "logo": logo})
-		if not stack:
-			raise forms.ValidationError("Adj meg legalabb 1 stack elemet.")
-		return stack
+	def clean_stack_choices(self):
+		selected = self.cleaned_data.get("stack_choices") or []
+		if not selected:
+			raise forms.ValidationError("Valassz ki legalabb 1 technologiat.")
+		return selected
 
 	def _validate_lighthouse(self, value, field_name):
 		if not value:
@@ -179,13 +175,19 @@ class ProjectAdminForm(forms.ModelForm):
 
 	def save(self, commit=True):
 		instance = super().save(commit=False)
+		selected_logos = self.cleaned_data.get("stack_choices") or []
+		stack_payload = [
+			{"name": self.STACK_NAME_BY_LOGO[logo], "logo": logo}
+			for logo in selected_logos
+			if logo in self.STACK_NAME_BY_LOGO
+		]
 		payload = {
 			"description": {
 				"hu": (self.cleaned_data.get("description_hu") or "").strip(),
 				"en": (self.cleaned_data.get("description_en") or "").strip(),
 				"de": (self.cleaned_data.get("description_de") or "").strip(),
 			},
-			"stack": self.cleaned_data.get("stack_plain") or [],
+			"stack": stack_payload,
 			"lighthouseMobile": self._build_lighthouse("lh_mobile"),
 			"lighthouseDesktop": self._build_lighthouse("lh_desktop"),
 			"liveUrl": (self.cleaned_data.get("live_url") or "").strip(),
@@ -209,7 +211,7 @@ class ProjectAdmin(admin.ModelAdmin):
 	fieldsets = (
 		("Alap", {"fields": ("name", "slug", "project_type", "preview_image", "preview_video")}),
 		("Többnyelvű leírás", {"fields": ("description_hu", "description_en", "description_de")}),
-		("Stack", {"fields": ("stack_plain",)}),
+		("Stack", {"fields": ("stack_choices",)}),
 		(
 			"Lighthouse Mobile",
 			{"fields": ("lh_mobile_performance", "lh_mobile_accessibility", "lh_mobile_best_practices", "lh_mobile_seo")},
