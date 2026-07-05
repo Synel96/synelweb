@@ -16,12 +16,37 @@ class ProjectAdminForm(forms.ModelForm):
 	description_hu = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
 	description_en = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
 	description_de = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 4}))
-	stack_json = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 6}))
-	lighthouse_mobile_json = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 6}))
-	lighthouse_desktop_json = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 6}))
+	stack_plain = forms.CharField(
+		required=False,
+		widget=forms.Textarea(attrs={"rows": 6}),
+		help_text="Soronkent: Tech Name|logo_key, pl: React|react",
+	)
+	lh_mobile_performance = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_mobile_accessibility = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_mobile_best_practices = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_mobile_seo = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_desktop_performance = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_desktop_accessibility = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_desktop_best_practices = forms.IntegerField(required=False, min_value=0, max_value=100)
+	lh_desktop_seo = forms.IntegerField(required=False, min_value=0, max_value=100)
 	live_url = forms.URLField(required=False)
 	is_active = forms.BooleanField(required=False, initial=True)
 	api_order = forms.IntegerField(required=False, min_value=0)
+
+	DEFAULT_STACK = [
+		{"name": "React", "logo": "react"},
+		{"name": "TailwindCSS", "logo": "tailwind"},
+		{"name": "TypeScript", "logo": "typescript"},
+		{"name": "Python", "logo": "python"},
+		{"name": "Django", "logo": "django"},
+		{"name": "PostgreSQL", "logo": "postgresql"},
+	]
+	DEFAULT_LIGHTHOUSE = {
+		"performance": 100,
+		"accessibility": 100,
+		"bestPractices": 100,
+		"seo": 100,
+	}
 
 	class Meta:
 		model = Project
@@ -35,9 +60,20 @@ class ProjectAdminForm(forms.ModelForm):
 			self.fields["description_hu"].initial = description.get("hu", "")
 			self.fields["description_en"].initial = description.get("en", "")
 			self.fields["description_de"].initial = description.get("de", "")
-		self.fields["stack_json"].initial = self._pretty_json(payload.get("stack", []))
-		self.fields["lighthouse_mobile_json"].initial = self._pretty_json(payload.get("lighthouseMobile", []))
-		self.fields["lighthouse_desktop_json"].initial = self._pretty_json(payload.get("lighthouseDesktop", []))
+		stack = payload.get("stack") if isinstance(payload.get("stack"), list) else self.DEFAULT_STACK
+		self.fields["stack_plain"].initial = self._stack_to_plain(stack)
+
+		mobile = self._lighthouse_to_map(payload.get("lighthouseMobile"), self.DEFAULT_LIGHTHOUSE)
+		desktop = self._lighthouse_to_map(payload.get("lighthouseDesktop"), self.DEFAULT_LIGHTHOUSE)
+		self.fields["lh_mobile_performance"].initial = mobile["performance"]
+		self.fields["lh_mobile_accessibility"].initial = mobile["accessibility"]
+		self.fields["lh_mobile_best_practices"].initial = mobile["bestPractices"]
+		self.fields["lh_mobile_seo"].initial = mobile["seo"]
+		self.fields["lh_desktop_performance"].initial = desktop["performance"]
+		self.fields["lh_desktop_accessibility"].initial = desktop["accessibility"]
+		self.fields["lh_desktop_best_practices"].initial = desktop["bestPractices"]
+		self.fields["lh_desktop_seo"].initial = desktop["seo"]
+
 		self.fields["live_url"].initial = payload.get("liveUrl", "")
 		self.fields["is_active"].initial = payload.get("isActive", True)
 		self.fields["api_order"].initial = payload.get("order")
@@ -54,36 +90,50 @@ class ProjectAdminForm(forms.ModelForm):
 			pass
 		return {}
 
-	def _pretty_json(self, value):
-		if not value:
-			return ""
-		return json.dumps(value, ensure_ascii=False, indent=2)
+	def _stack_to_plain(self, stack_items):
+		lines = []
+		for item in stack_items:
+			if not isinstance(item, dict):
+				continue
+			name = (item.get("name") or "").strip()
+			logo = (item.get("logo") or "").strip()
+			if name and logo:
+				lines.append(f"{name}|{logo}")
+		return "\n".join(lines)
 
-	def clean_stack_json(self):
-		return self._clean_json_field("stack_json", expect=list)
+	def _lighthouse_to_map(self, value, fallback):
+		result = dict(fallback)
+		if not isinstance(value, list):
+			return result
+		for item in value:
+			if not isinstance(item, dict):
+				continue
+			label = item.get("label")
+			raw_value = item.get("value")
+			if label in result and isinstance(raw_value, int) and 0 <= raw_value <= 100:
+				result[label] = raw_value
+		return result
 
-	def clean_lighthouse_mobile_json(self):
-		value = self._clean_json_field("lighthouse_mobile_json", expect=list)
-		self._validate_lighthouse(value, "lighthouse_mobile_json")
-		return value
-
-	def clean_lighthouse_desktop_json(self):
-		value = self._clean_json_field("lighthouse_desktop_json", expect=list)
-		self._validate_lighthouse(value, "lighthouse_desktop_json")
-		return value
-
-	def _clean_json_field(self, field_name, expect):
-		raw = (self.cleaned_data.get(field_name) or "").strip()
+	def clean_stack_plain(self):
+		raw = (self.cleaned_data.get("stack_plain") or "").strip()
 		if not raw:
-			return [] if expect is list else {}
-		try:
-			parsed = json.loads(raw)
-		except json.JSONDecodeError as exc:
-			raise forms.ValidationError(f"Invalid JSON in {field_name}: {exc}") from exc
-		if not isinstance(parsed, expect):
-			expected_name = "array" if expect is list else "object"
-			raise forms.ValidationError(f"{field_name} must be a JSON {expected_name}.")
-		return parsed
+			raise forms.ValidationError("Adj meg legalabb 1 stack sort (name|logo).")
+		stack = []
+		for i, line in enumerate(raw.splitlines(), start=1):
+			text = line.strip()
+			if not text:
+				continue
+			if "|" not in text:
+				raise forms.ValidationError(f"Hibas stack sor #{i}. Formatum: Name|logo")
+			name, logo = text.split("|", 1)
+			name = name.strip()
+			logo = logo.strip()
+			if not name or not logo:
+				raise forms.ValidationError(f"Hibas stack sor #{i}. A name es logo kotelezo.")
+			stack.append({"name": name, "logo": logo})
+		if not stack:
+			raise forms.ValidationError("Adj meg legalabb 1 stack elemet.")
+		return stack
 
 	def _validate_lighthouse(self, value, field_name):
 		if not value:
@@ -103,6 +153,30 @@ class ProjectAdminForm(forms.ModelForm):
 		if labels != required_labels:
 			raise forms.ValidationError(f"{field_name} must contain exactly: performance, accessibility, bestPractices, seo")
 
+	def _build_lighthouse(self, prefix):
+		return [
+			{"label": "performance", "value": int(self.cleaned_data.get(f"{prefix}_performance"))},
+			{"label": "accessibility", "value": int(self.cleaned_data.get(f"{prefix}_accessibility"))},
+			{"label": "bestPractices", "value": int(self.cleaned_data.get(f"{prefix}_best_practices"))},
+			{"label": "seo", "value": int(self.cleaned_data.get(f"{prefix}_seo"))},
+		]
+
+	def clean(self):
+		cleaned = super().clean()
+		for key in [
+			"lh_mobile_performance",
+			"lh_mobile_accessibility",
+			"lh_mobile_best_practices",
+			"lh_mobile_seo",
+			"lh_desktop_performance",
+			"lh_desktop_accessibility",
+			"lh_desktop_best_practices",
+			"lh_desktop_seo",
+		]:
+			if cleaned.get(key) is None:
+				self.add_error(key, "Kotelezo mezo")
+		return cleaned
+
 	def save(self, commit=True):
 		instance = super().save(commit=False)
 		payload = {
@@ -111,9 +185,9 @@ class ProjectAdminForm(forms.ModelForm):
 				"en": (self.cleaned_data.get("description_en") or "").strip(),
 				"de": (self.cleaned_data.get("description_de") or "").strip(),
 			},
-			"stack": self.cleaned_data.get("stack_json") or [],
-			"lighthouseMobile": self.cleaned_data.get("lighthouse_mobile_json") or [],
-			"lighthouseDesktop": self.cleaned_data.get("lighthouse_desktop_json") or [],
+			"stack": self.cleaned_data.get("stack_plain") or [],
+			"lighthouseMobile": self._build_lighthouse("lh_mobile"),
+			"lighthouseDesktop": self._build_lighthouse("lh_desktop"),
 			"liveUrl": (self.cleaned_data.get("live_url") or "").strip(),
 			"isActive": bool(self.cleaned_data.get("is_active", True)),
 			"order": self.cleaned_data.get("api_order"),
@@ -135,7 +209,15 @@ class ProjectAdmin(admin.ModelAdmin):
 	fieldsets = (
 		("Alap", {"fields": ("name", "slug", "project_type", "preview_image", "preview_video")}),
 		("Többnyelvű leírás", {"fields": ("description_hu", "description_en", "description_de")}),
-		("Frontend mezők (JSON)", {"fields": ("stack_json", "lighthouse_mobile_json", "lighthouse_desktop_json")}),
+		("Stack", {"fields": ("stack_plain",)}),
+		(
+			"Lighthouse Mobile",
+			{"fields": ("lh_mobile_performance", "lh_mobile_accessibility", "lh_mobile_best_practices", "lh_mobile_seo")},
+		),
+		(
+			"Lighthouse Desktop",
+			{"fields": ("lh_desktop_performance", "lh_desktop_accessibility", "lh_desktop_best_practices", "lh_desktop_seo")},
+		),
 		("Frontend meta", {"fields": ("live_url", "is_active", "api_order")}),
 	)
 
