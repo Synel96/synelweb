@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import serializers
 from core.models import Project, ProjectImage
 
@@ -66,6 +68,17 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     def _localized(self, value):
         text = (value or "").strip()
+        if text.startswith("{"):
+            try:
+                parsed = json.loads(text)
+                if isinstance(parsed, dict):
+                    return {
+                        "hu": (parsed.get("hu") or "").strip(),
+                        "en": (parsed.get("en") or "").strip(),
+                        "de": (parsed.get("de") or "").strip(),
+                    }
+            except (TypeError, ValueError, json.JSONDecodeError):
+                pass
         return {
             "hu": text,
             "en": text,
