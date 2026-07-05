@@ -23,7 +23,6 @@ class PackageAdminForm(forms.ModelForm):
 	class Meta:
 		model = Package
 		fields = [
-			"preview_image",
 			"preview_image_url",
 			"is_discounted",
 			"price",
@@ -110,8 +109,6 @@ class PackageAdmin(admin.ModelAdmin):
 	list_filter = ("is_discounted", "created_at")
 
 	def image_tag(self, obj):
-		if obj.preview_image:
-			return format_html('<img src="{}" style="max-height: 60px; max-width: 100px;" />', obj.preview_image.url)
 		if obj.preview_image_url:
 			return format_html('<img src="{}" style="max-height: 60px; max-width: 100px;" />', obj.preview_image_url)
 		return "-"

@@ -101,11 +101,6 @@ class PackageSerializer(serializers.ModelSerializer):
         return self._localized(obj.description)
 
     def get_images(self, obj):
-        if obj.preview_image:
-            url = obj.preview_image.url
-            if url.startswith("http://"):
-                url = url.replace("http://", "https://", 1)
-            return [url]
         if obj.preview_image_url:
             return [obj.preview_image_url]
         return []

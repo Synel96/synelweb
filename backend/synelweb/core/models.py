@@ -7,12 +7,6 @@ from cloudinary.models import CloudinaryField
 class Package(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=120, unique=True, blank=True)  # SEO-barát URL
-    preview_image = CloudinaryField(
-        'image',
-        blank=True,
-        null=True,
-        help_text="Előnézeti kép Cloudinary-ból"
-    )
     preview_image_url = models.URLField(
         max_length=500, blank=True,
         help_text="Kép URL-je (pl. https://példa.hu/kep.png)"
