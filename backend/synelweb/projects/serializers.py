@@ -51,6 +51,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     liveUrl = serializers.SerializerMethodField()
     isActive = serializers.SerializerMethodField()
     order = serializers.SerializerMethodField()
+    preview_image_url = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -64,7 +66,14 @@ class ProjectSerializer(serializers.ModelSerializer):
             "liveUrl",
             "isActive",
             "order",
+            "preview_image_url",
+            "images",
         ]
+
+    def _force_https(self, url):
+        if isinstance(url, str) and url.startswith("http://"):
+            return url.replace("http://", "https://", 1)
+        return url or ""
 
     def _parse_json_obj(self, raw_value):
         text = (raw_value or "").strip()
@@ -183,3 +192,26 @@ class ProjectSerializer(serializers.ModelSerializer):
         if isinstance(order, int):
             return order
         return obj.id
+
+    def get_preview_image_url(self, obj):
+        if obj.preview_image:
+            return self._force_https(obj.preview_image.url)
+        return ""
+
+    def get_images(self, obj):
+        urls = []
+        if obj.preview_image:
+            urls.append(self._force_https(obj.preview_image.url))
+
+        for item in obj.extra_images.all():
+            if item.image:
+                urls.append(self._force_https(item.image.url))
+
+        deduped = []
+        seen = set()
+        for url in urls:
+            if not url or url in seen:
+                continue
+            seen.add(url)
+            deduped.append(url)
+        return deduped
