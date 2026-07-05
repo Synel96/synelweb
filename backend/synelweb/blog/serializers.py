@@ -17,6 +17,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
             "title",
             "slug",
             "preview_image_url",
+            "description",
             "created_at",
             "updated_at",
             "sections",

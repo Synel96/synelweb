@@ -1,6 +1,23 @@
 from rest_framework import serializers
 from core.models import Project, ProjectImage
 
+
+DEFAULT_STACK = [
+    {"name": "React", "logo": "react"},
+    {"name": "TailwindCSS", "logo": "tailwind"},
+    {"name": "TypeScript", "logo": "typescript"},
+    {"name": "Python", "logo": "python"},
+    {"name": "Django", "logo": "django"},
+    {"name": "PostgreSQL", "logo": "postgresql"},
+]
+
+DEFAULT_LIGHTHOUSE = [
+    {"label": "performance", "value": 100},
+    {"label": "accessibility", "value": 100},
+    {"label": "bestPractices", "value": 100},
+    {"label": "seo", "value": 100},
+]
+
 class ProjectImageSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     cloudinary_public_id = serializers.SerializerMethodField()
@@ -25,45 +42,53 @@ class ProjectImageSerializer(serializers.ModelSerializer):
         return ""
 
 class ProjectSerializer(serializers.ModelSerializer):
-    extra_images = ProjectImageSerializer(many=True, read_only=True)
-    preview_video = serializers.SerializerMethodField()
-    preview_image = serializers.SerializerMethodField()
-    preview_image_public_id = serializers.SerializerMethodField()
+    stack = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    lighthouseMobile = serializers.SerializerMethodField()
+    lighthouseDesktop = serializers.SerializerMethodField()
+    liveUrl = serializers.SerializerMethodField()
+    isActive = serializers.SerializerMethodField()
+    order = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
         fields = [
             "id",
             "name",
-            "slug",
-            "project_type",
+            "stack",
             "description",
-            "preview_video",
-            "preview_image",
-            "preview_image_public_id",
-            "created_at",
-            "updated_at",
-            "extra_images",
+            "lighthouseMobile",
+            "lighthouseDesktop",
+            "liveUrl",
+            "isActive",
+            "order",
         ]
 
-    def get_preview_video(self, obj):
-        if obj.preview_video:
-            url = obj.preview_video.url
-            if url.startswith('http://'):
-                url = url.replace('http://', 'https://', 1)
-            return url
-        return None
+    def _localized(self, value):
+        text = (value or "").strip()
+        return {
+            "hu": text,
+            "en": text,
+            "de": text,
+        }
 
-    def get_preview_image(self, obj):
-        if obj.preview_image:
-            url = obj.preview_image.url
-            if url.startswith('http://'):
-                url = url.replace('http://', 'https://', 1)
-            return url
-        return None
-    
-    def get_preview_image_public_id(self, obj):
-        """Extract public_id from preview_image CloudinaryField"""
-        if obj.preview_image:
-            return obj.preview_image.public_id
-        return ""
+    def get_stack(self, obj):
+        return DEFAULT_STACK
+
+    def get_description(self, obj):
+        return self._localized(obj.description)
+
+    def get_lighthouseMobile(self, obj):
+        return DEFAULT_LIGHTHOUSE
+
+    def get_lighthouseDesktop(self, obj):
+        return DEFAULT_LIGHTHOUSE
+
+    def get_liveUrl(self, obj):
+        return "https://synelweb.hu"
+
+    def get_isActive(self, obj):
+        return True
+
+    def get_order(self, obj):
+        return obj.id

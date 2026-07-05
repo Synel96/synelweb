@@ -22,6 +22,9 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf import settings
 from django.conf.urls.static import static
+from packages.views import PackageListAPIView
+from projects.views import ProjectListAPIView
+from review.views import ReviewCreateListAPIView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -42,6 +45,10 @@ urlpatterns = [
     path("review/",include("review.urls")),
     path("projects/",include("projects.urls")),
     path("blog/",include("blog.urls")),
+    # New frontend contract aliases.
+    path("api/services/", PackageListAPIView.as_view(), name="api-services"),
+    path("api/projects/", ProjectListAPIView.as_view(), name="api-projects"),
+    path("api/reviews/", ReviewCreateListAPIView.as_view(), name="api-reviews"),
 ]
 
 urlpatterns += [
