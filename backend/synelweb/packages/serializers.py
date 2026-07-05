@@ -28,6 +28,25 @@ class PackageSerializer(serializers.ModelSerializer):
             "order",
         ]
 
+    def _parse_json_obj(self, raw_value):
+        text = (raw_value or "").strip()
+        if not text.startswith("{"):
+            return None
+        try:
+            parsed = json.loads(text)
+        except (TypeError, ValueError, json.JSONDecodeError):
+            return None
+        return parsed if isinstance(parsed, dict) else None
+
+    def _localized_from(self, value):
+        if isinstance(value, dict):
+            return {
+                "hu": (value.get("hu") or "").strip(),
+                "en": (value.get("en") or "").strip(),
+                "de": (value.get("de") or "").strip(),
+            }
+        return None
+
     def _localized(self, value):
         text = (value or "").strip()
         if text.startswith("{"):
@@ -47,6 +66,9 @@ class PackageSerializer(serializers.ModelSerializer):
             "de": text,
         }
 
+    def _description_payload(self, obj):
+        return self._parse_json_obj(obj.description)
+
     def _price_obj(self, value):
         amount = float(value) if value is not None else 0.0
         return {
@@ -55,12 +77,27 @@ class PackageSerializer(serializers.ModelSerializer):
         }
 
     def get_slug(self, obj):
+        payload = self._description_payload(obj)
+        if payload:
+            localized = self._localized_from(payload.get("slug"))
+            if localized:
+                return localized
         return self._localized(obj.slug)
 
     def get_title(self, obj):
+        payload = self._description_payload(obj)
+        if payload:
+            localized = self._localized_from(payload.get("title"))
+            if localized:
+                return localized
         return self._localized(obj.name)
 
     def get_description(self, obj):
+        payload = self._description_payload(obj)
+        if payload:
+            localized = self._localized_from(payload.get("description"))
+            if localized:
+                return localized
         return self._localized(obj.description)
 
     def get_images(self, obj):
@@ -82,7 +119,13 @@ class PackageSerializer(serializers.ModelSerializer):
         return None
 
     def get_isActive(self, obj):
+        payload = self._description_payload(obj)
+        if payload and isinstance(payload.get("isActive"), bool):
+            return payload["isActive"]
         return True
 
     def get_order(self, obj):
+        payload = self._description_payload(obj)
+        if payload and isinstance(payload.get("order"), int):
+            return payload["order"]
         return obj.id
