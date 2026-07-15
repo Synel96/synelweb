@@ -6,22 +6,9 @@ class BlogSectionSerializer(serializers.ModelSerializer):
         model = BlogSection
         fields = ["id", "subtitle", "content", "order"]
 
-class BlogPostSerializer(serializers.ModelSerializer):
+class BaseBlogPostSerializer(serializers.ModelSerializer):
     sections = BlogSectionSerializer(many=True, read_only=True)
     preview_image_url = serializers.SerializerMethodField()
-
-    class Meta:
-        model = BlogPost
-        fields = [
-            "id",
-            "title",
-            "slug",
-            "preview_image_url",
-            "description",
-            "created_at",
-            "updated_at",
-            "sections",
-        ]
 
     def get_preview_image_url(self, obj):
         if obj.preview_image:
@@ -31,3 +18,16 @@ class BlogPostSerializer(serializers.ModelSerializer):
                 url = url.replace('http://', 'https://', 1)
             return url
         return None
+
+
+class BlogPostListSerializer(BaseBlogPostSerializer):
+    class Meta:
+        model = BlogPost
+        fields = ["id", "title", "description", "preview_image_url", "category", "created_at"]
+
+
+class BlogPostDetailSerializer(BaseBlogPostSerializer):
+
+    class Meta:
+        model = BlogPost
+        fields = ["id", "title", "preview_image_url", "sections", "category", "created_at"]

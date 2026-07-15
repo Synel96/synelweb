@@ -130,8 +130,22 @@ class ProjectImage(models.Model):
 
 
 class BlogPost(models.Model):
+    CATEGORY_PROFESSIONAL = "professional"
+    CATEGORY_CASUAL = "casual"
+    CATEGORY_CHOICES = [
+        (CATEGORY_PROFESSIONAL, "Szakmai"),
+        (CATEGORY_CASUAL, "Hetkoznapi"),
+    ]
+
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=220, unique=True, blank=True)
+    category = models.CharField(
+        max_length=20,
+        choices=CATEGORY_CHOICES,
+        default=CATEGORY_PROFESSIONAL,
+        db_index=True,
+        help_text="Kategoria: szakmai vagy hetkoznapi",
+    )
     preview_image = CloudinaryField(
         'image',
         blank=True,
