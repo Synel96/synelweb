@@ -132,9 +132,11 @@ class ProjectImage(models.Model):
 class BlogPost(models.Model):
     CATEGORY_PROFESSIONAL = "professional"
     CATEGORY_CASUAL = "casual"
+    CATEGORY_DIRTY_FINANCIALS = "dirty-financials"
     CATEGORY_CHOICES = [
         (CATEGORY_PROFESSIONAL, "Szakmai"),
         (CATEGORY_CASUAL, "Hetkoznapi"),
+        (CATEGORY_DIRTY_FINANCIALS, "Piszkos anyagiak"),
     ]
 
     title = models.CharField(max_length=200, unique=True)
@@ -144,7 +146,7 @@ class BlogPost(models.Model):
         choices=CATEGORY_CHOICES,
         default=CATEGORY_PROFESSIONAL,
         db_index=True,
-        help_text="Kategoria: szakmai vagy hetkoznapi",
+        help_text="Kategoria: szakmai, hetkoznapi vagy piszkos anyagiak",
     )
     preview_image = CloudinaryField(
         'image',
