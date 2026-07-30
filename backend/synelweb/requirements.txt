@@ -11,3 +11,5 @@ dj-database-url
 cloudinary
 django-cloudinary-storage
 django-nested-admin
+requests
+APScheduler

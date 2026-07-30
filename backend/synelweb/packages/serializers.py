@@ -2,6 +2,8 @@ import json
 
 from rest_framework import serializers
 from core.models import Package
+from .currency import convert_from_huf, currency_for_lang
+from .models import ExchangeRate
 
 
 class PackageSerializer(serializers.ModelSerializer):
@@ -69,12 +71,21 @@ class PackageSerializer(serializers.ModelSerializer):
     def _description_payload(self, obj):
         return self._parse_json_obj(obj.description)
 
+    def _target_currency(self):
+        request = self.context.get("request")
+        accept_language = request.META.get("HTTP_ACCEPT_LANGUAGE") if request is not None else None
+        return currency_for_lang(accept_language)
+
     def _price_obj(self, value):
-        amount = float(value) if value is not None else 0.0
-        return {
-            "amount": amount,
-            "currency": "HUF",
-        }
+        if value is None:
+            return {"amount": 0.0, "currency": ExchangeRate.BASE_CURRENCY}
+
+        currency = self._target_currency()
+        converted = convert_from_huf(value, currency)
+        if converted is None:
+            # No cached/refreshable rate available (e.g. provider unreachable) -> fall back to HUF.
+            return {"amount": float(value), "currency": ExchangeRate.BASE_CURRENCY}
+        return {"amount": float(converted), "currency": currency}
 
     def get_slug(self, obj):
         payload = self._description_payload(obj)
