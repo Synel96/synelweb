@@ -14,7 +14,7 @@ export async function postReview(reviewData) {
     reviewData,
     {
       headers: { "Content-Type": "application/json" },
-    }
+    },
   );
   return response.data;
 }

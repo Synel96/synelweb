@@ -33,7 +33,7 @@ function ProjectsSection() {
       tabIndex={0}
     >
       {/* Cloudinary optimalizált háttérkép */}
-      <OptimizedBackgroundImage 
+      <OptimizedBackgroundImage
         cloudinaryId="projects_plkitq"
         alt="Projektek háttérkép"
       />

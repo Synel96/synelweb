@@ -71,7 +71,7 @@ function ReviewsPage() {
       tabIndex={0}
     >
       {/* Cloudinary optimalizált háttérkép */}
-      <OptimizedBackgroundImage 
+      <OptimizedBackgroundImage
         cloudinaryId="reviewpage_ub16ki"
         alt="Vélemények háttérkép"
       />

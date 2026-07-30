@@ -19,7 +19,7 @@ function PackagesPage() {
   useEffect(() => {
     // Only fetch if no SSR data
     if (ssrData?.packages) return;
-    
+
     fetchPackages()
       .then((res) => {
         const pkgs = Array.isArray(res.data)

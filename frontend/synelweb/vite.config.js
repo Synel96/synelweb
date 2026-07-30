@@ -5,12 +5,20 @@ import vike from "vike/plugin";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), vike({ prerender: true })],
-  publicDir: 'public',
+  publicDir: "public",
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: [".js", ".jsx", ".json"],
   },
   ssr: {
-    noExternal: ['@mui/joy', '@mui/material', '@mui/icons-material', '@mui/base', '@emotion/react', '@emotion/styled', '@emotion/cache']
+    noExternal: [
+      "@mui/joy",
+      "@mui/material",
+      "@mui/icons-material",
+      "@mui/base",
+      "@emotion/react",
+      "@emotion/styled",
+      "@emotion/cache",
+    ],
   },
   build: {
     // Optimize chunk size

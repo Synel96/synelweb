@@ -10,4 +10,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 COPY . .
 
-CMD gunicorn synelweb.wsgi:application --bind 0.0.0.0:8080
+CMD sh -c "python manage.py collectstatic --noinput && gunicorn synelweb.wsgi:application --bind 0.0.0.0:8080"

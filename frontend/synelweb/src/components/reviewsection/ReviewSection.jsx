@@ -32,7 +32,7 @@ function ReviewSection() {
       tabIndex={0}
     >
       {/* Cloudinary optimalizált háttérkép */}
-      <OptimizedBackgroundImage 
+      <OptimizedBackgroundImage
         cloudinaryId="review_l4aooa"
         alt="Értékelések háttérkép"
       />

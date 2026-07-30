@@ -38,12 +38,6 @@ class ReviewSerializer(serializers.ModelSerializer):
             raw_comment = self.initial_data.get("comment", "")
             if raw_comment:
                 attrs["comment"] = raw_comment
-                comment = raw_comment
-
-        if not comment or len(comment.strip()) < 10:
-            raise serializers.ValidationError({
-                "review": "Review must be at least 10 characters long."
-            })
 
         return attrs
 

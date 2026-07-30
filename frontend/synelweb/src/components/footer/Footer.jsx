@@ -37,19 +37,50 @@ function Footer() {
           sx={{
             fontSize: { xs: "0.875rem", sm: "0.875rem" },
             lineHeight: 1.5,
-            fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
+            fontFamily:
+              'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
             fontWeight: 400,
           }}
         >
           © {year || "2026"} Synel Web Solutions | Minden jog fenntartva.
         </Typography>
-        <Box sx={{ mt: 1, mb: 1, display: "flex", flexWrap: "wrap", gap: 2, justifyContent: "center" }}>
-          <Link href="/" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>Főoldal</Link>
-          <Link href="/projektek" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>Projektek</Link>
-          <Link href="/velemenyek" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>Vélemények</Link>
-          <Link href="/szolgaltatasok" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>Szolgáltatások</Link>
-          <Link href="/elerhetoseg" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>Elérhetőség</Link>
-          <Link href="/rolam" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>Rólam</Link>
+        <Box
+          sx={{
+            mt: 1,
+            mb: 1,
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 2,
+            justifyContent: "center",
+          }}
+        >
+          <Link href="/" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>
+            Főoldal
+          </Link>
+          <Link href="/projektek" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>
+            Projektek
+          </Link>
+          <Link
+            href="/velemenyek"
+            sx={{ fontSize: "0.95rem", fontWeight: 500 }}
+          >
+            Vélemények
+          </Link>
+          <Link
+            href="/szolgaltatasok"
+            sx={{ fontSize: "0.95rem", fontWeight: 500 }}
+          >
+            Szolgáltatások
+          </Link>
+          <Link
+            href="/elerhetoseg"
+            sx={{ fontSize: "0.95rem", fontWeight: 500 }}
+          >
+            Elérhetőség
+          </Link>
+          <Link href="/rolam" sx={{ fontSize: "0.95rem", fontWeight: 500 }}>
+            Rólam
+          </Link>
           <Link
             component="button"
             onClick={() => setOpenPolicy(true)}

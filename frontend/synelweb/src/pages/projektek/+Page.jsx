@@ -17,7 +17,7 @@ function ProjectsPage() {
   useEffect(() => {
     // Only fetch if no SSR data
     if (ssrData?.projects) return;
-    
+
     const fetchProjects = async () => {
       try {
         const data = await getProjects();

@@ -33,7 +33,7 @@ function ContactSection() {
       tabIndex={0}
     >
       {/* Cloudinary optimalizált háttérkép */}
-      <OptimizedBackgroundImage 
+      <OptimizedBackgroundImage
         cloudinaryId="contact_njkcd0"
         alt="Kapcsolat háttérkép"
         priority={true}

@@ -28,7 +28,11 @@ function PackagesCards({
     <Box
       suppressHydrationWarning
       sx={{
-        width: { xs: "100%", md: "calc(50% - 24px)", lg: "calc(33.333% - 32px)" },
+        width: {
+          xs: "100%",
+          md: "calc(50% - 24px)",
+          lg: "calc(33.333% - 32px)",
+        },
         maxWidth: { xs: "100%", sm: 520 },
         minWidth: { md: 320 },
         bgcolor: "background.surface",

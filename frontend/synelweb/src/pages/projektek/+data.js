@@ -1,10 +1,10 @@
-export { data }
+export { data };
 
-import { getProjects } from '../../services/projectsService'
+import { getProjects } from "../../services/projectsService";
 
 async function data() {
-  const projects = await getProjects()
+  const projects = await getProjects();
   return {
-    projects
-  }
+    projects,
+  };
 }
