@@ -12,3 +12,5 @@ cloudinary
 django-cloudinary-storage
 django-nested-admin
 django-jazzmin
+requests
+APScheduler

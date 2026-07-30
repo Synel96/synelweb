@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from core.models import Package
+from .models import ExchangeRate
 
 
 class PackageAdminForm(forms.ModelForm):
@@ -114,3 +115,9 @@ class PackageAdmin(admin.ModelAdmin):
 		return "-"
 
 	image_tag.short_description = "Kép"
+
+
+@admin.register(ExchangeRate)
+class ExchangeRateAdmin(admin.ModelAdmin):
+	list_display = ("target_currency", "rate", "updated_at")
+	readonly_fields = ("updated_at",)
