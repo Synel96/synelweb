@@ -194,6 +194,14 @@ CSRF_TRUSTED_ORIGINS = [
 # --- Default PK type ---
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# --- Vercel deploy hook ---
+# Called whenever a service/blog post is created, updated or deleted, or a
+# review is approved, so the prerendered frontend picks up the change.
+# Create the hook in the Vercel project settings (Git > Deploy Hooks) and
+# set it here (e.g. `fly secrets set VERCEL_DEPLOY_HOOK_URL=...`).
+VERCEL_DEPLOY_HOOK_URL = os.getenv("VERCEL_DEPLOY_HOOK_URL", "")
+VERCEL_DEPLOY_HOOK_DEBOUNCE_SECONDS = int(os.getenv("VERCEL_DEPLOY_HOOK_DEBOUNCE_SECONDS", "30"))
+
 # --- (Opcionális, de hasznos) Prod security ---
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

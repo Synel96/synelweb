@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from core.deploy_hooks import trigger_vercel_deploy
 from core.models import Review
 
 
@@ -19,4 +20,9 @@ class ReviewAdmin(admin.ModelAdmin):
 
 	@admin.action(description="Kijelölt vélemények jóváhagyása")
 	def approve_reviews(self, request, queryset):
+		# queryset.update() is a bulk UPDATE and does not fire the model's
+		# post_save signal, so trigger the deploy hook explicitly here.
+		newly_approved = queryset.filter(is_approved=False).count()
 		queryset.update(is_approved=True)
+		if newly_approved:
+			trigger_vercel_deploy("reviews approved")
