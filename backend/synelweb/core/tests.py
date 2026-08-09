@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.test import TestCase, override_settings
 
 from core.deploy_hooks import trigger_vercel_deploy
-from core.models import BlogPost, Package, Review
+from core.models import BlogPost, Package, Project, ProjectImage, Review
 
 
 @override_settings(VERCEL_DEPLOY_HOOK_URL="https://api.vercel.com/v1/integrations/deploy/test")
@@ -75,3 +75,30 @@ class DeployHookSignalTests(TestCase):
             Review.objects.create(name="Teszt Elek", rating=5)
 
         mock_trigger.assert_not_called()
+
+    @mock.patch("core.signals.trigger_vercel_deploy")
+    def test_saving_a_project_triggers_deploy(self, mock_trigger):
+        with self.captureOnCommitCallbacks(execute=True):
+            Project.objects.create(name="SynelWeb", project_type="web")
+
+        mock_trigger.assert_called_once_with("project created")
+
+    @mock.patch("core.signals.trigger_vercel_deploy")
+    def test_deleting_a_project_triggers_deploy(self, mock_trigger):
+        project = Project.objects.create(name="SynelWeb", project_type="web")
+        mock_trigger.reset_mock()
+
+        with self.captureOnCommitCallbacks(execute=True):
+            project.delete()
+
+        mock_trigger.assert_called_once_with("project deleted")
+
+    @mock.patch("core.signals.trigger_vercel_deploy")
+    def test_saving_a_project_image_triggers_deploy(self, mock_trigger):
+        project = Project.objects.create(name="SynelWeb", project_type="web")
+        mock_trigger.reset_mock()
+
+        with self.captureOnCommitCallbacks(execute=True):
+            ProjectImage.objects.create(project=project, order=0)
+
+        mock_trigger.assert_called_once_with("project image added")
