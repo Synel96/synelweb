@@ -234,7 +234,11 @@ EMAIL_HOST = os.getenv("EMAIL_HOST", "")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+# Port 587 uses STARTTLS (EMAIL_USE_TLS=True); port 465 uses SSL from the
+# start (EMAIL_USE_SSL=True, EMAIL_USE_TLS=False). Only one may be on.
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False") == "True"
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "False" if EMAIL_USE_SSL else "True") == "True"
+EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", "20"))
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "SynelWeb <noreply@synelweb.hu>")
 
 REST_FRAMEWORK = {
