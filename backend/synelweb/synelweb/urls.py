@@ -49,6 +49,7 @@ urlpatterns = [
     path("api/services/", PackageListAPIView.as_view(), name="api-services"),
     path("api/projects/", ProjectListAPIView.as_view(), name="api-projects"),
     path("api/reviews/", ReviewCreateListAPIView.as_view(), name="api-reviews"),
+    path("api/quote-requests/", include("quotes.urls")),
 ]
 
 urlpatterns += [
