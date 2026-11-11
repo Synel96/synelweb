@@ -18,6 +18,9 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
     websiteUrl = serializers.CharField(
         source="website_url", required=False, allow_blank=True, max_length=300
     )
+    domainName = serializers.CharField(
+        source="domain_name", required=False, allow_blank=True, max_length=253
+    )
     isLocal = serializers.BooleanField(source="is_local", required=False)
     isGrantFunded = serializers.BooleanField(source="is_grant_funded", required=False)
     contactPreference = serializers.ChoiceField(
@@ -44,6 +47,8 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
     DETAILED_ONLY = (
         "existing_site",
         "website_url",
+        "domain",
+        "domain_name",
         "size",
         "languages",
         "addons",
@@ -65,6 +70,8 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             "message",
             "existingSite",
             "websiteUrl",
+            "domain",
+            "domainName",
             "size",
             "languages",
             "addons",
@@ -96,6 +103,8 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             # client sent (e.g. values left over from the detailed tab).
             for field in self.DETAILED_ONLY:
                 attrs.pop(field, None)
+        if attrs.get("domain") != QuoteRequest.Domain.HAS:
+            attrs.pop("domain_name", None)
         for field in ("languages", "addons"):
             if field in attrs:
                 attrs[field] = list(dict.fromkeys(attrs[field]))

@@ -30,6 +30,8 @@ DETAILED = {
     "phone": "+36 30 123 4567",
     "existingSite": "renew",
     "websiteUrl": "https://pelda.hu",
+    "domain": "has",
+    "domainName": "pelda.hu",
     "size": "few_pages",
     "languages": ["hu", "de"],
     "addons": ["google_search_ads", "business_email"],
@@ -68,6 +70,8 @@ class QuoteRequestAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         quote = QuoteRequest.objects.get()
         self.assertEqual(quote.existing_site, "renew")
+        self.assertEqual(quote.domain, "has")
+        self.assertEqual(quote.domain_name, "pelda.hu")
         self.assertEqual(quote.languages, ["hu", "de"])
         self.assertEqual(quote.addons, ["google_search_ads", "business_email"])
         self.assertEqual(quote.budget, "200k_400k")
@@ -82,6 +86,14 @@ class QuoteRequestAPITests(APITestCase):
         self.assertEqual(quote.addons, [])
         self.assertEqual(quote.budget, "")
         self.assertFalse(quote.is_local)
+
+    def test_domain_name_is_kept_only_when_there_is_a_domain(self):
+        response = self.post({**DETAILED, "domain": "none", "domainName": "pelda.hu"})
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        quote = QuoteRequest.objects.get()
+        self.assertEqual(quote.domain, "none")
+        self.assertEqual(quote.domain_name, "")
 
     def test_consent_is_required(self):
         for consent in (False, None):
@@ -143,6 +155,8 @@ class QuoteNotificationTests(TestCase):
             "message": "Webshopot szeretnék.",
             "addons": ["google_search_ads"],
             "languages": ["hu", "en"],
+            "domain": "has",
+            "domain_name": "pelda.hu",
             "consent": True,
         }
         data.update(overrides)
@@ -168,6 +182,7 @@ class QuoteNotificationTests(TestCase):
         self.assertEqual(message.reply_to, ["teszt@pelda.hu"])
         self.assertIn("Google keresőhirdetés", message.body)
         self.assertIn("Magyar, Angol", message.body)
+        self.assertIn("Domain: Van domainje (pelda.hu)", message.body)
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
     def test_mail_failure_does_not_raise(self):

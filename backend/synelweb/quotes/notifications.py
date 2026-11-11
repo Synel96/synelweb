@@ -32,6 +32,8 @@ def _body(quote):
             "Részletek:",
             f"Meglévő weboldal: {quote.get_existing_site_display() or '-'}"
             + (f" ({quote.website_url})" if quote.website_url else ""),
+            f"Domain: {quote.get_domain_display() or '-'}"
+            + (f" ({quote.domain_name})" if quote.domain_name else ""),
             f"Méret: {quote.get_size_display() or '-'}",
             f"Nyelvek: {', '.join(quote.language_labels()) or '-'}",
             f"Kiegészítők: {', '.join(quote.addon_labels()) or '-'}",

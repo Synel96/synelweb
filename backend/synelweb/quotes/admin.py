@@ -24,6 +24,8 @@ class QuoteRequestAdmin(admin.ModelAdmin):
                 "fields": (
                     "existing_site",
                     "website_url",
+                    "domain",
+                    "domain_name",
                     "size",
                     "languages_display",
                     "addons_display",

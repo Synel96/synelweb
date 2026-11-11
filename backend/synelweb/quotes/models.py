@@ -22,6 +22,11 @@ class QuoteRequest(models.Model):
         RENEW = "renew", "Van, megújítaná"
         EXTEND = "extend", "Van, bővítené"
 
+    class Domain(models.TextChoices):
+        HAS = "has", "Van domainje"
+        NONE = "none", "Nincs még domainje"
+        UNSURE = "unsure", "Nem tudja"
+
     class Size(models.TextChoices):
         ONE_PAGE = "one_page", "1 oldal"
         FEW_PAGES = "few_pages", "3–5 oldal"
@@ -72,6 +77,8 @@ class QuoteRequest(models.Model):
         "Meglévő weboldal", max_length=10, choices=ExistingSite.choices, blank=True
     )
     website_url = models.CharField("Weboldal címe", max_length=300, blank=True)
+    domain = models.CharField("Domain", max_length=10, choices=Domain.choices, blank=True)
+    domain_name = models.CharField("Domain neve", max_length=253, blank=True)
     size = models.CharField("Méret", max_length=12, choices=Size.choices, blank=True)
     languages = models.JSONField("Nyelvek", default=list, blank=True)
     addons = models.JSONField("Kiegészítők", default=list, blank=True)
