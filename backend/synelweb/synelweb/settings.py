@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "review",
     "projects",
     "blog",
+    "quotes",
     "nested_admin",  # nested admin
 ]
 
@@ -223,4 +224,25 @@ LOGGING = {
         "django.db.backends": {"handlers": ["console"], "level": "WARNING"},
         "django.security": {"handlers": ["console"], "level": "WARNING"},
     },
+}
+
+# --- Quote requests (contact page form) ---
+# Where new requests are announced by e-mail. Leave empty to only collect them
+# in the admin. Sending also needs an SMTP server: EMAIL_HOST and friends.
+QUOTE_NOTIFY_EMAIL = os.getenv("QUOTE_NOTIFY_EMAIL", "")
+EMAIL_HOST = os.getenv("EMAIL_HOST", "")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "SynelWeb <noreply@synelweb.hu>")
+
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_RATES": {
+        # Per IP: enough for someone fixing a typo, not for a spam run.
+        "quote_requests": os.getenv("QUOTE_THROTTLE_RATE", "5/hour"),
+    },
+    # Behind Fly's proxy: take the client IP it appends to X-Forwarded-For,
+    # not the whole (client-controllable) header.
+    "NUM_PROXIES": int(os.getenv("NUM_PROXIES", "1")),
 }

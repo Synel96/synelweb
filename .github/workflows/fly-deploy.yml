@@ -1,0 +1,40 @@
+# Deploys the Django backend to Fly.io whenever backend code lands on main,
+# so nobody has to run `flyctl deploy` by hand. Migrations run on Fly as the
+# release command (see backend/synelweb/fly.toml) before the new version
+# takes traffic.
+#
+# One-time setup: create a deploy token with
+#   fly tokens create deploy -a synelweb
+# and save it in GitHub: Settings > Secrets and variables > Actions >
+# New repository secret, named FLY_API_TOKEN.
+
+name: Deploy backend to Fly
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - ".github/workflows/fly-deploy.yml"
+  # Also runnable by hand from the Actions tab.
+  workflow_dispatch:
+
+# One deploy at a time; a newer push waits for the running one to finish.
+concurrency:
+  group: fly-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: flyctl deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: backend/synelweb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
