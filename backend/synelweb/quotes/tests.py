@@ -17,6 +17,7 @@ URL = "/api/quote-requests/"
 SIMPLE = {
     "mode": "simple",
     "service": "landing-oldal",
+    "serviceName": "Landing oldal",
     "name": "Teszt Elek",
     "email": "teszt@pelda.hu",
     "message": "Egy egyoldalas bemutatkozó oldalt szeretnék.",
@@ -61,6 +62,7 @@ class QuoteRequestAPITests(APITestCase):
         quote = QuoteRequest.objects.get()
         self.assertEqual(quote.mode, "simple")
         self.assertEqual(quote.service, "landing-oldal")
+        self.assertEqual(quote.service_name, "Landing oldal")
         self.assertEqual(quote.status, "new")
         self.assertTrue(quote.consent)
 
@@ -149,7 +151,8 @@ class QuoteNotificationTests(TestCase):
     def _quote(self, **overrides):
         data = {
             "mode": "detailed",
-            "service": "webshop",
+            "service": "7",
+            "service_name": "Webshop",
             "name": "Teszt Elek",
             "email": "teszt@pelda.hu",
             "message": "Webshopot szeretnék.",
@@ -183,11 +186,19 @@ class QuoteNotificationTests(TestCase):
         self.assertIn("Google keresőhirdetés", message.body)
         self.assertIn("Magyar, Angol", message.body)
         self.assertIn("Domain: Van domainje (pelda.hu)", message.body)
+        self.assertIn("Szolgáltatás: Webshop (7)", message.body)
+        self.assertEqual(message.subject, "Új ajánlatkérés: Teszt Elek (Webshop)")
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
     def test_mail_failure_does_not_raise(self):
         with mock.patch("quotes.notifications.EmailMessage.send", side_effect=OSError):
             notify_new_quote(self._quote(), run_async=False)
+
+
+class QuoteRequestModelTests(TestCase):
+    def test_service_display_without_a_name_falls_back_to_the_id(self):
+        quote = QuoteRequest(service="unsure")
+        self.assertEqual(quote.service_display(), "unsure")
 
 
 class QuoteRequestAdminTests(TestCase):

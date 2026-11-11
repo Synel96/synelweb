@@ -18,6 +18,9 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
     websiteUrl = serializers.CharField(
         source="website_url", required=False, allow_blank=True, max_length=300
     )
+    serviceName = serializers.CharField(
+        source="service_name", required=False, allow_blank=True, max_length=200
+    )
     domainName = serializers.CharField(
         source="domain_name", required=False, allow_blank=True, max_length=253
     )
@@ -64,6 +67,7 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         fields = [
             "mode",
             "service",
+            "serviceName",
             "name",
             "email",
             "phone",
