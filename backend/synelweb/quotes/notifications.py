@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 def _body(quote):
     lines = [
         f"Űrlap: {quote.get_mode_display()}",
-        f"Szolgáltatás: {quote.service}",
+        f"Szolgáltatás: {quote.service_display()}",
         f"Név: {quote.name}",
         f"E-mail: {quote.email}",
         f"Telefon: {quote.phone or '-'}",
@@ -49,7 +49,7 @@ def _body(quote):
 def _send(quote, recipient):
     try:
         EmailMessage(
-            subject=f"Új ajánlatkérés: {quote.name} ({quote.service})",
+            subject=f"Új ajánlatkérés: {quote.name} ({quote.service_name or quote.service})",
             body=_body(quote),
             to=[recipient],
             reply_to=[quote.email],

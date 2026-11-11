@@ -68,6 +68,12 @@ class QuoteRequest(models.Model):
         max_length=120,
         help_text="A választott szolgáltatás azonosítója, vagy 'unsure'.",
     )
+    service_name = models.CharField(
+        "Szolgáltatás neve",
+        max_length=200,
+        blank=True,
+        help_text="Ahogy a látogató az űrlapon látta.",
+    )
     name = models.CharField("Név", max_length=120)
     email = models.EmailField("E-mail")
     phone = models.CharField("Telefon", max_length=40, blank=True)
@@ -102,7 +108,13 @@ class QuoteRequest(models.Model):
         verbose_name_plural = "Ajánlatkérések"
 
     def __str__(self):
-        return f"{self.name} – {self.service} ({self.get_mode_display()})"
+        return f"{self.name} – {self.service_display()} ({self.get_mode_display()})"
+
+    def service_display(self):
+        """The name the visitor picked, with the id for reference."""
+        if self.service_name and self.service_name != self.service:
+            return f"{self.service_name} ({self.service})"
+        return self.service
 
     def addon_labels(self):
         return [self.ADDONS.get(key, key) for key in self.addons]

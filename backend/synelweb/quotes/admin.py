@@ -5,7 +5,7 @@ from .models import QuoteRequest
 
 @admin.register(QuoteRequest)
 class QuoteRequestAdmin(admin.ModelAdmin):
-    list_display = ("created_at", "name", "service", "mode", "budget", "status")
+    list_display = ("created_at", "name", "service_column", "mode", "budget", "status")
     list_filter = ("status", "mode", "service", "budget", "is_local", "is_grant_funded")
     search_fields = ("name", "email", "phone", "message", "website_url")
     list_editable = ("status",)
@@ -17,7 +17,7 @@ class QuoteRequestAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {"fields": ("status", "mode", "created_at", "site_language")}),
         ("Kapcsolat", {"fields": ("name", "email", "phone", "contact_preference")}),
-        ("Kérés", {"fields": ("service", "message")}),
+        ("Kérés", {"fields": ("service_name", "service", "message")}),
         (
             "Részletek",
             {
@@ -38,6 +38,10 @@ class QuoteRequestAdmin(admin.ModelAdmin):
         ),
         ("Adatkezelés", {"fields": ("consent",)}),
     )
+
+    @admin.display(description="Szolgáltatás", ordering="service_name")
+    def service_column(self, obj):
+        return obj.service_display()
 
     @admin.display(description="Kiegészítők")
     def addons_display(self, obj):
