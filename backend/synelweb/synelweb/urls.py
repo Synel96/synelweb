@@ -25,6 +25,7 @@ from django.conf.urls.static import static
 from packages.views import ExchangeRateAPIView, PackageListAPIView
 from projects.views import ProjectListAPIView
 from review.views import ReviewCreateListAPIView
+from certificates.views import CertificateListAPIView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -51,6 +52,7 @@ urlpatterns = [
     path("api/reviews/", ReviewCreateListAPIView.as_view(), name="api-reviews"),
     path("api/quote-requests/", include("quotes.urls")),
     path("api/exchange-rates/", ExchangeRateAPIView.as_view(), name="api-exchange-rates"),
+    path("api/certificates/", CertificateListAPIView.as_view(), name="api-certificates"),
 ]
 
 urlpatterns += [
