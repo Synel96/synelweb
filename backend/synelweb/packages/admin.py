@@ -24,10 +24,12 @@ class PackageAdminForm(forms.ModelForm):
 	class Meta:
 		model = Package
 		fields = [
+			"category",
 			"preview_image_url",
 			"is_discounted",
 			"price",
 			"discounted_price",
+			"monthly_price",
 			"tags",
 		]
 
@@ -105,9 +107,12 @@ class PackageAdminForm(forms.ModelForm):
 @admin.register(Package)
 class PackageAdmin(admin.ModelAdmin):
 	form = PackageAdminForm
-	list_display = ("name", "image_tag", "is_discounted", "price", "discounted_price", "created_at")
+	list_display = (
+		"name", "category", "image_tag", "is_discounted", "price", "discounted_price",
+		"monthly_price", "created_at",
+	)
 	search_fields = ("name", "slug", "tags")
-	list_filter = ("is_discounted", "created_at")
+	list_filter = ("category", "is_discounted", "created_at")
 
 	def image_tag(self, obj):
 		if obj.preview_image_url:

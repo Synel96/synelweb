@@ -13,6 +13,7 @@ class PackageSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
     salePrice = serializers.SerializerMethodField()
+    monthlyPrice = serializers.SerializerMethodField()
     isActive = serializers.SerializerMethodField()
     order = serializers.SerializerMethodField()
 
@@ -26,6 +27,8 @@ class PackageSerializer(serializers.ModelSerializer):
             "images",
             "price",
             "salePrice",
+            "monthlyPrice",
+            "category",
             "isActive",
             "order",
         ]
@@ -92,7 +95,10 @@ class PackageSerializer(serializers.ModelSerializer):
         if payload:
             localized = self._localized_from(payload.get("slug"))
             if localized:
-                return localized
+                # An empty per-language slug (left blank in the admin) falls back
+                # to the stored slug; otherwise the site had only the numeric id
+                # to go on (e.g. "Szolgáltatás: 7" in quote e-mails).
+                return {lang: value or obj.slug for lang, value in localized.items()}
         return self._localized(obj.slug)
 
     def get_title(self, obj):
@@ -123,6 +129,11 @@ class PackageSerializer(serializers.ModelSerializer):
         if obj.is_discounted and obj.discounted_price is not None:
             return self._price_obj(obj.discounted_price)
         return None
+
+    def get_monthlyPrice(self, obj):
+        if obj.monthly_price is None:
+            return None
+        return self._price_obj(obj.monthly_price)
 
     def get_isActive(self, obj):
         payload = self._description_payload(obj)
