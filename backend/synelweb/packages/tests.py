@@ -52,3 +52,46 @@ class ExchangeRateAPITest(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["rates"], {})
+
+
+class PackageApiCategoryAndMonthlyPriceTest(APITestCase):
+    URL = "/api/services/"
+
+    def get(self, lang="hu"):
+        return self.client.get(self.URL, secure=True, HTTP_ACCEPT_LANGUAGE=lang)
+
+    def test_exposes_category_and_monthly_price(self):
+        Package.objects.create(
+            name="Google keresőhirdetés",
+            slug="google-keresohirdetes",
+            description="Hirdetéskezelés",
+            category=Package.Category.MARKETING,
+            price=60000,
+            monthly_price=30000,
+        )
+        Package.objects.create(name="Landing oldal", slug="landing", description="Egy oldal", price=149000)
+
+        data = {item["title"]["hu"]: item for item in self.get().data}
+
+        ads = data["Google keresőhirdetés"]
+        self.assertEqual(ads["category"], "marketing")
+        self.assertEqual(ads["price"], {"amount": 60000.0, "currency": "HUF"})
+        self.assertEqual(ads["monthlyPrice"], {"amount": 30000.0, "currency": "HUF"})
+        landing = data["Landing oldal"]
+        self.assertEqual(landing["category"], "website")
+        self.assertIsNone(landing["monthlyPrice"])
+
+    def test_blank_localized_slug_falls_back_to_the_stored_slug(self):
+        import json
+
+        Package.objects.create(
+            name="Webshop",
+            slug="webshop",
+            description=json.dumps(
+                {"title": {"hu": "Webshop"}, "slug": {"hu": "", "en": "", "de": "online-shop"}}
+            ),
+        )
+
+        slug = self.get().data[0]["slug"]
+
+        self.assertEqual(slug, {"hu": "webshop", "en": "webshop", "de": "online-shop"})

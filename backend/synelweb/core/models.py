@@ -5,7 +5,20 @@ from cloudinary.models import CloudinaryField
 
 
 class Package(models.Model):
+    class Category(models.TextChoices):
+        WEBSITE = "website", "Weboldal-fejlesztés"
+        MARKETING = "marketing", "Láthatóság és marketing"
+        OPERATIONS = "operations", "Üzemeltetés és kiegészítők"
+
     name = models.CharField(max_length=100, unique=True)
+    category = models.CharField(
+        "Kategória",
+        max_length=12,
+        choices=Category.choices,
+        default=Category.WEBSITE,
+        db_index=True,
+        help_text="Melyik blokkban jelenjen meg a Szolgáltatások oldalon.",
+    )
     slug = models.SlugField(max_length=120, unique=True, blank=True)  # SEO-barát URL
     preview_image_url = models.URLField(
         max_length=500, blank=True,
@@ -24,6 +37,14 @@ class Package(models.Model):
     discounted_price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True,
         help_text="Akciós ár (pl. 39999.00)"
+    )
+    monthly_price = models.DecimalField(
+        "Havi díj",
+        max_digits=10, decimal_places=2, blank=True, null=True,
+        help_text=(
+            "Havi díj Ft-ban, ha van (pl. hirdetéskezelés: kezelés, konfigurálás, "
+            "elemzés). Ilyenkor a normál ár az egyszeri beállítási díj."
+        ),
     )
     created_at = models.DateTimeField(auto_now_add=True)  # jól jön listázásnál
     updated_at = models.DateTimeField(auto_now=True)
