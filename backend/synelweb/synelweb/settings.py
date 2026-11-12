@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "projects",
     "blog",
     "quotes",
+    "certificates",
     "nested_admin",  # nested admin
 ]
 
