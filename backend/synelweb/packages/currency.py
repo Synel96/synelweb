@@ -48,6 +48,13 @@ def _get_cached_rate(currency):
     return entry.rate if entry else None
 
 
+def get_rate(currency):
+    """1 HUF in `currency` (refreshed when older than a day), or None if unknown."""
+    if currency == ExchangeRate.BASE_CURRENCY:
+        return Decimal(1)
+    return _get_cached_rate(currency)
+
+
 def convert_from_huf(amount_huf, currency):
     """Convert a HUF amount to the given currency, returning None if no rate is available."""
     if amount_huf is None:

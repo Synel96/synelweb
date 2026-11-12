@@ -22,7 +22,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.conf import settings
 from django.conf.urls.static import static
-from packages.views import PackageListAPIView
+from packages.views import ExchangeRateAPIView, PackageListAPIView
 from projects.views import ProjectListAPIView
 from review.views import ReviewCreateListAPIView
 
@@ -50,6 +50,7 @@ urlpatterns = [
     path("api/projects/", ProjectListAPIView.as_view(), name="api-projects"),
     path("api/reviews/", ReviewCreateListAPIView.as_view(), name="api-reviews"),
     path("api/quote-requests/", include("quotes.urls")),
+    path("api/exchange-rates/", ExchangeRateAPIView.as_view(), name="api-exchange-rates"),
 ]
 
 urlpatterns += [

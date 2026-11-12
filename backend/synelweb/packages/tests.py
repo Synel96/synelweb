@@ -1,3 +1,4 @@
+from unittest import mock
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -20,3 +21,34 @@ class PackageListAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["name"], "Teszt Csomag")
+
+class ExchangeRateAPITest(APITestCase):
+    URL = "/api/exchange-rates/"
+
+    def get(self):
+        # secure: production settings redirect plain HTTP to HTTPS.
+        return self.client.get(self.URL, secure=True)
+
+    def test_returns_the_cached_rates(self):
+        from .models import ExchangeRate
+
+        ExchangeRate.objects.create(target_currency="EUR", rate="0.002500")
+        ExchangeRate.objects.create(target_currency="USD", rate="0.002750")
+
+        with mock.patch("packages.currency.fetch_rates") as fetch:
+            response = self.get()
+
+        fetch.assert_not_called()  # fresh enough, no refresh
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["base"], "HUF")
+        self.assertEqual(response.data["rates"], {"USD": 0.00275, "EUR": 0.0025})
+        self.assertIn("max-age=3600", response["Cache-Control"])
+
+    def test_leaves_out_a_currency_without_a_rate(self):
+        import requests
+
+        with mock.patch("packages.currency.fetch_rates", side_effect=requests.RequestException):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["rates"], {})
