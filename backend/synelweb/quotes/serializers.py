@@ -24,6 +24,18 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
     domainName = serializers.CharField(
         source="domain_name", required=False, allow_blank=True, max_length=253
     )
+    adsAccount = serializers.ChoiceField(
+        source="ads_account",
+        choices=QuoteRequest.AdsAccount.choices,
+        required=False,
+        allow_blank=True,
+    )
+    adBudget = serializers.ChoiceField(
+        source="ad_budget",
+        choices=QuoteRequest.AdBudget.choices,
+        required=False,
+        allow_blank=True,
+    )
     isLocal = serializers.BooleanField(source="is_local", required=False)
     isGrantFunded = serializers.BooleanField(source="is_grant_funded", required=False)
     contactPreference = serializers.ChoiceField(
@@ -57,6 +69,8 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         "addons",
         "timeline",
         "budget",
+        "ads_account",
+        "ad_budget",
         "is_local",
         "is_grant_funded",
         "contact_preference",
@@ -81,6 +95,8 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             "addons",
             "timeline",
             "budget",
+            "adsAccount",
+            "adBudget",
             "isLocal",
             "isGrantFunded",
             "contactPreference",

@@ -26,7 +26,19 @@ def _body(quote):
         "Üzenet:",
         quote.message,
     ]
-    if quote.mode == quote.Mode.DETAILED:
+    if quote.mode == quote.Mode.DETAILED and quote.is_ads_request():
+        lines += [
+            "",
+            "Részletek (hirdetési kampány):",
+            f"Google Ads fiók: {quote.get_ads_account_display() or '-'}",
+            f"Weboldal: {quote.website_url or '-'}",
+            f"Hirdetés nyelvei: {', '.join(quote.language_labels()) or '-'}",
+            f"Havi hirdetési keret: {quote.get_ad_budget_display() or '-'}",
+            f"Indulás: {quote.get_timeline_display() or '-'}",
+            f"Sopron környéki: {'igen' if quote.is_local else 'nem'}",
+            f"Egyeztetés módja: {quote.get_contact_preference_display() or '-'}",
+        ]
+    elif quote.mode == quote.Mode.DETAILED:
         lines += [
             "",
             "Részletek:",

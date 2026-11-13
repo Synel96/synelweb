@@ -45,6 +45,23 @@ class QuoteRequest(models.Model):
         OVER_800K = "over_800k", "800 000 Ft felett"
         UNSURE = "unsure", "Még nem tudja"
 
+    class AdsAccount(models.TextChoices):
+        HAS = "has", "Van Google Ads fiókja"
+        NONE = "none", "Nincs még fiókja"
+        UNSURE = "unsure", "Nem tudja"
+
+    class AdBudget(models.TextChoices):
+        UNDER_60K = "under_60k", "60 000 Ft alatt"
+        FROM_60K_TO_150K = "60k_150k", "60 000 – 150 000 Ft"
+        FROM_150K_TO_300K = "150k_300k", "150 000 – 300 000 Ft"
+        OVER_300K = "over_300k", "300 000 Ft felett"
+        UNSURE = "unsure", "Még nem tudja"
+
+    # The service id of "only an ad campaign" (priced in the frontend, not a
+    # Package): its detailed requests carry the ads fields instead of the
+    # website ones.
+    ADS_SERVICE = "google-ads"
+
     class ContactPreference(models.TextChoices):
         EMAIL = "email", "E-mail"
         PHONE = "phone", "Telefon"
@@ -92,6 +109,12 @@ class QuoteRequest(models.Model):
         "Határidő", max_length=16, choices=Timeline.choices, blank=True
     )
     budget = models.CharField("Keretösszeg", max_length=12, choices=Budget.choices, blank=True)
+    ads_account = models.CharField(
+        "Google Ads fiók", max_length=10, choices=AdsAccount.choices, blank=True
+    )
+    ad_budget = models.CharField(
+        "Havi hirdetési keret", max_length=12, choices=AdBudget.choices, blank=True
+    )
     is_local = models.BooleanField("Sopron környéki", default=False)
     is_grant_funded = models.BooleanField("Pályázati forrásból", default=False)
     contact_preference = models.CharField(
@@ -115,6 +138,9 @@ class QuoteRequest(models.Model):
         if self.service_name and self.service_name != self.service:
             return f"{self.service_name} ({self.service})"
         return self.service
+
+    def is_ads_request(self):
+        return self.service == self.ADS_SERVICE
 
     def addon_labels(self):
         return [self.ADDONS.get(key, key) for key in self.addons]
