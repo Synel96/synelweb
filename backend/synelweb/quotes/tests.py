@@ -44,6 +44,20 @@ DETAILED = {
 }
 
 
+ADS = {
+    **SIMPLE,
+    "mode": "detailed",
+    "service": "google-ads",
+    "serviceName": "Csak hirdetési kampány (Google Ads)",
+    "message": "Keresőhirdetést szeretnék a meglévő oldalamhoz.",
+    "websiteUrl": "https://pelda.hu",
+    "languages": ["hu"],
+    "adsAccount": "none",
+    "adBudget": "60k_150k",
+    "timeline": "urgent",
+}
+
+
 class QuoteRequestAPITests(APITestCase):
     def post(self, payload):
         # secure: production settings redirect plain HTTP to HTTPS.
@@ -79,6 +93,21 @@ class QuoteRequestAPITests(APITestCase):
         self.assertEqual(quote.budget, "200k_400k")
         self.assertTrue(quote.is_local)
         self.assertEqual(quote.contact_preference, "online")
+
+    def test_ads_request_keeps_the_ads_details(self):
+        response = self.post(ADS)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        quote = QuoteRequest.objects.get()
+        self.assertTrue(quote.is_ads_request())
+        self.assertEqual(quote.ads_account, "none")
+        self.assertEqual(quote.ad_budget, "60k_150k")
+        self.assertEqual(quote.website_url, "https://pelda.hu")
+
+    def test_unknown_ad_budget_is_rejected(self):
+        response = self.post({**ADS, "adBudget": "1m"})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_simple_request_drops_detail_fields(self):
         response = self.post({**DETAILED, "mode": "simple"})
@@ -188,6 +217,25 @@ class QuoteNotificationTests(TestCase):
         self.assertIn("Domain: Van domainje (pelda.hu)", message.body)
         self.assertIn("Szolgáltatás: Webshop (7)", message.body)
         self.assertEqual(message.subject, "Új ajánlatkérés: Teszt Elek (Webshop)")
+
+    @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
+    def test_mail_lists_the_ads_details_for_an_ads_request(self):
+        quote = self._quote(
+            service="google-ads",
+            service_name="Csak hirdetési kampány (Google Ads)",
+            ads_account="has",
+            ad_budget="150k_300k",
+            website_url="https://pelda.hu",
+            addons=[],
+        )
+        notify_new_quote(quote, run_async=False)
+
+        body = mail.outbox[0].body
+        self.assertIn("Részletek (hirdetési kampány):", body)
+        self.assertIn("Google Ads fiók: Van Google Ads fiókja", body)
+        self.assertIn("Havi hirdetési keret: 150 000 – 300 000 Ft", body)
+        self.assertIn("Weboldal: https://pelda.hu", body)
+        self.assertNotIn("Domain:", body)
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
     def test_mail_failure_does_not_raise(self):

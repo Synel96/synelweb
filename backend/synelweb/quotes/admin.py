@@ -31,6 +31,8 @@ class QuoteRequestAdmin(admin.ModelAdmin):
                     "addons_display",
                     "timeline",
                     "budget",
+                    "ads_account",
+                    "ad_budget",
                     "is_local",
                     "is_grant_funded",
                 )
