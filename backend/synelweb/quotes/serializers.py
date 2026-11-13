@@ -73,7 +73,6 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         "ad_budget",
         "is_local",
         "is_grant_funded",
-        "contact_preference",
     )
 
     class Meta:
