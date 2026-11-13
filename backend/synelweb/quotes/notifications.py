@@ -21,6 +21,7 @@ def _body(quote):
         f"Név: {quote.name}",
         f"E-mail: {quote.email}",
         f"Telefon: {quote.phone or '-'}",
+        f"Kapcsolatfelvétel: {quote.get_contact_preference_display() or '-'}",
         f"Oldal nyelve: {quote.site_language}",
         "",
         "Üzenet:",
@@ -36,7 +37,6 @@ def _body(quote):
             f"Havi hirdetési keret: {quote.get_ad_budget_display() or '-'}",
             f"Indulás: {quote.get_timeline_display() or '-'}",
             f"Sopron környéki: {'igen' if quote.is_local else 'nem'}",
-            f"Egyeztetés módja: {quote.get_contact_preference_display() or '-'}",
         ]
     elif quote.mode == quote.Mode.DETAILED:
         lines += [
@@ -53,7 +53,6 @@ def _body(quote):
             f"Keretösszeg: {quote.get_budget_display() or '-'}",
             f"Sopron környéki: {'igen' if quote.is_local else 'nem'}",
             f"Pályázati forrásból: {'igen' if quote.is_grant_funded else 'nem'}",
-            f"Egyeztetés módja: {quote.get_contact_preference_display() or '-'}",
         ]
     return "\n".join(lines)
 

@@ -109,6 +109,12 @@ class QuoteRequestAPITests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_simple_request_keeps_the_contact_preference(self):
+        response = self.post({**SIMPLE, "contactPreference": "in_person"})
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(QuoteRequest.objects.get().contact_preference, "in_person")
+
     def test_simple_request_drops_detail_fields(self):
         response = self.post({**DETAILED, "mode": "simple"})
 
@@ -216,6 +222,7 @@ class QuoteNotificationTests(TestCase):
         self.assertIn("Magyar, Angol", message.body)
         self.assertIn("Domain: Van domainje (pelda.hu)", message.body)
         self.assertIn("Szolgáltatás: Webshop (7)", message.body)
+        self.assertIn("Kapcsolatfelvétel: -", message.body)
         self.assertEqual(message.subject, "Új ajánlatkérés: Teszt Elek (Webshop)")
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
