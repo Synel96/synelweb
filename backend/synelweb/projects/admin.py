@@ -42,7 +42,17 @@ class ProjectAdminForm(forms.ModelForm):
 	lh_desktop_seo = forms.IntegerField(required=False, min_value=0, max_value=100)
 	live_url = forms.URLField(required=False)
 	is_active = forms.BooleanField(required=False, initial=True)
-	api_order = forms.IntegerField(required=False, min_value=0)
+	is_own_project = forms.BooleanField(
+		required=False,
+		label="Saját projekt",
+		help_text="Bejelölve a kártyán „Saját fejlesztés” címke jelenik meg (nem ügyfélmunka).",
+	)
+	api_order = forms.IntegerField(
+		required=False,
+		min_value=0,
+		label="Sorrend",
+		help_text="Kisebb szám előrébb kerül. Üresen hagyva a kézzel rendezettek után, a legújabb elöl.",
+	)
 
 	DEFAULT_STACK = [
 		{"name": "React", "logo": "react"},
@@ -87,6 +97,7 @@ class ProjectAdminForm(forms.ModelForm):
 
 		self.fields["live_url"].initial = payload.get("liveUrl", "")
 		self.fields["is_active"].initial = payload.get("isActive", True)
+		self.fields["is_own_project"].initial = payload.get("ownProject") is True
 		self.fields["api_order"].initial = payload.get("order")
 
 	def _get_payload(self):
@@ -192,6 +203,7 @@ class ProjectAdminForm(forms.ModelForm):
 			"lighthouseDesktop": self._build_lighthouse("lh_desktop"),
 			"liveUrl": (self.cleaned_data.get("live_url") or "").strip(),
 			"isActive": bool(self.cleaned_data.get("is_active", True)),
+			"ownProject": bool(self.cleaned_data.get("is_own_project")),
 			"order": self.cleaned_data.get("api_order"),
 		}
 		instance.description = json.dumps(payload, ensure_ascii=False)
@@ -220,7 +232,7 @@ class ProjectAdmin(admin.ModelAdmin):
 			"Lighthouse Desktop",
 			{"fields": ("lh_desktop_performance", "lh_desktop_accessibility", "lh_desktop_best_practices", "lh_desktop_seo")},
 		),
-		("Frontend meta", {"fields": ("live_url", "is_active", "api_order")}),
+		("Frontend meta", {"fields": ("live_url", "is_active", "is_own_project", "api_order")}),
 	)
 
 	def preview_tag(self, obj):
