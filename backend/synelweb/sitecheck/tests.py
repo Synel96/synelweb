@@ -64,7 +64,64 @@ PSI_RESPONSE = {
 SUMMARY = _summarise(PSI_RESPONSE)
 
 
+# Newer Lighthouse: insights with metricSavings instead of opportunities.
+INSIGHTS_RESPONSE = {
+    "lighthouseResult": {
+        "categories": {
+            "performance": {
+                "score": 0.72,
+                "auditRefs": [
+                    {"id": "largest-contentful-paint", "group": "metrics"},
+                    {"id": "cls-culprits-insight", "group": "insights"},
+                    {"id": "render-blocking-insight", "group": "insights"},
+                    {"id": "image-delivery-insight", "group": "insights"},
+                    {"id": "dom-size-insight", "group": "insights"},
+                ],
+            },
+        },
+        "audits": {
+            "largest-contentful-paint": {"id": "largest-contentful-paint", "title": "LCP", "score": 0.4},
+            "cls-culprits-insight": {
+                "id": "cls-culprits-insight",
+                "title": "Layout shift culprits",
+                "score": 0,
+                "scoreDisplayMode": "metricSavings",
+                "metricSavings": {"CLS": 0.384},
+            },
+            "render-blocking-insight": {
+                "id": "render-blocking-insight",
+                "title": "Render blocking requests",
+                "score": 0.5,
+                "scoreDisplayMode": "metricSavings",
+                "metricSavings": {"FCP": 600, "LCP": 600},
+            },
+            "image-delivery-insight": {
+                "id": "image-delivery-insight",
+                "title": "Improve image delivery",
+                "score": 1,
+                "scoreDisplayMode": "metricSavings",
+                "metricSavings": {"LCP": 0},
+            },
+            "dom-size-insight": {
+                "id": "dom-size-insight",
+                "title": "Optimize DOM size",
+                "score": None,
+                "scoreDisplayMode": "informative",
+            },
+        },
+    },
+}
+
+
 class SummaryTests(TestCase):
+    def test_reads_newer_insights_including_layout_shift(self):
+        summary = _summarise(INSIGHTS_RESPONSE)
+
+        self.assertEqual(
+            [(o["id"], o["savingsMs"], o["clsSavings"]) for o in summary["opportunities"]],
+            [("cls-culprits-insight", 0, 0.384), ("render-blocking-insight", 600, 0)],
+        )
+
     def test_keeps_scores_metrics_and_biggest_wins_first(self):
         self.assertEqual(
             SUMMARY["scores"],
