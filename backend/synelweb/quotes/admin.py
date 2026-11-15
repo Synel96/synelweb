@@ -12,8 +12,8 @@ class QuoteRequestAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
     readonly_fields = [
         field.name for field in QuoteRequest._meta.fields if field.name not in ("id", "status")
-    ] + ["addons_display", "languages_display"]
-    exclude = ("addons", "languages")
+    ] + ["addons_display", "languages_display", "site_check_display"]
+    exclude = ("addons", "languages", "site_check")
     fieldsets = (
         (None, {"fields": ("status", "mode", "created_at", "site_language")}),
         ("Kapcsolat", {"fields": ("name", "email", "phone", "contact_preference")}),
@@ -38,6 +38,7 @@ class QuoteRequestAdmin(admin.ModelAdmin):
                 )
             },
         ),
+        ("Weboldal-ellenőrzés", {"fields": ("site_check_display",)}),
         ("Adatkezelés", {"fields": ("consent",)}),
     )
 
@@ -55,3 +56,15 @@ class QuoteRequestAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+    @admin.display(description="Csatolt weboldal-ellenőrzés")
+    def site_check_display(self, obj):
+        from django.utils.html import format_html
+        from .notifications import _site_check_lines
+
+        if not obj.site_check:
+            return "–"
+        return format_html(
+            "<pre style='white-space:pre-wrap;margin:0'>{}</pre>",
+            "\n".join(_site_check_lines(obj.site_check)),
+        )

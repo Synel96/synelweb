@@ -115,6 +115,24 @@ class QuoteRequestAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(QuoteRequest.objects.get().contact_preference, "in_person")
 
+    def test_an_attached_website_check_is_kept(self):
+        check = {
+            "url": "https://pelda.hu",
+            "strategy": "mobile",
+            "scores": {"performance": 72, "accessibility": 96, "bestPractices": 96, "seo": 100},
+            "lab": [{"title": "Largest Contentful Paint", "value": "3,4 s"}],
+            "opportunities": [{"title": "Layout shift culprits", "savingsMs": 0, "clsSavings": 0.38}],
+        }
+        response = self.post({**SIMPLE, "siteCheck": check})
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(QuoteRequest.objects.get().site_check, check)
+
+    def test_a_malformed_or_huge_website_check_is_rejected(self):
+        for bad in ["nem objektum", {"scores": {}}, {"url": "https://pelda.hu", "lab": ["x" * 20000]}]:
+            with self.subTest(bad=str(bad)[:30]):
+                self.assertEqual(self.post({**SIMPLE, "siteCheck": bad}).status_code, 400)
+
     def test_simple_request_drops_detail_fields(self):
         response = self.post({**DETAILED, "mode": "simple"})
 
@@ -243,6 +261,29 @@ class QuoteNotificationTests(TestCase):
         self.assertIn("Havi hirdetési keret: 150 000 – 300 000 Ft", body)
         self.assertIn("Weboldal: https://pelda.hu", body)
         self.assertNotIn("Domain:", body)
+
+    @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
+    def test_mail_lists_an_attached_website_check(self):
+        quote = self._quote(
+            site_check={
+                "url": "https://pelda.hu",
+                "strategy": "mobile",
+                "scores": {"performance": 72, "accessibility": 96, "bestPractices": 96, "seo": 100},
+                "lab": [{"title": "Largest Contentful Paint", "value": "3,4 s"}],
+                "opportunities": [
+                    {"title": "Render blocking requests", "savingsMs": 600, "clsSavings": 0},
+                    {"title": "Layout shift culprits", "savingsMs": 0, "clsSavings": 0.38},
+                ],
+            }
+        )
+        notify_new_quote(quote, run_async=False)
+
+        body = mail.outbox[0].body
+        self.assertIn("Csatolt weboldal-ellenőrzés (mobil):", body)
+        self.assertIn("Teljesítmény 72, Akadálymentesség 96, Bevált gyakorlatok 96, SEO 100", body)
+        self.assertIn("Largest Contentful Paint: 3,4 s", body)
+        self.assertIn("- Render blocking requests (~0.6 s)", body)
+        self.assertIn("- Layout shift culprits (CLS −0.38)", body)
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
     def test_mail_failure_does_not_raise(self):

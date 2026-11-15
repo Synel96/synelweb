@@ -121,6 +121,10 @@ class QuoteRequest(models.Model):
         "Egyeztetés módja", max_length=10, choices=ContactPreference.choices, blank=True
     )
 
+    # The website check the visitor chose to attach (scores, metrics, the
+    # biggest wins), as the site's checker returned it.
+    site_check = models.JSONField("Csatolt weboldal-ellenőrzés", null=True, blank=True)
+
     site_language = models.CharField("Oldal nyelve", max_length=2, default="hu")
     consent = models.BooleanField("Adatkezelési hozzájárulás", default=False)
     created_at = models.DateTimeField("Beérkezett", auto_now_add=True)
