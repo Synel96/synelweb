@@ -50,6 +50,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     lighthouseDesktop = serializers.SerializerMethodField()
     liveUrl = serializers.SerializerMethodField()
     isActive = serializers.SerializerMethodField()
+    isOwnProject = serializers.SerializerMethodField()
     order = serializers.SerializerMethodField()
     preview_image_url = serializers.SerializerMethodField()
     images = serializers.SerializerMethodField()
@@ -65,6 +66,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             "lighthouseDesktop",
             "liveUrl",
             "isActive",
+            "isOwnProject",
             "order",
             "preview_image_url",
             "images",
@@ -186,13 +188,20 @@ class ProjectSerializer(serializers.ModelSerializer):
             return is_active
         return True
 
+    def get_isOwnProject(self, obj):
+        """SynelWeb's own project (not client work): the card says so."""
+        return self._payload(obj).get("ownProject") is True
+
+    # Projects without an explicit order come after the ordered ones,
+    # newest first (the frontend sorts ascending).
+    UNORDERED_BASE = 1_000_000
+
     def get_order(self, obj):
         payload = self._payload(obj)
         order = payload.get("order")
         if isinstance(order, int):
             return order
-        # No explicit order: newest first (the frontend sorts ascending).
-        return -obj.id
+        return self.UNORDERED_BASE - obj.id
 
     def get_preview_image_url(self, obj):
         if obj.preview_image:
