@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import serializers
 
 from .models import QuoteRequest
@@ -57,6 +59,7 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         required=False,
         max_length=len(QuoteRequest.ADDONS),
     )
+    siteCheck = serializers.JSONField(source="site_check", required=False, allow_null=True)
     company = serializers.CharField(required=False, allow_blank=True, write_only=True)
 
     DETAILED_ONLY = (
@@ -100,6 +103,7 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
             "isGrantFunded",
             "contactPreference",
             "siteLanguage",
+            "siteCheck",
             "consent",
             "company",
         ]
@@ -113,6 +117,18 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
     def validate_consent(self, value):
         if value is not True:
             raise serializers.ValidationError("Consent to the privacy notice is required.")
+        return value
+
+    SITE_CHECK_MAX_CHARS = 10_000
+
+    def validate_siteCheck(self, value):
+        """A website check from the site's checker: a small JSON object."""
+        if value is None:
+            return None
+        if not isinstance(value, dict) or not isinstance(value.get("url"), str):
+            raise serializers.ValidationError("Invalid website check.")
+        if len(json.dumps(value)) > self.SITE_CHECK_MAX_CHARS:
+            raise serializers.ValidationError("Website check too large.")
         return value
 
     def validate(self, attrs):

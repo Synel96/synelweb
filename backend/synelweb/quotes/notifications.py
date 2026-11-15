@@ -54,7 +54,41 @@ def _body(quote):
             f"Sopron környéki: {'igen' if quote.is_local else 'nem'}",
             f"Pályázati forrásból: {'igen' if quote.is_grant_funded else 'nem'}",
         ]
+    if quote.site_check:
+        lines += ["", *_site_check_lines(quote.site_check)]
     return "\n".join(lines)
+
+
+SCORE_LABELS = (
+    ("performance", "Teljesítmény"),
+    ("accessibility", "Akadálymentesség"),
+    ("bestPractices", "Bevált gyakorlatok"),
+    ("seo", "SEO"),
+)
+DEVICES = {"mobile": "mobil", "desktop": "asztali"}
+
+
+def _site_check_lines(check):
+    """The attached website check, readably; tolerant of missing fields."""
+    scores = check.get("scores") or {}
+    lines = [
+        f"Csatolt weboldal-ellenőrzés ({DEVICES.get(check.get('strategy'), check.get('strategy', '-'))}):",
+        f"Oldal: {check.get('finalUrl') or check.get('url', '-')}",
+        "Pontszámok: "
+        + ", ".join(f"{label} {scores.get(key, '-')}" for key, label in SCORE_LABELS),
+    ]
+    for metric in check.get("lab") or []:
+        lines.append(f"  {metric.get('title', '')}: {metric.get('value', '')}")
+    wins = check.get("opportunities") or []
+    if wins:
+        lines.append("Legnagyobb javítási lehetőségek:")
+        for item in wins:
+            savings = item.get("savingsMs") or 0
+            extra = f" (~{savings / 1000:.1f} s)" if savings >= 100 else ""
+            if not extra and item.get("clsSavings"):
+                extra = f" (CLS −{item['clsSavings']})"
+            lines.append(f"  - {item.get('title', '')}{extra}")
+    return lines
 
 
 def _send(quote, recipient):
