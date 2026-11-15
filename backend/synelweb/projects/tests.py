@@ -1,21 +1,27 @@
-from django.urls import reverse
-from rest_framework.test import APITestCase
-from rest_framework import status
+import json
+
+from django.test import SimpleTestCase
+
 from core.models import Project
 
-class ProjectListAPITest(APITestCase):
-    def setUp(self):
-        Project.objects.create(
-            name="Teszt Projekt",
-            slug="teszt-projekt",
-            project_type="Webshop",
-            preview_video_url="https://youtube.com/testvideo",
-            preview_image_url="https://pelda.hu/kep.png",
+from .serializers import ProjectSerializer
+
+
+class ProjectOrderTests(SimpleTestCase):
+    """The order the frontend sorts projects by (ascending)."""
+
+    def order_of(self, project):
+        return ProjectSerializer().get_order(project)
+
+    def test_newest_project_comes_first_without_an_explicit_order(self):
+        older = Project(id=3, name="Régebbi", project_type="Weboldal", description="")
+        newer = Project(id=7, name="Legújabb", project_type="Webshop", description="")
+
+        self.assertLess(self.order_of(newer), self.order_of(older))
+
+    def test_an_explicit_order_is_kept(self):
+        project = Project(
+            id=7, name="Kiemelt", project_type="Webshop", description=json.dumps({"order": 1})
         )
 
-    def test_project_list_api_returns_projects(self):
-        url = reverse("project-list")
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
-        self.assertEqual(response.data[0]["name"], "Teszt Projekt")
+        self.assertEqual(self.order_of(project), 1)

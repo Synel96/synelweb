@@ -191,7 +191,8 @@ class ProjectSerializer(serializers.ModelSerializer):
         order = payload.get("order")
         if isinstance(order, int):
             return order
-        return obj.id
+        # No explicit order: newest first (the frontend sorts ascending).
+        return -obj.id
 
     def get_preview_image_url(self, obj):
         if obj.preview_image:
