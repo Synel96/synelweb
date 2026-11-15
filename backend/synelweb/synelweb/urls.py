@@ -53,6 +53,7 @@ urlpatterns = [
     path("api/quote-requests/", include("quotes.urls")),
     path("api/exchange-rates/", ExchangeRateAPIView.as_view(), name="api-exchange-rates"),
     path("api/certificates/", CertificateListAPIView.as_view(), name="api-certificates"),
+    path("api/site-check/", include("sitecheck.urls")),
 ]
 
 urlpatterns += [
