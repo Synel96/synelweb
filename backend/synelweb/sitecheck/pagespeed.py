@@ -80,22 +80,48 @@ def _summarise(data):
                 }
             )
 
-    # The biggest wins: failing audits with an estimated time saving.
+    # The biggest wins: the performance audits Lighthouse says would save
+    # time or layout shift. Older Lighthouse reports them as "opportunity"
+    # audits with overallSavingsMs; newer ones as insights with
+    # metricSavings (LCP/FCP/TBT in ms, CLS as a score), so read both.
+    perf_ids = [
+        ref.get("id")
+        for ref in (categories.get("performance") or {}).get("auditRefs") or []
+        if ref.get("group") != "metrics"
+    ] or list(audits)
     opportunities = []
-    for audit in audits.values():
-        details = audit.get("details") or {}
-        savings = details.get("overallSavingsMs") or 0
+    seen_titles = set()
+    for audit_id in perf_ids:
+        audit = audits.get(audit_id) or {}
+        if audit.get("scoreDisplayMode") in ("notApplicable", "informative", "manual", "error"):
+            continue
         score = audit.get("score")
-        if details.get("type") == "opportunity" and savings > 0 and (score is None or score < 0.9):
-            opportunities.append(
-                {
-                    "id": audit.get("id", ""),
-                    "title": audit.get("title", ""),
-                    "savingsMs": round(savings),
-                    "value": audit.get("displayValue", ""),
-                }
-            )
-    opportunities.sort(key=lambda item: item["savingsMs"], reverse=True)
+        if score is not None and score >= 0.9:
+            continue
+        details = audit.get("details") or {}
+        metric_savings = audit.get("metricSavings") or {}
+        savings_ms = max(
+            details.get("overallSavingsMs") or 0,
+            *(metric_savings.get(key) or 0 for key in ("LCP", "FCP", "TBT", "INP")),
+        )
+        cls_savings = metric_savings.get("CLS") or 0
+        title = audit.get("title", "")
+        if (savings_ms <= 0 and cls_savings <= 0) or not title or title in seen_titles:
+            continue
+        seen_titles.add(title)
+        opportunities.append(
+            {
+                "id": audit.get("id", audit_id),
+                "title": title,
+                "savingsMs": round(savings_ms),
+                "clsSavings": round(cls_savings, 3),
+                "value": audit.get("displayValue", ""),
+            }
+        )
+    # A CLS saving of 0.1 weighs about as much as a second of loading time.
+    opportunities.sort(
+        key=lambda item: item["savingsMs"] + item["clsSavings"] * 10000, reverse=True
+    )
 
     return {
         "finalUrl": lighthouse.get("finalDisplayedUrl") or lighthouse.get("finalUrl") or "",
