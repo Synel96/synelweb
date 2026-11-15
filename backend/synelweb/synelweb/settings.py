@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "blog",
     "quotes",
     "certificates",
+    "sitecheck",
     "nested_admin",  # nested admin
 ]
 
@@ -246,8 +247,15 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         # Per IP: enough for someone fixing a typo, not for a spam run.
         "quote_requests": os.getenv("QUOTE_THROTTLE_RATE", "5/hour"),
+        # Each website check calls Google PageSpeed Insights (slow, quota).
+        "site_checks": os.getenv("SITE_CHECK_THROTTLE_RATE", "20/hour"),
     },
     # Behind Fly's proxy: take the client IP it appends to X-Forwarded-For,
     # not the whole (client-controllable) header.
     "NUM_PROXIES": int(os.getenv("NUM_PROXIES", "1")),
 }
+
+# Website checker (sitecheck): Google PageSpeed Insights API key. Optional,
+# but without it Google serves requests from a small shared quota.
+PAGESPEED_API_KEY = os.getenv("PAGESPEED_API_KEY", "")
+PAGESPEED_TIMEOUT = int(os.getenv("PAGESPEED_TIMEOUT", "75"))
