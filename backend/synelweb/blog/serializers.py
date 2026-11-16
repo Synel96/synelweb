@@ -23,11 +23,30 @@ class BaseBlogPostSerializer(serializers.ModelSerializer):
 class BlogPostListSerializer(BaseBlogPostSerializer):
     class Meta:
         model = BlogPost
-        fields = ["id", "title", "description", "preview_image_url", "category", "created_at"]
+        fields = [
+            "id",
+            "slug",
+            "title",
+            "description",
+            "preview_image_url",
+            "category",
+            "created_at",
+            "updated_at",
+        ]
 
 
 class BlogPostDetailSerializer(BaseBlogPostSerializer):
 
     class Meta:
         model = BlogPost
-        fields = ["id", "title", "preview_image_url", "sections", "category", "created_at"]
+        fields = [
+            "id",
+            "slug",
+            "title",
+            "description",
+            "preview_image_url",
+            "sections",
+            "category",
+            "created_at",
+            "updated_at",
+        ]
