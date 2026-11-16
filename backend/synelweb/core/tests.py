@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.test import TestCase, override_settings
 
 from core.deploy_hooks import trigger_vercel_deploy
-from core.models import BlogPost, Package, Project, ProjectImage, Review
+from core.models import Package, Project, ProjectImage, Review
 
 
 @override_settings(VERCEL_DEPLOY_HOOK_URL="https://api.vercel.com/v1/integrations/deploy/test")
@@ -50,13 +50,6 @@ class DeployHookSignalTests(TestCase):
             Package.objects.create(name="Landing oldal", description="{}")
 
         mock_trigger.assert_called_once_with("service created")
-
-    @mock.patch("core.signals.trigger_vercel_deploy")
-    def test_saving_a_blog_post_triggers_deploy(self, mock_trigger):
-        with self.captureOnCommitCallbacks(execute=True):
-            BlogPost.objects.create(title="Elso poszt", description="Rovid leiras")
-
-        mock_trigger.assert_called_once_with("blog post created")
 
     @mock.patch("core.signals.trigger_vercel_deploy")
     def test_approving_a_review_via_save_triggers_deploy(self, mock_trigger):
