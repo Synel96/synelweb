@@ -27,6 +27,11 @@ def _body(quote):
         "Üzenet:",
         quote.message,
     ]
+    if quote.is_bundle_request():
+        # Right under the request, so the free setup isn't missed in the quote.
+        lines[2:2] = [
+            "Csomagakció: weboldal + Google Ads – a hirdetési fiók beállítása ingyenes",
+        ]
     if quote.mode == quote.Mode.DETAILED and quote.is_ads_request():
         lines += [
             "",

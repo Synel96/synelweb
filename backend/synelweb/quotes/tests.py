@@ -138,9 +138,18 @@ class QuoteRequestAPITests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         quote = QuoteRequest.objects.get()
-        self.assertEqual(quote.addons, [])
+        # Only the ads add-on survives (the bundle offer); the rest is dropped.
+        self.assertEqual(quote.addons, ["google_search_ads"])
         self.assertEqual(quote.budget, "")
         self.assertFalse(quote.is_local)
+
+    def test_a_simple_request_keeps_the_ads_add_on_for_the_bundle(self):
+        response = self.post({**SIMPLE, "addons": ["business_email", "google_search_ads"]})
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        quote = QuoteRequest.objects.get()
+        self.assertEqual(quote.addons, ["google_search_ads"])
+        self.assertTrue(quote.is_bundle_request())
 
     def test_domain_name_is_kept_only_when_there_is_a_domain(self):
         response = self.post({**DETAILED, "domain": "none", "domainName": "pelda.hu"})
@@ -242,6 +251,15 @@ class QuoteNotificationTests(TestCase):
         self.assertIn("Szolgáltatás: Webshop (7)", message.body)
         self.assertIn("Kapcsolatfelvétel: -", message.body)
         self.assertEqual(message.subject, "Új ajánlatkérés: Teszt Elek (Webshop)")
+
+    @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
+    def test_mail_flags_the_bundle_offer_only_for_a_website_with_ads(self):
+        notify_new_quote(self._quote(), run_async=False)
+        notify_new_quote(self._quote(addons=["business_email"]), run_async=False)
+        notify_new_quote(self._quote(service="google-ads"), run_async=False)
+
+        flagged = ["Csomagakció" in message.body for message in mail.outbox]
+        self.assertEqual(flagged, [True, False, False])
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
     def test_mail_lists_the_ads_details_for_an_ads_request(self):

@@ -5,7 +5,15 @@ from .models import QuoteRequest
 
 @admin.register(QuoteRequest)
 class QuoteRequestAdmin(admin.ModelAdmin):
-    list_display = ("created_at", "name", "service_column", "mode", "budget", "status")
+    list_display = (
+        "created_at",
+        "name",
+        "service_column",
+        "bundle_column",
+        "mode",
+        "budget",
+        "status",
+    )
     list_filter = ("status", "mode", "service", "budget", "is_local", "is_grant_funded")
     search_fields = ("name", "email", "phone", "message", "website_url")
     list_editable = ("status",)
@@ -45,6 +53,11 @@ class QuoteRequestAdmin(admin.ModelAdmin):
     @admin.display(description="Szolgáltatás", ordering="service_name")
     def service_column(self, obj):
         return obj.service_display()
+
+    @admin.display(description="Csomagakció", boolean=True)
+    def bundle_column(self, obj):
+        # Website + Google Ads: the ads account setup is free.
+        return obj.is_bundle_request()
 
     @admin.display(description="Kiegészítők")
     def addons_display(self, obj):

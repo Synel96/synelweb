@@ -135,9 +135,14 @@ class QuoteRequestSerializer(serializers.ModelSerializer):
         attrs.pop("company", None)
         if attrs.get("mode") == QuoteRequest.Mode.SIMPLE:
             # A simplified request carries no detail fields, whatever the
-            # client sent (e.g. values left over from the detailed tab).
+            # client sent (e.g. values left over from the detailed tab),
+            # except the ads add-on: asking for ads with the website is a
+            # choice of the simple form too (the bundle offer).
+            wants_bundle = QuoteRequest.BUNDLE_ADDON in attrs.get("addons", [])
             for field in self.DETAILED_ONLY:
                 attrs.pop(field, None)
+            if wants_bundle:
+                attrs["addons"] = [QuoteRequest.BUNDLE_ADDON]
         if attrs.get("domain") != QuoteRequest.Domain.HAS:
             attrs.pop("domain_name", None)
         for field in ("languages", "addons"):
