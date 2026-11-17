@@ -146,6 +146,14 @@ class QuoteRequest(models.Model):
     def is_ads_request(self):
         return self.service == self.ADS_SERVICE
 
+    # The add-on that, ordered with a website, is part of the bundle offer
+    # (free Google Ads account setup).
+    BUNDLE_ADDON = "google_search_ads"
+
+    def is_bundle_request(self):
+        """A website together with Google Ads management: the bundle offer."""
+        return not self.is_ads_request() and self.BUNDLE_ADDON in (self.addons or [])
+
     def addon_labels(self):
         return [self.ADDONS.get(key, key) for key in self.addons]
 
