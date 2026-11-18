@@ -59,6 +59,9 @@ class _PageParser(HTMLParser):
         self._json_ld_buffer = None
         self.microdata_types = []
         self.scripts = 0
+        # Each <video>: its own src and the (src, type) of its <source>s.
+        self.videos = []
+        self._in_video = False
         self._skip_depth = 0
         self.text_chars = 0
 
@@ -81,6 +84,11 @@ class _PageParser(HTMLParser):
                 self.hreflangs.append(attributes["hreflang"].strip())
         elif tag == "h1":
             self.h1 += 1
+        elif tag == "video":
+            self.videos.append({"src": attributes.get("src", ""), "sources": []})
+            self._in_video = True
+        elif tag == "source" and self._in_video and self.videos:
+            self.videos[-1]["sources"].append((attributes.get("src", ""), attributes.get("type", "")))
         elif tag == "img":
             self.images += 1
             if "alt" not in attributes:
@@ -96,6 +104,8 @@ class _PageParser(HTMLParser):
             self.microdata_types.append(attributes["itemtype"].rstrip("/").rsplit("/", 1)[-1])
 
     def handle_endtag(self, tag):
+        if tag == "video":
+            self._in_video = False
         if tag == "title":
             self._in_title = False
         elif tag == "script":
@@ -151,6 +161,45 @@ def _json_ld_types(blocks):
     return types, invalid
 
 
+def _video_formats(src, kind):
+    """The formats one video file / source offers."""
+    src = (src or "").lower()
+    kind = (kind or "").lower()
+    formats = set()
+    # Cloudinary f_auto (and similar) picks the best format per browser.
+    if "/f_auto" in src or ",f_auto" in src or "f_auto," in src:
+        formats.add("auto")
+    if "webm" in kind or src.split("?")[0].endswith(".webm") or "f_webm" in src or "vc_vp9" in src or "vc_av1" in src:
+        formats.add("webm")
+    if any(codec in kind for codec in ("hvc1", "hev1")) or "vc_h265" in src or "hevc" in src:
+        formats.add("hevc")
+    if "mp4" in kind or src.split("?")[0].endswith((".mp4", ".m4v")):
+        formats.add("mp4")
+    return formats
+
+
+def _video_check(videos):
+    """WebM (VP9/AV1) for Chrome, Firefox and Android; HEVC or MP4 for
+    Safari. Only MP4 (H.264) means needlessly big files."""
+    if not videos:
+        return {"id": "video", "status": "info", "data": {"count": 0, "formats": []}}
+    formats = set()
+    without_source = 0
+    for video in videos:
+        found = _video_formats(video["src"], "")
+        for src, kind in video["sources"]:
+            found |= _video_formats(src, kind)
+        if not video["src"] and not video["sources"]:
+            without_source += 1
+        formats |= found
+    data = {"count": len(videos), "formats": sorted(formats), "scripted": without_source}
+    if without_source == len(videos):
+        # The source is added by JavaScript: nothing to judge in the HTML.
+        return {"id": "video", "status": "info", "data": data}
+    modern = "auto" in formats or ("webm" in formats and ({"hevc", "mp4"} & formats))
+    return {"id": "video", "status": "pass" if modern else "warn", "data": data}
+
+
 def _length_status(text, low, high):
     if not text:
         return "fail"
@@ -196,6 +245,18 @@ def _site_files(final_url):
     except FetchError:
         pass
 
+    # llms.txt: a short Markdown guide to the site for AI assistants. New and
+    # optional, so a missing one is only a hint.
+    llms = {"id": "llmsTxt", "status": "info", "data": {}}
+    try:
+        _, status, headers, body = safe_get(f"{origin}/llms.txt", max_bytes=100_000, accept="text/plain,text/markdown")
+        content_type = str({k.lower(): v for k, v in headers.items()}.get("content-type", "")).lower()
+        text = body.decode("utf-8", "replace").lstrip()
+        if status == 200 and "html" not in content_type and text.startswith("#"):
+            llms = {"id": "llmsTxt", "status": "pass", "data": {}}
+    except FetchError:
+        pass
+
     sitemap = {"id": "sitemap", "status": "warn", "data": {"inRobots": bool(sitemaps)}}
     for candidate in [*sitemaps[:2], f"{origin}/sitemap.xml"]:
         try:
@@ -207,7 +268,7 @@ def _site_files(final_url):
         if status == 200 and b"<" in body[:2000]:
             sitemap = {"id": "sitemap", "status": "pass", "data": {"inRobots": bool(sitemaps)}}
             break
-    return [robots, sitemap]
+    return [robots, sitemap, llms]
 
 
 def audit_html(final_url, headers, body):
@@ -273,6 +334,7 @@ def audit_html(final_url, headers, body):
             "data": {"total": parser.images, "missingAlt": parser.images_without_alt},
         },
         {"id": "https", "status": "pass" if final_url.startswith("https://") else "fail", "data": {}},
+        _video_check(parser.videos),
     ]
     client_rendered = parser.text_chars < CLIENT_RENDERED_TEXT and parser.scripts > 0
     return checks, client_rendered

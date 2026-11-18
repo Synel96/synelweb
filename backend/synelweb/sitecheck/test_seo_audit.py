@@ -200,3 +200,49 @@ class PlatformTests(SimpleTestCase):
     def test_headers_and_nothing_found(self):
         self.assertEqual(self.detect("<html></html>", {"X-Wix-Request-Id": "1"})["builder"], "Wix")
         self.assertEqual(self.detect("<html><p>Hello</p></html>")["kind"], "unknown")
+
+
+class VideoAndLlmsTests(SimpleTestCase):
+    def video(self, html):
+        checks, _ = audit_html("https://pelda.hu/", {}, GOOD_PAGE.replace(b"</body>", html + b"</body>"))
+        return next(check for check in checks if check["id"] == "video")
+
+    def test_no_video_is_only_information(self):
+        checks, _ = audit_html("https://pelda.hu/", {}, GOOD_PAGE)
+        video = next(check for check in checks if check["id"] == "video")
+        self.assertEqual((video["status"], video["data"]["count"]), ("info", 0))
+
+    def test_only_mp4_is_a_hint(self):
+        check = self.video(b'<video src="/hero.mp4"></video>')
+        self.assertEqual((check["status"], check["data"]["formats"]), ("warn", ["mp4"]))
+
+    def test_webm_with_an_hevc_or_mp4_fallback_passes(self):
+        check = self.video(
+            b'<video><source src="/hero.webm" type="video/webm">'
+            b'<source src="/hero.mp4" type=\'video/mp4; codecs="hvc1"\'></video>'
+        )
+        self.assertEqual((check["status"], check["data"]["formats"]), ("pass", ["hevc", "mp4", "webm"]))
+
+    def test_automatic_format_and_script_added_sources(self):
+        auto = self.video(b'<video src="https://res.cloudinary.com/x/video/upload/f_auto,q_auto/hero"></video>')
+        self.assertEqual(auto["status"], "pass")
+        scripted = self.video(b'<video muted poster="/p.jpg"></video>')
+        self.assertEqual((scripted["status"], scripted["data"]["scripted"]), ("info", 1))
+
+    @mock.patch("sitecheck.seo_audit.safe_get")
+    def test_llms_txt_is_found_only_as_a_markdown_file(self, get):
+        def fake(answer):
+            def inner(url, **_kwargs):
+                if url.endswith("/llms.txt"):
+                    return url, 200, answer[0], answer[1]
+                return url, 404, {}, b""
+
+            return inner
+
+        from .seo_audit import _site_files
+
+        get.side_effect = fake(({"Content-Type": "text/plain"}, b"# Pelda Kft.\n> Webshop"))
+        self.assertEqual(_site_files("https://pelda.hu/")[2]["status"], "pass")
+        # A site answering every address with its HTML home page has no llms.txt.
+        get.side_effect = fake(({"Content-Type": "text/html"}, b"<!doctype html>"))
+        self.assertEqual(_site_files("https://pelda.hu/")[2]["status"], "info")
