@@ -247,8 +247,13 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         # Per IP: enough for someone fixing a typo, not for a spam run.
         "quote_requests": os.getenv("QUOTE_THROTTLE_RATE", "5/hour"),
-        # Each website check calls Google PageSpeed Insights (slow, quota).
+        # Each website check calls Google PageSpeed Insights (slow, quota)
+        # and fetches the checked site: per visitor a minute, an hour and a
+        # day, and a ceiling for everyone together (sitecheck/throttles.py).
+        "site_checks_burst": os.getenv("SITE_CHECK_BURST_RATE", "4/min"),
         "site_checks": os.getenv("SITE_CHECK_THROTTLE_RATE", "20/hour"),
+        "site_checks_daily": os.getenv("SITE_CHECK_DAILY_RATE", "40/day"),
+        "site_checks_global": os.getenv("SITE_CHECK_GLOBAL_RATE", "500/day"),
     },
     # Behind Fly's proxy: take the client IP it appends to X-Forwarded-For,
     # not the whole (client-controllable) header.
