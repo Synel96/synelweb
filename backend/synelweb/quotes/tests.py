@@ -304,6 +304,22 @@ class QuoteNotificationTests(TestCase):
         self.assertIn("- Layout shift culprits (CLS −0.38)", body)
 
     @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
+    def test_mail_lists_the_seo_and_technical_warnings_of_a_check(self):
+        check = {
+            "url": "https://pelda.hu",
+            "strategy": "mobile",
+            "scores": {"performance": 50},
+            "seo": [{"id": "structuredData", "status": "warn"}, {"id": "h1", "status": "pass"}],
+            "tech": [{"id": "fonts", "status": "fail"}],
+        }
+        notify_new_quote(self._quote(site_check=check), run_async=False)
+
+        self.assertIn(
+            "SEO és technikai figyelmeztetések: strukturált adatok, betűtípusok (hiba)",
+            mail.outbox[0].body,
+        )
+
+    @override_settings(QUOTE_NOTIFY_EMAIL="info@synelweb.hu", EMAIL_HOST="smtp.pelda.hu")
     def test_mail_failure_does_not_raise(self):
         with mock.patch("quotes.notifications.EmailMessage.send", side_effect=OSError):
             notify_new_quote(self._quote(), run_async=False)

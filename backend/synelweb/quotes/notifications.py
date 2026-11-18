@@ -71,6 +71,34 @@ SCORE_LABELS = (
     ("seo", "SEO"),
 )
 DEVICES = {"mobile": "mobil", "desktop": "asztali"}
+# The SEO basics and technical details of an attached check (ids from the
+# site checker), in Hungarian for the mail.
+CHECK_LABELS = {
+    "structuredData": "strukturált adatok",
+    "title": "oldalcím",
+    "description": "meta leírás",
+    "h1": "H1 címsor",
+    "indexable": "indexelhetőség",
+    "canonical": "canonical",
+    "viewport": "mobil nézet",
+    "lang": "nyelv jelölése",
+    "social": "megosztási adatok",
+    "hreflang": "nyelvi változatok",
+    "images": "képek alt szövege",
+    "https": "HTTPS",
+    "robots": "robots.txt",
+    "sitemap": "sitemap",
+    "pageWeight": "oldalméret",
+    "fonts": "betűtípusok",
+    "javascript": "JavaScript",
+    "codeSplitting": "kódfelosztás",
+    "css": "CSS",
+    "cache": "gyorsítótárazás",
+    "domSize": "DOM méret",
+    "thirdParty": "külső szolgáltatások",
+    "compression": "tömörítés",
+    "imageFormats": "képformátumok",
+}
 
 
 def _site_check_lines(check):
@@ -84,6 +112,20 @@ def _site_check_lines(check):
     ]
     for metric in check.get("lab") or []:
         lines.append(f"  {metric.get('title', '')}: {metric.get('value', '')}")
+    issues = [
+        item
+        for item in [*(check.get("seo") or []), *(check.get("tech") or [])]
+        if item.get("status") in ("fail", "warn")
+    ]
+    if issues:
+        lines.append(
+            "SEO és technikai figyelmeztetések: "
+            + ", ".join(
+                f"{CHECK_LABELS.get(item.get('id'), item.get('id'))}"
+                f"{' (hiba)' if item.get('status') == 'fail' else ''}"
+                for item in issues
+            )
+        )
     wins = check.get("opportunities") or []
     if wins:
         lines.append("Legnagyobb javítási lehetőségek:")

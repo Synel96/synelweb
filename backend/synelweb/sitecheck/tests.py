@@ -136,12 +136,22 @@ class SummaryTests(TestCase):
         )
 
 
+SEO_AUDIT = {"finalUrl": "https://pelda.hu/", "checks": [{"id": "h1", "status": "pass", "data": {"count": 1}}], "clientRendered": False}
+
+
 class SiteCheckAPITests(APITestCase):
     def setUp(self):
         cache.clear()
+        # The SEO audit fetches the page itself; never over the network here.
+        patcher = mock.patch("sitecheck.views.run_seo_audit", return_value=SEO_AUDIT)
+        self.seo_audit = patcher.start()
+        self.addCleanup(patcher.stop)
 
-    def post(self, payload):
-        return self.client.post(URL, payload, format="json", secure=True)
+    def post(self, payload, ip="203.0.113.10"):
+        # The client address as Fly's proxy appends it (NUM_PROXIES = 1).
+        return self.client.post(
+            URL, payload, format="json", secure=True, HTTP_X_FORWARDED_FOR=ip, REMOTE_ADDR="10.0.0.1"
+        )
 
     @mock.patch("sitecheck.views.run_pagespeed", return_value=SUMMARY)
     def test_checks_a_site_adding_https_and_records_it(self, run):
@@ -150,6 +160,8 @@ class SiteCheckAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         run.assert_called_once_with("https://pelda.hu", "mobile", "hu")
         self.assertEqual(response.data["scores"]["performance"], 62)
+        self.assertEqual(response.data["seo"], SEO_AUDIT)
+        self.seo_audit.assert_called_once_with("https://pelda.hu")
         check = SiteCheck.objects.get()
         self.assertEqual((check.url, check.strategy, check.performance), ("https://pelda.hu", "mobile", 62))
 
@@ -165,6 +177,45 @@ class SiteCheckAPITests(APITestCase):
         for url in ["nem egy oldal", "localhost", "http://127.0.0.1", "ftp://pelda.hu"]:
             with self.subTest(url=url):
                 self.assertEqual(self.post({"url": url}).status_code, status.HTTP_400_BAD_REQUEST)
+
+    @mock.patch("sitecheck.views.run_pagespeed", return_value=SUMMARY)
+    def test_a_failing_seo_audit_does_not_break_the_check(self, _run):
+        self.seo_audit.side_effect = RuntimeError("boom")
+
+        response = self.post({"url": "https://pelda.hu"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNone(response.data["seo"])
+
+    @mock.patch("sitecheck.views.run_pagespeed", return_value=SUMMARY)
+    def test_too_many_checks_in_a_row_are_refused(self, _run):
+        from .throttles import SiteCheckBurstThrottle
+
+        with mock.patch.object(SiteCheckBurstThrottle, "THROTTLE_RATES", {"site_checks_burst": "2/min"}):
+            codes = [self.post({"url": f"https://pelda{n}.hu"}).status_code for n in range(3)]
+
+        self.assertEqual(codes, [200, 200, status.HTTP_429_TOO_MANY_REQUESTS])
+
+    @mock.patch("sitecheck.views.run_pagespeed", return_value=SUMMARY)
+    def test_the_daily_ceiling_applies_to_all_visitors_together(self, _run):
+        from .throttles import SiteCheckGlobalThrottle
+
+        with mock.patch.object(SiteCheckGlobalThrottle, "THROTTLE_RATES", {"site_checks_global": "1/day"}):
+            first = self.post({"url": "https://pelda.hu"}, ip="203.0.113.1")
+            second = self.post({"url": "https://masik.hu"}, ip="203.0.113.2")
+
+        self.assertEqual((first.status_code, second.status_code), (200, status.HTTP_429_TOO_MANY_REQUESTS))
+
+    @mock.patch("sitecheck.views.run_pagespeed", return_value=SUMMARY)
+    def test_a_check_is_refused_while_too_many_are_running(self, run):
+        from . import views
+
+        with mock.patch.object(views, "_running_checks", mock.Mock(acquire=mock.Mock(return_value=False))):
+            response = self.post({"url": "https://pelda.hu"})
+
+        self.assertEqual(response.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
+        self.assertEqual(response.data, {"error": "busy"})
+        run.assert_not_called()
 
     @mock.patch("sitecheck.views.run_pagespeed", side_effect=PageSpeedError("unreachable"))
     def test_an_unreachable_site_is_reported(self, _run):
