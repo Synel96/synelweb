@@ -136,9 +136,16 @@ class SummaryTests(TestCase):
         )
 
 
+SEO_AUDIT = {"finalUrl": "https://pelda.hu/", "checks": [{"id": "h1", "status": "pass", "data": {"count": 1}}], "clientRendered": False}
+
+
 class SiteCheckAPITests(APITestCase):
     def setUp(self):
         cache.clear()
+        # The SEO audit fetches the page itself; never over the network here.
+        patcher = mock.patch("sitecheck.views.run_seo_audit", return_value=SEO_AUDIT)
+        self.seo_audit = patcher.start()
+        self.addCleanup(patcher.stop)
 
     def post(self, payload):
         return self.client.post(URL, payload, format="json", secure=True)
@@ -150,6 +157,8 @@ class SiteCheckAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         run.assert_called_once_with("https://pelda.hu", "mobile", "hu")
         self.assertEqual(response.data["scores"]["performance"], 62)
+        self.assertEqual(response.data["seo"], SEO_AUDIT)
+        self.seo_audit.assert_called_once_with("https://pelda.hu")
         check = SiteCheck.objects.get()
         self.assertEqual((check.url, check.strategy, check.performance), ("https://pelda.hu", "mobile", 62))
 
@@ -165,6 +174,15 @@ class SiteCheckAPITests(APITestCase):
         for url in ["nem egy oldal", "localhost", "http://127.0.0.1", "ftp://pelda.hu"]:
             with self.subTest(url=url):
                 self.assertEqual(self.post({"url": url}).status_code, status.HTTP_400_BAD_REQUEST)
+
+    @mock.patch("sitecheck.views.run_pagespeed", return_value=SUMMARY)
+    def test_a_failing_seo_audit_does_not_break_the_check(self, _run):
+        self.seo_audit.side_effect = RuntimeError("boom")
+
+        response = self.post({"url": "https://pelda.hu"})
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIsNone(response.data["seo"])
 
     @mock.patch("sitecheck.views.run_pagespeed", side_effect=PageSpeedError("unreachable"))
     def test_an_unreachable_site_is_reported(self, _run):

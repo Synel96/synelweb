@@ -9,6 +9,8 @@ import logging
 import requests
 from django.conf import settings
 
+from .tech_details import tech_details
+
 logger = logging.getLogger(__name__)
 
 ENDPOINT = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
@@ -129,6 +131,7 @@ def _summarise(data):
         "lab": lab,
         "field": field,
         "opportunities": opportunities[:MAX_OPPORTUNITIES],
+        "tech": tech_details(audits),
     }
 
 
