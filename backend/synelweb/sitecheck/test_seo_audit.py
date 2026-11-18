@@ -154,3 +154,49 @@ class TechDetailsTests(SimpleTestCase):
 
     def test_no_network_data_gives_no_details(self):
         self.assertEqual(tech_details({}), [])
+
+
+class PlatformTests(SimpleTestCase):
+    def detect(self, html, headers=None):
+        from .platform import detect_platform
+
+        return detect_platform(html, headers)
+
+    def test_wordpress_with_its_page_builder_theme_and_shop(self):
+        html = (
+            '<link href="https://pelda.hu/wp-content/themes/astra/style.css">'
+            '<div class="elementor-section"></div><body class="woocommerce">'
+        )
+        self.assertEqual(
+            self.detect(html),
+            {
+                "builder": "WordPress",
+                "addons": ["Elementor", "WooCommerce"],
+                "theme": "astra",
+                "frameworks": [],
+                "generator": "",
+                "kind": "builder",
+            },
+        )
+
+    def test_site_builders(self):
+        cases = {
+            "Wix": '<img src="https://static.wixstatic.com/media/a.jpg">',
+            "Shopify": '<script>Shopify.theme = {"name":"Dawn","id":1}</script><script src="//cdn.shopify.com/s.js"></script>',
+            "Webflow": '<html data-wf-page="123" data-wf-site="456">',
+            "Squarespace": '<link href="https://static1.squarespace.com/static/x.css">',
+        }
+        for builder, html in cases.items():
+            with self.subTest(builder=builder):
+                result = self.detect(html)
+                self.assertEqual((result["builder"], result["kind"]), (builder, "builder"))
+        self.assertEqual(self.detect(cases["Shopify"])["theme"], "dawn")
+
+    def test_a_custom_build_names_its_framework(self):
+        result = self.detect('<script id="__NEXT_DATA__" type="application/json">{}</script><script src="/_next/static/a.js"></script>')
+        self.assertEqual((result["builder"], result["frameworks"], result["kind"]), (None, ["Next.js"], "custom"))
+        self.assertEqual(self.detect('<script id="vike_pageContext" type="application/json"></script>')["frameworks"], ["Vike"])
+
+    def test_headers_and_nothing_found(self):
+        self.assertEqual(self.detect("<html></html>", {"X-Wix-Request-Id": "1"})["builder"], "Wix")
+        self.assertEqual(self.detect("<html><p>Hello</p></html>")["kind"], "unknown")
