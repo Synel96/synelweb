@@ -88,6 +88,8 @@ CHECK_LABELS = {
     "https": "HTTPS",
     "robots": "robots.txt",
     "sitemap": "sitemap",
+    "video": "videóformátumok",
+    "llmsTxt": "llms.txt",
     "pageWeight": "oldalméret",
     "fonts": "betűtípusok",
     "javascript": "JavaScript",
