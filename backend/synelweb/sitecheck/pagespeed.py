@@ -9,6 +9,7 @@ import logging
 import requests
 from django.conf import settings
 
+from .screenshots import screenshots
 from .tech_details import tech_details
 
 logger = logging.getLogger(__name__)
@@ -132,6 +133,7 @@ def _summarise(data):
         "field": field,
         "opportunities": opportunities[:MAX_OPPORTUNITIES],
         "tech": tech_details(audits),
+        "screenshots": screenshots(lighthouse),
     }
 
 

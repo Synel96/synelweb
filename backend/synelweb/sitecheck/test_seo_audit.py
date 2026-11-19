@@ -246,3 +246,86 @@ class VideoAndLlmsTests(SimpleTestCase):
         # A site answering every address with its HTML home page has no llms.txt.
         get.side_effect = fake(({"Content-Type": "text/html"}, b"<!doctype html>"))
         self.assertEqual(_site_files("https://pelda.hu/")[2]["status"], "info")
+
+
+class PrivacyAuditTests(SimpleTestCase):
+    def audit(self, html, platform=None, headers=None):
+        from .privacy_audit import privacy_audit
+
+        return {item["id"]: item for item in privacy_audit(html, headers or {}, platform)}
+
+    def test_trackers_without_a_consent_tool_fail(self):
+        result = self.audit(
+            '<script async src="https://www.googletagmanager.com/gtag/js?id=G-ABC123"></script>'
+            "<script>fbq('init', '123');</script>"
+        )
+        self.assertEqual(result["trackers"]["data"]["tracking"], ["Google Analytics", "Meta Pixel"])
+        self.assertEqual(result["consent"]["status"], "fail")
+
+    def test_a_consent_tool_or_consent_mode_passes(self):
+        for extra in (
+            '<script src="https://consent.cookiebot.com/uc.js"></script>',
+            "<script>gtag('consent', 'default', {ad_storage: 'denied'});</script>",
+            '<div id="cookie-banner">Sütik</div>',
+        ):
+            with self.subTest(extra=extra[:30]):
+                result = self.audit('<script src="https://connect.facebook.net/en_US/fbevents.js"></script>' + extra)
+                self.assertEqual(result["consent"]["status"], "pass")
+
+    def test_cookieless_measurement_needs_no_consent(self):
+        result = self.audit('<script src="/_vercel/insights/script.js"></script>')
+        self.assertEqual(result["trackers"]["data"], {"tracking": [], "cookieless": ["Vercel Analytics"], "serverCookies": 0})
+        self.assertEqual((result["consent"]["status"], result["cookiePolicy"]["status"]), ("pass", "info"))
+
+    def test_a_plain_maps_link_is_not_an_embed(self):
+        result = self.audit('<a href="https://maps.google.com/maps?q=Sopron">Térkép</a>')
+        self.assertEqual(result["trackers"]["data"]["tracking"], [])
+        embed = self.audit('<iframe src="https://www.google.com/maps?q=Sopron&output=embed"></iframe>')
+        self.assertEqual(embed["trackers"]["data"]["tracking"], ["Google Maps"])
+        # An embed without consent is a hint, not an error.
+        self.assertEqual((embed["consent"]["status"], embed["consent"]["data"]["embedsOnly"]), ("warn", True))
+
+    def test_legal_pages_are_found_by_link_or_text(self):
+        result = self.audit(
+            '<a href="/adatkezeles">Adatvédelem</a><a href="/impresszum">Impresszum</a>'
+            '<a href="/aszf">ÁSZF</a><a href="/suti">Süti tájékoztató</a>'
+        )
+        self.assertEqual(
+            [result[key]["status"] for key in ("privacyPolicy", "imprint", "terms", "cookiePolicy")],
+            ["pass", "pass", "pass", "pass"],
+        )
+
+    def test_missing_legal_pages(self):
+        result = self.audit('<a href="/rolunk">Rólunk</a><a href="/magbe">Magbe</a>')
+        self.assertEqual(result["privacyPolicy"]["status"], "fail")
+        self.assertEqual(result["imprint"]["status"], "warn")
+        self.assertEqual(result["terms"]["status"], "info")
+        shop = self.audit("<p>Bolt</p>", platform={"builder": "WordPress", "addons": ["WooCommerce"]})
+        self.assertEqual(shop["terms"]["status"], "warn")
+
+
+class ScreenshotTests(SimpleTestCase):
+    def test_keeps_valid_images_and_spreads_the_filmstrip(self):
+        from .screenshots import MAX_FRAMES, screenshots
+
+        jpeg = "data:image/jpeg;base64,AAAA"
+        lighthouse = {
+            "audits": {
+                "screenshot-thumbnails": {
+                    "details": {"items": [{"timing": 300 * n, "data": jpeg} for n in range(1, 11)]}
+                },
+                "final-screenshot": {"details": {"data": "javascript:alert(1)"}},
+            }
+        }
+
+        result = screenshots(lighthouse)
+
+        self.assertEqual(len(result["filmstrip"]), MAX_FRAMES)
+        self.assertEqual((result["filmstrip"][0]["timing"], result["filmstrip"][-1]["timing"]), (300, 3000))
+        # Not an image data URI: replaced by the last frame.
+        self.assertEqual(result["final"], jpeg)
+
+    def test_no_report_data_gives_nothing(self):
+        from .screenshots import screenshots
+
+        self.assertEqual(screenshots({}), {"final": None, "filmstrip": []})

@@ -311,11 +311,12 @@ class QuoteNotificationTests(TestCase):
             "scores": {"performance": 50},
             "seo": [{"id": "structuredData", "status": "warn"}, {"id": "h1", "status": "pass"}],
             "tech": [{"id": "fonts", "status": "fail"}],
+            "privacy": [{"id": "consent", "status": "fail"}],
         }
         notify_new_quote(self._quote(site_check=check), run_async=False)
 
         self.assertIn(
-            "SEO és technikai figyelmeztetések: strukturált adatok, betűtípusok (hiba)",
+            "SEO és technikai figyelmeztetések: strukturált adatok, betűtípusok (hiba), sütihozzájárulás (hiba)",
             mail.outbox[0].body,
         )
 
