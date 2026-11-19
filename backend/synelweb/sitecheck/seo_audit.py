@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit
 
 from .platform import detect_platform
+from .privacy_audit import privacy_audit
 from .safe_fetch import FetchError, safe_get
 
 logger = logging.getLogger(__name__)
@@ -352,9 +353,12 @@ def run_seo_audit(url):
 
     checks, client_rendered = audit_html(final_url, headers, body)
     checks += _site_files(final_url)
+    html = body.decode("utf-8", "replace")
+    platform = detect_platform(html, headers)
     return {
         "finalUrl": final_url,
         "checks": checks,
         "clientRendered": client_rendered,
-        "platform": detect_platform(body.decode("utf-8", "replace"), headers),
+        "platform": platform,
+        "privacy": privacy_audit(html, headers, platform),
     }

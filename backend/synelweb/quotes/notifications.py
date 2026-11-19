@@ -90,6 +90,11 @@ CHECK_LABELS = {
     "sitemap": "sitemap",
     "video": "videóformátumok",
     "llmsTxt": "llms.txt",
+    "consent": "sütihozzájárulás",
+    "privacyPolicy": "adatkezelési tájékoztató",
+    "imprint": "impresszum",
+    "terms": "ÁSZF",
+    "cookiePolicy": "süti tájékoztató",
     "pageWeight": "oldalméret",
     "fonts": "betűtípusok",
     "javascript": "JavaScript",
@@ -116,7 +121,11 @@ def _site_check_lines(check):
         lines.append(f"  {metric.get('title', '')}: {metric.get('value', '')}")
     issues = [
         item
-        for item in [*(check.get("seo") or []), *(check.get("tech") or [])]
+        for item in [
+            *(check.get("seo") or []),
+            *(check.get("tech") or []),
+            *(check.get("privacy") or []),
+        ]
         if item.get("status") in ("fail", "warn")
     ]
     if issues:
