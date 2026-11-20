@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit
 
 from .platform import detect_platform
+from .page_scripts import fetch_page_scripts
 from .privacy_audit import privacy_audit
 from .safe_fetch import FetchError, safe_get
 
@@ -360,5 +361,5 @@ def run_seo_audit(url):
         "checks": checks,
         "clientRendered": client_rendered,
         "platform": platform,
-        "privacy": privacy_audit(html, headers, platform),
+        "privacy": privacy_audit(html, headers, platform, fetch_page_scripts(final_url, html)),
     }

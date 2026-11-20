@@ -329,3 +329,78 @@ class ScreenshotTests(SimpleTestCase):
         from .screenshots import screenshots
 
         self.assertEqual(screenshots({}), {"final": None, "filmstrip": []})
+
+
+# A page built in the browser: the HTML is an empty shell, the bundle loads
+# the tracking codes after consent and draws the banner.
+SPA_SHELL = (
+    '<!doctype html><html><head><script type="module" src="/assets/index-abc.js"></script>'
+    '<link rel="modulepreload" href="/assets/vendor-def.js">'
+    '<script src="https://cdn.example.com/lib.js"></script></head>'
+    '<body><div id="root"></div></body></html>'
+)
+SPA_BUNDLE = (
+    'const s=document.createElement("script");s.src="https://www.googletagmanager.com/gtag/js?id="+e;'
+    'gtag("config","G-XYZ123");(function(c,l,a,r,i,t,y){t.src="https://www.clarity.ms/tag/"+i})();'
+    '!function(f){f.src="https://connect.facebook.net/en_US/fbevents.js"}();'
+    'jsx("div",{className:"fixed bottom-4 rounded-xl",children:[jsx("h2",{children:"Sütik és mérés"}),'
+    'jsx("button",{children:"Elfogadom"}),jsx("button",{children:"Elutasítom"}),'
+    'jsx(Link,{to:"/adatkezeles",children:"adatkezelési tájékoztató"})]});'
+)
+
+
+class PageScriptsTests(SimpleTestCase):
+    def test_only_the_sites_own_scripts_are_read(self):
+        from .page_scripts import script_urls
+
+        self.assertEqual(
+            script_urls("https://www.pelda.hu/", SPA_SHELL),
+            ["https://www.pelda.hu/assets/index-abc.js", "https://www.pelda.hu/assets/vendor-def.js"],
+        )
+
+    @mock.patch("sitecheck.page_scripts.safe_get")
+    def test_fetch_joins_the_files_and_skips_failures(self, get):
+        from .page_scripts import fetch_page_scripts
+
+        def fake(url, **_kwargs):
+            if url.endswith("index-abc.js"):
+                return url, 200, {}, b"first"
+            raise FetchError("unreachable")
+
+        get.side_effect = fake
+        self.assertEqual(fetch_page_scripts("https://pelda.hu/", SPA_SHELL).strip(), "first")
+
+
+class PrivacyFromScriptsTests(SimpleTestCase):
+    def audit(self, html, scripts=""):
+        from .privacy_audit import privacy_audit
+
+        return {item["id"]: item for item in privacy_audit(html, {}, None, scripts)}
+
+    def test_trackers_and_banner_in_the_bundle_are_found(self):
+        result = self.audit(SPA_SHELL, SPA_BUNDLE)
+        self.assertEqual(
+            result["trackers"]["data"]["tracking"],
+            ["Google Analytics", "Meta Pixel", "Microsoft Clarity"],
+        )
+        self.assertEqual(result["consent"]["status"], "pass")
+        self.assertEqual(result["privacyPolicy"]["status"], "pass")
+        # No separate cookie notice, but a privacy notice: a hint only.
+        self.assertEqual(result["cookiePolicy"]["status"], "info")
+        self.assertTrue(result["cookiePolicy"]["data"]["inPrivacy"])
+
+    def test_the_shell_alone_shows_nothing(self):
+        result = self.audit(SPA_SHELL)
+        self.assertEqual(result["trackers"]["data"]["tracking"], [])
+
+    def test_a_stored_consent_choice_counts_as_a_banner(self):
+        bundle = 'localStorage.getItem("cookie-consent");s.src="https://connect.facebook.net/x.js"'
+        self.assertEqual(self.audit(SPA_SHELL, bundle)["consent"]["status"], "pass")
+
+    def test_a_tracker_without_any_banner_still_fails(self):
+        bundle = 's.src="https://connect.facebook.net/x.js"'
+        self.assertEqual(self.audit(SPA_SHELL, bundle)["consent"]["status"], "fail")
+
+    def test_gtag_with_the_id_in_a_variable(self):
+        bundle = 's.src="https://www.googletagmanager.com/gtag/js?id="+id'
+        self.assertEqual(self.audit(SPA_SHELL, bundle)["trackers"]["data"]["tracking"], ["Google tag (gtag.js)"])
